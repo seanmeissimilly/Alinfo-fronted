@@ -8,13 +8,14 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import PrivateRoute from "./components/PrivateRoute";
 import MiPerfil from "./components/MiPerfil.jsx";
-import Feed from "./components/Feed.jsx";
+import Forum from "./components/Forum.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import AddBlog from "./components/AddBlog.jsx";
 import SoloBlog from "./components/SoloBlog.jsx";
 import EditBlog from "./components/EditBlog.jsx";
 import EditProfile from "./components/EditProfile.jsx";
 import Configuration from "./components/Configuration.jsx";
+import HomePage from "./components/HomePage.jsx";
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
       <Header />
       <Routes>
         <Route element={<PrivateRoute />}>
-          <Route path="/" exact element={<Feed />} />
+          <Route path="/" exact element={<HomePage />} />
+          <Route path="/forum" exact element={<Forum />} />
           <Route path="/miPerfil" element={<MiPerfil />} />
           <Route path="/userProfile/:id" element={<UserProfile />} />
           <Route path="/addBlog" element={<AddBlog />} />

@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { getListUsers } from "../actions/userActions";
-import { listBlogs } from "../actions/blogActions";
-
+import { getListUsers } from "../actions/userActions.js";
+import { listBlogs } from "../actions/blogActions.js";
 
 export default function Feed() {
   const dispatch = useDispatch();
