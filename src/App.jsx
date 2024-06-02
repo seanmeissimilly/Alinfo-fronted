@@ -23,6 +23,7 @@ function App() {
       <Header />
       <Routes>
         <Route element={<PrivateRoute />}>
+        //Rutas de la aplicacion
           <Route path="/" exact element={<HomePage />} />
           <Route path="/forum" exact element={<Forum />} />
           <Route path="/miPerfil" element={<MiPerfil />} />
