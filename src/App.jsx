@@ -32,6 +32,10 @@ function App() {
           <Route path="/editBlog/:id" element={<EditBlog />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/configuration" element={<Configuration />} />
+          <Route path="/documents" element={<Configuration />} />
+          <Route path="/apps" element={<Configuration />} />
+          <Route path="/multimedia" element={<Configuration />} />
+          <Route path="/suggestions" element={<Configuration />} />
         </Route>
 
         <Route path="/landing" element={<Landing />} />
