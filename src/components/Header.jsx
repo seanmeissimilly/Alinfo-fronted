@@ -12,7 +12,7 @@ import {
   PopoverButton,
 } from "@headlessui/react";
 import { AiFillHome, AiFillProduct } from "react-icons/ai";
-import { logout } from "../actions/userActions";
+import { logout } from "../redux/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import logo_cujae from "../media/logo_cujae.png";
 import { MdForum } from "react-icons/md";

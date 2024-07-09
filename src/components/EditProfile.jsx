@@ -2,18 +2,16 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router";
-
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { getSoloUser, editUser } from "../actions/userActions.js";
-import { USER_EDIT_RESET } from "../constants/userConstants.js";
+import { getSoloUser, editUser } from "../redux/userActions.js";
+import { USER_EDIT_RESET } from "../redux/userConstants.js";
 
 //Declaro la url de la Api
 const URL =
   process.env.NODE_ENV === "production"
     ? import.meta.env.VITE_BACKEND_URL
     : "http://localhost:8000";
-
 
 const api = axios.create({
   baseURL: `${URL}`,
@@ -92,11 +90,7 @@ export default function EditProfile() {
         },
       };
 
-      const { data } = await api.post(
-        "/users/image/",
-        formData,
-        config
-      );
+      const { data } = await api.post("/users/image/", formData, config);
 
       setImage(data);
       setUploading(false);

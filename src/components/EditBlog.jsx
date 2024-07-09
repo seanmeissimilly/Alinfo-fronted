@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { updateBlogAction, blogActionDetails } from "../actions/blogActions";
+import { updateBlogAction, blogActionDetails } from "../redux/blogActions";
 import { useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { BLOG_UPDATE_RESET } from "../constants/blogConstants";
+import { BLOG_UPDATE_RESET } from "../redux/blogConstants";
 import { toast } from "react-hot-toast";
 
 export default function EditBlog() {

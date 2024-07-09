@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { createBlogAction, listBlogs } from "../actions/blogActions";
+import { createBlogAction, listBlogs } from "../redux/blogActions";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { toast } from "react-hot-toast";
@@ -21,13 +21,14 @@ export default function AddBlog() {
     e.preventDefault();
     dispatch(createBlogAction(body));
     dispatch(listBlogs());
-    navigate(path), toast.success("Publicación Añadida", {
-      position: "bottom-right",
-      style: {
-        background: "#101010",
-        color: "#fff",
-      },
-    });
+    navigate(path),
+      toast.success("Publicación Añadida", {
+        position: "bottom-right",
+        style: {
+          background: "#101010",
+          color: "#fff",
+        },
+      });
   };
 
   return (

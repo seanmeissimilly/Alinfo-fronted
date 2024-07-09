@@ -1,81 +1,78 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../actions/userActions';
-import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { useNavigate } from 'react-router';
-import Loader from './Loader';
-import Messages from './Messages';
-import u from '../media/user.png';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../redux/userActions";
+import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useNavigate } from "react-router";
+import Loader from "./Loader";
+import Messages from "./Messages";
+import u from "../media/user.png";
 import { toast } from "react-hot-toast";
 
-
 export default function Register() {
+  const [user_name, setUser_name] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const [user_name, setUser_name] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
 
-
-  const dispatch = useDispatch()
-
-  const userRegister = useSelector(state => state.userRegister);
+  const userRegister = useSelector((state) => state.userRegister);
   const { error, loading, userInfo } = userRegister;
 
   const navigate = useNavigate();
-  const path = '/';
+  const path = "/";
 
   useEffect(() => {
     if (userInfo) {
       //Redirigo la página y mando una notificación a la pantalla.
-      navigate(path), toast.success("Registro Satisfactorio", {
-        position: "bottom-right",
-        style: {
-          background: "#101010",
-          color: "#fff",
-        },
-      });
+      navigate(path),
+        toast.success("Registro Satisfactorio", {
+          position: "bottom-right",
+          style: {
+            background: "#101010",
+            color: "#fff",
+          },
+        });
     }
-  }, [userInfo])
-
+  }, [userInfo]);
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage('Las contraseñas deben coincidir')
+      setMessage("Las contraseñas deben coincidir");
     } else {
-      dispatch(register(user_name, email, password))
+      dispatch(register(user_name, email, password));
     }
-  }
+  };
 
   return (
     <>
       {message && <Messages>{message}</Messages>}
       {error && <Messages>{error}</Messages>}
-      {loading ?
-        <Loader /> :
-
+      {loading ? (
+        <Loader />
+      ) : (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
-              <img
-                className="mx-auto h-12 w-auto"
-                src={u}
-                alt="Your Company"
-              />
+              <img className="mx-auto h-12 w-auto" src={u} alt="Your Company" />
               <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
                 Registre su cuenta
               </h2>
             </div>
 
-
-            <form onSubmit={submitHandler} className="mt-8 space-y-6" action="#" method="POST">
+            <form
+              onSubmit={submitHandler}
+              className="mt-8 space-y-6"
+              action="#"
+              method="POST"
+            >
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md shadow-sm">
-                <div className='my-8'>
-                  <div className='my-8'>
+                <div className="my-8">
+                  <div className="my-8">
                     <label htmlFor="email-address" className="sr-only">
                       Nombre de usuario
                     </label>
@@ -92,7 +89,7 @@ export default function Register() {
                     />
                   </div>
 
-                  <div className=''>
+                  <div className="">
                     <label htmlFor="email-address" className="sr-only">
                       Dirección de correo electrónico
                     </label>
@@ -109,8 +106,7 @@ export default function Register() {
                     />
                   </div>
 
-
-                  <div className='my-8'>
+                  <div className="my-8">
                     <label htmlFor="password" className="sr-only">
                       Contraseña
                     </label>
@@ -127,7 +123,7 @@ export default function Register() {
                     />
                   </div>
 
-                  <div className='my-8'>
+                  <div className="my-8">
                     <label htmlFor="password" className="sr-only">
                       Confirmar Contraseña
                     </label>
@@ -147,10 +143,11 @@ export default function Register() {
               </div>
 
               <div className="flex items-center justify-between">
-
-
                 <div className="text-sm">
-                  <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  <a
+                    href="/login"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
                     Entrar
                   </a>
                 </div>
@@ -162,7 +159,10 @@ export default function Register() {
                   className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+                    <LockClosedIcon
+                      className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                      aria-hidden="true"
+                    />
                   </span>
                   Registrarse
                 </button>
@@ -170,9 +170,7 @@ export default function Register() {
             </form>
           </div>
         </div>
-      }
+      )}
     </>
-  )
+  );
 }
-
-

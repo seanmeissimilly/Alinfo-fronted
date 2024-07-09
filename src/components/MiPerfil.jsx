@@ -1,14 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listBlogs, deleteBlogAction } from "../actions/blogActions";
+import { listBlogs, deleteBlogAction } from "../redux/blogActions";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 
-
-
 export default function MiPerfil() {
-
   //Declaro la url de la Api en dependencia del entorno
   const URL =
     process.env.NODE_ENV === "production"
@@ -89,7 +86,9 @@ export default function MiPerfil() {
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">Rol de Usuario</dt>
+              <dt className="text-sm font-medium text-gray-500">
+                Rol de Usuario
+              </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 {userInfo.role}
               </dd>

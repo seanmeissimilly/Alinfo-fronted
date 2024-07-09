@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { blogActionDetails, createBlogComment } from "../actions/blogActions";
-import { getListUsers } from "../actions/userActions";
+import { blogActionDetails, createBlogComment } from "../redux/blogActions";
+import { getListUsers } from "../redux/userActions";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { BLOG_CREATE_COMMENT_RESET } from "../constants/blogConstants";
+import { BLOG_CREATE_COMMENT_RESET } from "../redux/blogConstants";
 
 export default function SoloBlog() {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../actions/userActions";
+import { login } from "../redux/userActions";
 import { useNavigate } from "react-router";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
@@ -23,13 +23,14 @@ export default function Login() {
   useEffect(() => {
     if (userInfo) {
       //Redirigo la página y mando una notificación a la pantalla.
-      navigate(path), toast.success("Sección iniciada", {
-        position: "bottom-right",
-        style: {
-          background: "#101010",
-          color: "#fff",
-        },
-      });
+      navigate(path),
+        toast.success("Sección iniciada", {
+          position: "bottom-right",
+          style: {
+            background: "#101010",
+            color: "#fff",
+          },
+        });
     }
   }, [navigate, userInfo]);
 

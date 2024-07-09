@@ -19,7 +19,7 @@ import {
   BLOG_DELETE_REQUEST,
   BLOG_DELETE_SUCCESS,
   BLOG_DELETE_FAIL,
-} from "../constants/blogConstants";
+} from "./blogConstants";
 
 export const blogUpdateReducer = (state = { blog: {} }, action) => {
   switch (action.type) {
