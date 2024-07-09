@@ -11,7 +11,7 @@ import {
   Menu,
   PopoverButton,
 } from "@headlessui/react";
-import { AiFillHome, AiFillPlusSquare, AiFillProduct } from "react-icons/ai";
+import { AiFillHome, AiFillProduct } from "react-icons/ai";
 import { logout } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import logo_cujae from "../media/logo_cujae.png";
