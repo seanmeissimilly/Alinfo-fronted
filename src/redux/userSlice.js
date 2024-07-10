@@ -23,7 +23,35 @@ export const userLogin = createAsyncThunk(
 
       const { data } = await userApi.post(
         "/login/",
-        { email: email, password: password },
+        { email, password },
+        config
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
+// Lógica hacer el registro de un usuario.
+export const userRegister = createAsyncThunk(
+  "userRegister",
+  async ({ user_name, email, password }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await userApi.post(
+        "/register/",
+        { user_name, email, password },
         config
       );
 
@@ -63,12 +91,22 @@ export const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
+    builder.addCase(userRegister.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(userRegister.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userInfo.push(action.payload);
+    });
+    builder.addCase(userRegister.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
   },
 });
 
 export const {
   userLogout,
-  // userRegister,
   // userUpdate,
   // userDelete,
   // userList,

@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import Messages from "./Messages";
 import u from "../media/user.png";
 import { toast } from "react-hot-toast";
+import { userRegister } from "../redux/userSlice.js";
 
 export default function Register() {
   const [user_name, setUser_name] = useState("");
@@ -42,7 +43,7 @@ export default function Register() {
     if (password !== confirmPassword) {
       setMessage("Las contraseñas deben coincidir");
     } else {
-      // dispatch(register(user_name, email, password));
+      dispatch(userRegister({ user_name, email, password }));
     }
   };
 
