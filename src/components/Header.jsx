@@ -18,6 +18,7 @@ import { MdForum } from "react-icons/md";
 import { IoDocumentSharp } from "react-icons/io5";
 import { MdVideoLibrary } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
+import { userLogout } from "../redux/userSlice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -30,7 +31,7 @@ export default function Header() {
 
   const dispatch = useDispatch();
 
-  // const logoutHandler = () => dispatch(logout());
+  const logoutHandler = () => dispatch(userLogout());
 
   //Declaro la url de la Api en dependencia del entorno
   const URL =
@@ -54,7 +55,7 @@ export default function Header() {
             </PopoverButton>
           </div>
 
-          {userInfo ? (
+          {userInfo.length !== 0 ? (
             <>
               <PopoverGroup as="nav" className="hidden space-x-10 md:flex">
                 <a
@@ -106,7 +107,7 @@ export default function Header() {
                       <span className="sr-only">Abrir Menú de Usuario</span>
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={`${URL}${userInfo.image}`}
+                        src={`${URL}${userInfo[0].image}`}
                         alt=""
                       />
                     </MenuButton>
@@ -205,7 +206,7 @@ export default function Header() {
         >
           <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="space-y-6 py-6 px-5">
-              {userInfo ? (
+              {userInfo.length !== 0 ? (
                 <>
                   <div className="grid grid-cols-3 gap-y-4 gap-x-8">
                     <a
@@ -251,7 +252,7 @@ export default function Header() {
                           <span className="sr-only">Abrir Menú de Usuario</span>
                           <img
                             className="h-10 w-10 rounded-full"
-                            src={`${URL}${userInfo.image}`}
+                            src={`${URL}${userInfo[0].image}`}
                             alt=""
                           />
                         </MenuButton>

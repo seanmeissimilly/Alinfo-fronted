@@ -14,7 +14,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
   const { userInfo, loading, error } = user;
@@ -23,7 +23,7 @@ export default function Register() {
   const path = "/";
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo.length !== 0) {
       //Redirigo la página y mando una notificación a la pantalla.
       navigate(path),
         toast.success("Registro Satisfactorio", {

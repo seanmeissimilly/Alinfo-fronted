@@ -1,4 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const URL =
+  process.env.NODE_ENV === "production"
+    ? import.meta.env.VITE_BACKEND_URL
+    : "http://localhost:8000";
+
+const userApi = axios.create({
+  baseURL: `${URL}/users`,
+});
+
+// Lógica hacer el login de un usuario.
+export const userLogin = createAsyncThunk(
+  "userLogin",
+  async ({ email, password }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await userApi.post(
+        "/login/",
+        { email: email, password: password },
+        config
+      );
+
+      return data;
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
 
 export const userSlice = createSlice({
   name: "user",
@@ -8,44 +42,32 @@ export const userSlice = createSlice({
     error: false,
   },
   reducers: {
-    // userLogout: (state, action) => {
-    //   // Lógica para desloguear un usuario.
-    //   return { userInfo: [] };
-    // },
-    // userLogin: (state, action) => {
-    //   // Lógica para hacer el login de un usuario.
-    //   return { userInfo: action.payload };
-    // },
-    // userRegister: (state, action) => {
-    //   // Lógica para registrar un usuario.
-    //   return { userInfo: action.payload };
-    // },
-    // userUpdate: (state, action) => {
-    //   // Lógica para actualizar un usuario existente.
-    //   return { userInfo: action.payload };
-    // },
-    // userDelete: (state, action) => {
-    //   // Lógica para eliminar un usuario del estado.
-    //   return { userInfo: action.payload };
-    // },
-    // userList: (state, action) => {
-    //   // Lógica para listar los usuarios existentes.
-    //   return { userInfo: action.payload };
-    // },
-    // userSolo: (state, action) => {
-    //   // Lógica para listar un solo usuario.
-    //   return { userInfo: action.payload };
-    // },
+    userLogout: (state, action) => {
+      // Lógica para desloguear un usuario.
+      return { userInfo: [] };
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(userLogin.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(userLogin.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userInfo.push(action.payload);
+    });
+    builder.addCase(userLogin.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
   },
 });
 
-// export const {
-//   userLogout,
-//   userLogin,
-//   userRegister,
-//   userUpdate,
-//   userDelete,
-//   userList,
-//   userSolo,
-// } = userSlice.actions;
+export const {
+  userLogout,
+  // userRegister,
+  // userUpdate,
+  // userDelete,
+  // userList,
+  // userSolo,
+} = userSlice.actions;
 export default userSlice.reducer;

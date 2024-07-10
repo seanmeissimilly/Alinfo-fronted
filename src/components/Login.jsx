@@ -6,12 +6,13 @@ import Loader from "./Loader.jsx";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import u from "../media/user.png";
 import { toast } from "react-hot-toast";
+import { userLogin } from "../redux/userSlice.js";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const disptach = useDispatch();
+  const disptach = useDispatch();
 
   const user = useSelector((state) => state.user);
   const { userInfo, loading, error } = user;
@@ -20,7 +21,7 @@ export default function Login() {
   const path = "/";
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo.length !== 0) {
       //Redirigo la página y mando una notificación a la pantalla.
       navigate(path),
         toast.success("Sección iniciada", {
@@ -35,7 +36,7 @@ export default function Login() {
 
   function submitHandler(e) {
     e.preventDefault();
-    // disptach(login(email, password));
+    disptach(userLogin({ email, password }));
   }
 
   return (

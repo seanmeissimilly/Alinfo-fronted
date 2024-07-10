@@ -1,14 +1,13 @@
-import { Outlet, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Outlet, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PrivateRoute = () => {
-    const userLogin = useSelector(state => state.userLogin)
+  const user = useSelector((state) => state.user);
 
-    const { userInfo }  = userLogin
+  const { userInfo } = user;
 
-    return (
-        userInfo ? <Outlet/> : <Navigate to='/landing'/>
-    )
-}
+  //Reviso si userInfo no está vacio para saber si hay algún usuario logueado.
+  return userInfo.length !== 0 ? <Outlet /> : <Navigate to="/landing" />;
+};
 
 export default PrivateRoute;
