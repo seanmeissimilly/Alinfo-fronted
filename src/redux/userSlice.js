@@ -13,7 +13,7 @@ const userApi = axios.create({
 // Lógica hacer el login de un usuario.
 export const userLogin = createAsyncThunk(
   "userLogin",
-  async ({ email, password }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -29,7 +29,11 @@ export const userLogin = createAsyncThunk(
 
       return data;
     } catch (error) {
-      return error.message;
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
     }
   }
 );
