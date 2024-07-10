@@ -24,18 +24,18 @@ function App() {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route path="/" exact element={<HomePage />} />
-          <Route path="/forum" exact element={<Forum />} />
+          {/* <Route path="/forum" exact element={<Forum />} />
           <Route path="/miPerfil" element={<MiPerfil />} />
-          <Route path="/userProfile/:id" element={<UserProfile />} />
-          <Route path="/addBlog" element={<AddBlog />} />
-          <Route path="/soloBlog/:id" element={<SoloBlog />} />
-          <Route path="/editBlog/:id" element={<EditBlog />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/configuration" element={<Configuration />} />
+          <Route path="/userProfile/:id" element={<UserProfile />} /> */}
+          {/* <Route path="/addBlog" element={<AddBlog />} />
+          <Route path="/soloBlog/:id" element={<SoloBlog />} />
+          <Route path="/editBlog/:id" element={<EditBlog />} />
           <Route path="/documents" element={<Configuration />} />
           <Route path="/apps" element={<Configuration />} />
           <Route path="/multimedia" element={<Configuration />} />
-          <Route path="/suggestions" element={<Configuration />} />
+          <Route path="/suggestions" element={<Configuration />} /> */}
         </Route>
 
         <Route path="/landing" element={<Landing />} />

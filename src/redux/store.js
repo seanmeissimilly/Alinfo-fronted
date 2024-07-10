@@ -1,51 +1,25 @@
-import thunk from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
-import {
-  userLoginReducer,
-  userRegisterReducer,
-  userSoloReducer,
-  userListReducer,
-  userEditReducer,
-} from "./userReducers";
-import {
-  blogListReducer,
-  blogCreateReducer,
-  blogDetailsReducer,
-  createCommentReducer,
-  blogDeleteReducer,
-  blogUpdateReducer,
-} from "./blogReducers";
+import userReducer from "./userSlice";
+import blogReducer from "./blogSlice";
+import appReducer from "./appSlice";
+import documentReducer from "./documentSlice";
+import suggestionReducer from "./suggestionSlice";
 
-const userInfoStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
-
-const initialState = {
-  userLogin: { userInfo: userInfoStorage },
-};
-
-const middleware = [thunk];
-
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     // User stuff
-    userLogin: userLoginReducer,
-    userRegister: userRegisterReducer,
-    userSolo: userSoloReducer,
-    userList: userListReducer,
-    userEdit: userEditReducer,
+    user: userReducer,
 
-    // Blog stuff
-    blogList: blogListReducer,
-    blogCreate: blogCreateReducer,
-    soloBlog: blogDetailsReducer,
-    commentBlog: createCommentReducer,
-    deleteBlog: blogDeleteReducer,
-    updateBlog: blogUpdateReducer,
+    // // Blog stuff
+    // blog: blogReducer,
+
+    // // App stuff
+    // app: appReducer,
+
+    // // Document stuff
+    // document: documentReducer,
+
+    // // Suggestion stuff
+    // suggestion: suggestionReducer,
   },
-  preloadedState: initialState,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware),
 });
-
-export default store;

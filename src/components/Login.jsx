@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/userActions";
 import { useNavigate } from "react-router";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
@@ -12,10 +11,10 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const disptach = useDispatch();
+  // const disptach = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { error, loading, userInfo } = userLogin;
+  const user = useSelector((state) => state.user);
+  const { userInfo, loading, error } = user;
 
   const navigate = useNavigate();
   const path = "/";
@@ -36,7 +35,7 @@ export default function Login() {
 
   function submitHandler(e) {
     e.preventDefault();
-    disptach(login(email, password));
+    // disptach(login(email, password));
   }
 
   return (

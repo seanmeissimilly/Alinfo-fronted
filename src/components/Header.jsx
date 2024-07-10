@@ -12,7 +12,6 @@ import {
   PopoverButton,
 } from "@headlessui/react";
 import { AiFillHome, AiFillProduct } from "react-icons/ai";
-import { logout } from "../redux/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import logo_cujae from "../media/logo_cujae.png";
 import { MdForum } from "react-icons/md";
@@ -25,13 +24,13 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-  const userLogin = useSelector((state) => state.userLogin);
+  const user = useSelector((state) => state.user);
 
-  const { userInfo } = userLogin;
+  const { userInfo } = user;
 
   const dispatch = useDispatch();
 
-  const logoutHandler = () => dispatch(logout());
+  // const logoutHandler = () => dispatch(logout());
 
   //Declaro la url de la Api en dependencia del entorno
   const URL =

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../redux/userActions";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router";
 import Loader from "./Loader";
@@ -15,10 +14,10 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { error, loading, userInfo } = userRegister;
+  const user = useSelector((state) => state.user);
+  const { userInfo, loading, error } = user;
 
   const navigate = useNavigate();
   const path = "/";
@@ -43,7 +42,7 @@ export default function Register() {
     if (password !== confirmPassword) {
       setMessage("Las contraseñas deben coincidir");
     } else {
-      dispatch(register(user_name, email, password));
+      // dispatch(register(user_name, email, password));
     }
   };
 
