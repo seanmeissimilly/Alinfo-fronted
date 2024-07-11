@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getSoloUser } from "../redux/userActions";
-import { listBlogs } from "../redux/blogActions";
+import { userSolo } from "../redux/userSlice.js";
 
 import Messages from "./Messages";
 import Loader from "./Loader";
@@ -18,21 +17,22 @@ export default function UserProfile() {
 
   const dispatch = useDispatch();
 
-  const blogList = useSelector((state) => state.blogList);
-  const { error: errorBlog, loading: blogLoading, blogs } = blogList;
+  // const blogList = useSelector((state) => state.blogList);
+  // const { error: errorBlog, loading: blogLoading, blogs } = blogList;
 
-  const userSolo = useSelector((state) => state.userSolo);
-  const { loading, error, user } = userSolo;
+  const usersolo = useSelector((state) => state.user);
+  const { loading, error, user, userInfo } = usersolo;
+  const { token } = userInfo;
 
   useEffect(() => {
-    dispatch(getSoloUser(id));
-    dispatch(listBlogs());
+    dispatch(userSolo({ id, token }));
+    // dispatch(listBlogs());
   }, [dispatch]);
 
   return (
     <>
-      {blogLoading && <Loader />}
-      {errorBlog && <Messages variant="danger">{errorBlog}</Messages>}
+      {/* {blogLoading && <Loader />}
+      {errorBlog && <Messages variant="danger">{errorBlog}</Messages>} */}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -98,7 +98,7 @@ export default function UserProfile() {
             -- Publicaciones --
           </h2>
 
-          {blogs.map((blog) => (
+          {/* {blogs.map((blog) => (
             <>
               {user.user_name === blog.user && (
                 <div className="py-20 bg-gray-200">
@@ -144,7 +144,7 @@ export default function UserProfile() {
                 </div>
               )}
             </>
-          ))}
+          ))} */}
         </div>
       )}
     </>

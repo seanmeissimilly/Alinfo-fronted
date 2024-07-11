@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { listBlogs, deleteBlogAction } from "../redux/blogActions";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
@@ -16,29 +15,29 @@ export default function MiPerfil() {
 
   const dispatch = useDispatch();
 
-  const blogList = useSelector((state) => state.blogList);
-  const { error: errorBlog, loading: blogLoading, blogs } = blogList;
+  // const blogList = useSelector((state) => state.blogList);
+  // const { error: errorBlog, loading: blogLoading, blogs } = blogList;
 
-  const deleteBlog = useSelector((state) => state.deleteBlog);
-  const {
-    error: errorDelete,
-    loading: loadingDelete,
-    success: successDelete,
-  } = deleteBlog;
+  // const deleteBlog = useSelector((state) => state.deleteBlog);
+  // const {
+  //   error: errorDelete,
+  //   loading: loadingDelete,
+  //   success: successDelete,
+  // } = deleteBlog;
 
-  const userLogin = useSelector((state) => state.userLogin);
+  const user = useSelector((state) => state.user);
 
-  const { userInfo } = userLogin;
+  const { userInfo } = user;
 
-  useEffect(() => {
-    dispatch(listBlogs());
-  }, [dispatch, successDelete]);
+  // useEffect(() => {
+  //   dispatch(listBlogs());
+  // }, [dispatch, successDelete]);
 
-  const deleteHandler = (id) => {
-    if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
-      dispatch(deleteBlogAction(id));
-    }
-  };
+  // const deleteHandler = (id) => {
+  //   if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
+  //     dispatch(deleteBlogAction(id));
+  //   }
+  // };
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
@@ -109,7 +108,7 @@ export default function MiPerfil() {
         -- Publicaciones --
       </h2>
 
-      {blogs.map((blog) => (
+      {/* {blogs.map((blog) => (
         <>
           {userInfo.user_name === blog.user && (
             <div className="py-20 bg-gray-200">
@@ -162,7 +161,7 @@ export default function MiPerfil() {
             </div>
           )}
         </>
-      ))}
+      ))} */}
     </div>
   );
 }

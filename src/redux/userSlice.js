@@ -26,7 +26,7 @@ export const userLogin = createAsyncThunk(
         { email, password },
         config
       );
-
+      localStorage.setItem("user", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -54,7 +54,7 @@ export const userRegister = createAsyncThunk(
         { user_name, email, password },
         config
       );
-
+      localStorage.setItem("user", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(

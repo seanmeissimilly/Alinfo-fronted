@@ -32,11 +32,12 @@ export default function EditProfile() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const { error, loading, userInfo, success } = user;  
+  const { error, loading, userInfo, success } = user;
+  const { id, token } = userInfo;
 
   useEffect(() => {
-    if (userInfo.id !== user.id) {      
-      dispatch(userSolo({userInfo[0].id, userInfo[0].token}));
+    if (id !== user.id) {
+      dispatch(userSolo({ id, token }));
     } else {
       setUserName(user.user_name);
       setEmail(user.email);
@@ -52,13 +53,14 @@ export default function EditProfile() {
       setMessage("Las Contraseñas deben coincidir");
     } else {
       dispatch(
-        editUser({
+        userUpdate({
           id: user.id,
           user_name: user_name,
           email: email,
           bio: bio,
           image: image,
           password: password,
+          token: token,
         })
       );
       navigate(path);
