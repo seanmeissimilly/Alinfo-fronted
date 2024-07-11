@@ -33,7 +33,7 @@ export default function EditProfile() {
 
   const user = useSelector((state) => state.user);
   const { error, loading, userInfo, success } = user;
-  const { id, token } = userInfo;
+  const { id, token } = userInfo[0];
 
   useEffect(() => {
     if (id !== user.id) {
