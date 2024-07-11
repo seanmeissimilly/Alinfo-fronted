@@ -35,6 +35,17 @@ export default function EditProfile() {
   const { error, loading, userInfo, success } = user;
   const { id, token } = userInfo[0];
 
+  // useEffect(() => {
+  //   if (id !== user.id) {
+  //     dispatch(userSolo({ id, token }));
+  //   } else {
+  //     setUserName(user.user_name);
+  //     setEmail(user.email);
+  //     setBio(user.bio);
+  //     setImage(user.image);
+  //   }
+  // }, [dispatch, user, success, userInfo]);
+
   useEffect(() => {
     if (id !== user.id) {
       dispatch(userSolo({ id, token }));
@@ -44,7 +55,7 @@ export default function EditProfile() {
       setBio(user.bio);
       setImage(user.image);
     }
-  }, [dispatch, user, success, userInfo]);
+  }, [dispatch, user, success, userInfo, id, token]);
 
   const submitHandler = (e) => {
     e.preventDefault();
