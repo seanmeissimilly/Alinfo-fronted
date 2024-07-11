@@ -26,7 +26,7 @@ export const userLogin = createAsyncThunk(
         { email, password },
         config
       );
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -54,7 +54,7 @@ export const userRegister = createAsyncThunk(
         { user_name, email, password },
         config
       );
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -173,19 +173,31 @@ export const userSolo = createAsyncThunk(
   }
 );
 
+const userInfoStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null; // Cambio esto a null para que no almacene nada si no hay datos en localStorage
+
+const initialState = {
+  userInfo: userInfoStorage ? [userInfoStorage] : [], // Solo almacena userInfo si userInfoStorage no es null,
+  users: [],
+  loading: false,
+  error: false,
+  success: false,
+};
+
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-    userInfo: [],
-    users: [],
-    loading: false,
-    error: false,
-    success: false,
-  },
+  initialState,
   reducers: {
     userLogout: (state, action) => {
       // Lógica para desloguear un usuario.
-      return {};
+      state.userInfo = [];
+      state.loading = false;
+      state.users = [];
+      state.error = false;
+      state.success = false;
+      //Borro los datos del usuario del almacenamiento local.
+      localStorage.removeItem("userInfo");
     },
   },
   extraReducers: (builder) => {
