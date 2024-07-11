@@ -7,7 +7,11 @@ const PrivateRoute = () => {
   const { userInfo } = user;
 
   //Reviso si userInfo no está vacio para saber si hay algún usuario logueado.
-  return userInfo.length !== 0 ? <Outlet /> : <Navigate to="/landing" />;
+  return userInfo !== undefined && userInfo.length !== 0 ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/landing" />
+  );
 };
 
 export default PrivateRoute;

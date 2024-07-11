@@ -55,7 +55,7 @@ export default function Header() {
             </PopoverButton>
           </div>
 
-          {userInfo.length !== 0 ? (
+          {userInfo !== undefined && userInfo.length !== 0 ? (
             <>
               <PopoverGroup as="nav" className="hidden space-x-10 md:flex">
                 <a
@@ -209,7 +209,7 @@ export default function Header() {
         >
           <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="space-y-6 py-6 px-5">
-              {userInfo.length !== 0 ? (
+              {userInfo !== undefined && userInfo.length !== 0 ? (
                 <>
                   <div className="grid grid-cols-3 gap-y-4 gap-x-8">
                     <a

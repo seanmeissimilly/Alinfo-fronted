@@ -185,7 +185,7 @@ export const userSlice = createSlice({
   reducers: {
     userLogout: (state, action) => {
       // Lógica para desloguear un usuario.
-      return { userInfo: [] };
+      return {};
     },
   },
   extraReducers: (builder) => {
