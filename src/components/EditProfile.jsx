@@ -4,8 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { getSoloUser, editUser } from "../redux/userActions.js";
-import { USER_EDIT_RESET } from "../redux/userConstants.js";
+import { userSolo, userUpdate } from "../redux/userSlice.js";
 
 //Declaro la url de la Api
 const URL =
@@ -32,19 +31,12 @@ export default function EditProfile() {
 
   const dispatch = useDispatch();
 
-  const userSolo = useSelector((state) => state.userSolo);
-  const { error, loading, user } = userSolo;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  const userEdit = useSelector((state) => state.userEdit);
-  const { success } = userEdit;
+  const user = useSelector((state) => state.user);
+  const { error, loading, userInfo, success } = user;  
 
   useEffect(() => {
-    if (userInfo.id !== user.id) {
-      dispatch({ type: USER_EDIT_RESET });
-      dispatch(getSoloUser("userProfile"));
+    if (userInfo.id !== user.id) {      
+      dispatch(userSolo({userInfo[0].id, userInfo[0].token}));
     } else {
       setUserName(user.user_name);
       setEmail(user.email);
