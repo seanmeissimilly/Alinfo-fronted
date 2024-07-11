@@ -69,7 +69,7 @@ export const userRegister = createAsyncThunk(
 export const userUpdate = createAsyncThunk(
   "userUpdate",
   async (
-    { user_name, email, password, bio, image, token },
+    { user_name, email, password, bio, image, role, token },
     { rejectWithValue }
   ) => {
     try {
@@ -84,8 +84,9 @@ export const userUpdate = createAsyncThunk(
         "/put/",
         user_name,
         email,
+        role,
         password,
-        bio,
+        bio,        
         image,
         config
       );

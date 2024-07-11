@@ -32,30 +32,23 @@ export default function EditProfile() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const { error, loading, userInfo, success } = user;
-  const { id, token } = userInfo[0];
-
-  // useEffect(() => {
-  //   if (id !== user.id) {
-  //     dispatch(userSolo({ id, token }));
-  //   } else {
-  //     setUserName(user.user_name);
-  //     setEmail(user.email);
-  //     setBio(user.bio);
-  //     setImage(user.image);
-  //   }
-  // }, [dispatch, user, success, userInfo]);
+  const { error, loading, users, userInfo } = user;
 
   useEffect(() => {
-    if (id !== user.id) {
-      dispatch(userSolo({ id, token }));
+    //Reviso si el id del usuario que esta logueado es el mismo que traje para editar.
+    if (
+      users !== undefined &&
+      users.length !== 0 &&
+      userInfo[0].id !== users[0].id
+    ) {
+      dispatch(userSolo({ id: userInfo[0].id, token: userInfo[0].token }));
     } else {
-      setUserName(user.user_name);
-      setEmail(user.email);
-      setBio(user.bio);
-      setImage(user.image);
+      setUserName(userInfo[0].user_name);
+      setEmail(userInfo[0].email);
+      setBio(userInfo[0].bio);
+      setImage(userInfo[0].image);
     }
-  }, [dispatch, user, success, userInfo, id, token]);
+  }, [dispatch, users, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -65,13 +58,13 @@ export default function EditProfile() {
     } else {
       dispatch(
         userUpdate({
-          id: user.id,
           user_name: user_name,
           email: email,
           bio: bio,
           image: image,
           password: password,
-          token: token,
+          role: userInfo[0].role,
+          token: userInfo[0].token,
         })
       );
       navigate(path);
@@ -83,7 +76,7 @@ export default function EditProfile() {
     const formData = new FormData();
 
     formData.append("image", file);
-    formData.append("user_id", user.id);
+    formData.append("user_id", users[0].id);
 
     setUploading(true);
 
@@ -91,7 +84,7 @@ export default function EditProfile() {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${userInfo[0].token}`,
         },
       };
 
