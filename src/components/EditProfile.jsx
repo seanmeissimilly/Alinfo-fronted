@@ -80,7 +80,7 @@ export default function EditProfile() {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${token}`,
         },
       };
 
