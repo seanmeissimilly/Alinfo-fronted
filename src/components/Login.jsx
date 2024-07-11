@@ -7,10 +7,16 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 import u from "../media/user.png";
 import { toast } from "react-hot-toast";
 import { userLogin } from "../redux/userSlice.js";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [openpassword, setOpenPassword] = useState(false);
+
+  const handleshowpassword = () => {
+    setOpenPassword(!openpassword);
+  };
 
   const disptach = useDispatch();
 
@@ -77,21 +83,30 @@ export default function Login() {
                     placeholder="Correo Electrónico"
                   />
                 </div>
-                <div>
-                  <label htmlFor="password" className="sr-only">
-                    Contraseña
-                  </label>
-                  <input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Contraseña"
-                  />
+                <div className="my-8">
+                  <div className=" mx-auto relative flex items-center">
+                    <label htmlFor="password" className="sr-only">
+                      Contraseña
+                    </label>
+                    <input
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      id="password"
+                      name="password"
+                      type={openpassword ? "text" : "password"}
+                      autoComplete="current-password"
+                      required
+                      className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      placeholder="Contraseña"
+                    />
+                    <div className="text-2xl absolute right-3">
+                      {!openpassword ? (
+                        <AiFillEye onClick={handleshowpassword} />
+                      ) : (
+                        <AiFillEyeInvisible onClick={handleshowpassword} />
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
