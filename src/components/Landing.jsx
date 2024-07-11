@@ -1,10 +1,6 @@
-import { useSelector } from "react-redux";
+import React from "react";
 
 export default function Landing() {
-  const user = useSelector((state) => state.user);
-
-  const { userInfo } = user;
-
   return (
     <div className="relative overflow-hidden bg-white">
       <div className="mx-auto max-w-7xl">

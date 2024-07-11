@@ -10,16 +10,16 @@ export const store = configureStore({
     // User stuff
     user: userReducer,
 
-    // // Blog stuff
-    // blog: blogReducer,
+    // Blog stuff
+    blog: blogReducer,
 
-    // // App stuff
-    // app: appReducer,
+    // App stuff
+    app: appReducer,
 
-    // // Document stuff
-    // document: documentReducer,
+    // Document stuff
+    document: documentReducer,
 
-    // // Suggestion stuff
-    // suggestion: suggestionReducer,
+    // Suggestion stuff
+    suggestion: suggestionReducer,
   },
 });
