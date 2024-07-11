@@ -82,12 +82,8 @@ export const userUpdate = createAsyncThunk(
 
       const { data } = await userApi.put(
         "/put/",
-        user_name,
-        email,
-        role,
-        password,
-        bio,        
-        image,
+
+        { user_name, email, role, password, bio, image },
         config
       );
 

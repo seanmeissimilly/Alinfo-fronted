@@ -76,7 +76,7 @@ export default function EditProfile() {
     const formData = new FormData();
 
     formData.append("image", file);
-    formData.append("user_id", users[0].id);
+    formData.append("user_id", userInfo[0].id);
 
     setUploading(true);
 
