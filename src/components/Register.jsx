@@ -7,6 +7,7 @@ import Messages from "./Messages";
 import u from "../media/user.png";
 import { toast } from "react-hot-toast";
 import { userRegister } from "../redux/userSlice.js";
+import PasswordChecklist from "react-password-checklist";
 
 export default function Register() {
   const [user_name, setUser_name] = useState("");
@@ -14,6 +15,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [isValid, setIsValid] = useState(false); // Estado inicial: no válido
 
   const dispatch = useDispatch();
 
@@ -40,9 +42,7 @@ export default function Register() {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setMessage("Las contraseñas deben coincidir");
-    } else {
+    if (isValid) {
       dispatch(userRegister({ user_name, email, password }));
     }
   };
@@ -137,6 +137,31 @@ export default function Register() {
                       required
                       className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Contraseña"
+                    />
+                    <PasswordChecklist
+                      rules={[
+                        "minLength",
+                        "specialChar",
+                        "number",
+                        "capital",
+                        "match",
+                        "lowercase",
+                        "notEmpty",
+                      ]}
+                      minLength={8}
+                      value={password}
+                      valueAgain={confirmPassword}
+                      messages={{
+                        minLength: "La contraseña tiene más de 8 caracteres.",
+                        specialChar:
+                          "La contraseña tiene caracteres especiales.",
+                        number: "La contraseña tiene un número.",
+                        capital: "La contraseña tiene una letra mayúscula.",
+                        match: "Las contraseñas coinciden.",
+                        lowercase: "La contraseña tiene una letra minúscula.",
+                        notEmpty: "La contraseña no está en blanco.",
+                      }}
+                      onChange={(e) => setIsValid(e)}
                     />
                   </div>
                 </div>
