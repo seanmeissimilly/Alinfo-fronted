@@ -69,7 +69,7 @@ export const userRegister = createAsyncThunk(
 export const userUpdate = createAsyncThunk(
   "userUpdate",
   async (
-    { user_name, email, password, bio, image, role, token },
+    { user_name, email, password, bio, image, role, token, id },
     { rejectWithValue }
   ) => {
     try {
@@ -83,7 +83,7 @@ export const userUpdate = createAsyncThunk(
       const { data } = await userApi.put(
         "/put/",
 
-        { user_name, email, role, password, bio, image },
+        { user_name, email, role, password, bio, image, id },
         config
       );
 

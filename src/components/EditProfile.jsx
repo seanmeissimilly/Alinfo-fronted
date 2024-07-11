@@ -65,6 +65,7 @@ export default function EditProfile() {
           password: password,
           role: userInfo[0].role,
           token: userInfo[0].token,
+          id: userInfo[0].id,
         })
       );
       navigate(path);
