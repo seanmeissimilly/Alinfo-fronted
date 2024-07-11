@@ -86,41 +86,41 @@ export default function Register() {
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md shadow-sm">
                 <div className="my-8">
-                  <div className="my-8">
-                    <label htmlFor="user_name" className="sr-only">
-                      Nombre de usuario
-                    </label>
-                    <input
-                      value={user_name}
-                      onChange={(e) => setUser_name(e.target.value)}
-                      id="username"
-                      name="username"
-                      type="text"
-                      autoComplete="email"
-                      required
-                      className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Nombre de usuario"
-                    />
-                  </div>
+                  <label htmlFor="user_name" className="sr-only">
+                    Nombre de usuario
+                  </label>
+                  <input
+                    value={user_name}
+                    onChange={(e) => setUser_name(e.target.value)}
+                    id="username"
+                    name="username"
+                    type="text"
+                    autoComplete="email"
+                    required
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Nombre de usuario"
+                  />
+                </div>
 
-                  <div className="my-8">
-                    <label htmlFor="email-address" className="sr-only">
-                      Dirección de correo electrónico
-                    </label>
-                    <input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      id="email-address"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Correo Electrónico"
-                    />
-                  </div>
+                <div className="my-8">
+                  <label htmlFor="email-address" className="sr-only">
+                    Dirección de correo electrónico
+                  </label>
+                  <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    id="email-address"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Correo Electrónico"
+                  />
+                </div>
 
-                  <div className="my-8 flex items-center">
+                <div className="my-8">
+                  <div className=" mx-auto relative flex items-center">
                     <label htmlFor="password" className="sr-only">
                       Contraseña
                     </label>
@@ -135,7 +135,7 @@ export default function Register() {
                       className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Contraseña"
                     />
-                    <div className="ml-2">
+                    <div className="text-2xl absolute right-3">
                       {!openpassword ? (
                         <AiFillEye onClick={handleshowpassword} />
                       ) : (
@@ -143,63 +143,63 @@ export default function Register() {
                       )}
                     </div>
                   </div>
+                </div>
 
-                  <div className="my-8 ">
-                    <div className=" mx-auto relative flex items-center">
-                      <label htmlFor="password" className="sr-only">
-                        Confirmar Contraseña
-                      </label>
-                      <div className="w-full">
-                        <input
-                          value={confirmPassword}
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          id="password"
-                          name="password"
-                          type={openconfirmpassword ? "text" : "password"}
-                          autoComplete="current-password"
-                          required
-                          className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                          placeholder="Confirmar Contraseña"
-                        />
-                      </div>
-                      <div className="text-2xl absolute  right-3">
-                        {!openconfirmpassword ? (
-                          <AiFillEye onClick={handleshowconfirmpassword} />
-                        ) : (
-                          <AiFillEyeInvisible
-                            onClick={handleshowconfirmpassword}
-                          />
-                        )}
-                      </div>
-                    </div>
-                    <div className="my-8">
-                      <PasswordChecklist
-                        className=""
-                        rules={[
-                          "minLength",
-                          "specialChar",
-                          "number",
-                          "capital",
-                          "match",
-                          "lowercase",
-                          "notEmpty",
-                        ]}
-                        minLength={8}
-                        value={password}
-                        valueAgain={confirmPassword}
-                        messages={{
-                          minLength: "La contraseña tiene más de 8 caracteres.",
-                          specialChar:
-                            "La contraseña tiene caracteres especiales.",
-                          number: "La contraseña tiene un número.",
-                          capital: "La contraseña tiene una letra mayúscula.",
-                          match: "Las contraseñas coinciden.",
-                          lowercase: "La contraseña tiene una letra minúscula.",
-                          notEmpty: "La contraseña no está en blanco.",
-                        }}
-                        onChange={(e) => setIsValid(e)}
+                <div className="my-8">
+                  <div className=" mx-auto relative flex items-center">
+                    <label htmlFor="password" className="sr-only">
+                      Confirmar Contraseña
+                    </label>
+                    <div className="w-full">
+                      <input
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        id="password"
+                        name="password"
+                        type={openconfirmpassword ? "text" : "password"}
+                        autoComplete="current-password"
+                        required
+                        className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Confirmar Contraseña"
                       />
                     </div>
+                    <div className="text-2xl absolute right-3">
+                      {!openconfirmpassword ? (
+                        <AiFillEye onClick={handleshowconfirmpassword} />
+                      ) : (
+                        <AiFillEyeInvisible
+                          onClick={handleshowconfirmpassword}
+                        />
+                      )}
+                    </div>
+                  </div>
+                  <div className="my-8">
+                    <PasswordChecklist
+                      className=""
+                      rules={[
+                        "minLength",
+                        "specialChar",
+                        "number",
+                        "capital",
+                        "match",
+                        "lowercase",
+                        "notEmpty",
+                      ]}
+                      minLength={8}
+                      value={password}
+                      valueAgain={confirmPassword}
+                      messages={{
+                        minLength: "La contraseña tiene más de 8 caracteres.",
+                        specialChar:
+                          "La contraseña tiene caracteres especiales.",
+                        number: "La contraseña tiene un número.",
+                        capital: "La contraseña tiene una letra mayúscula.",
+                        match: "Las contraseñas coinciden.",
+                        lowercase: "La contraseña tiene una letra minúscula.",
+                        notEmpty: "La contraseña no está en blanco.",
+                      }}
+                      onChange={(e) => setIsValid(e)}
+                    />
                   </div>
                 </div>
               </div>
