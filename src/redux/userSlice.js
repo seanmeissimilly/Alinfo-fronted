@@ -37,7 +37,6 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
-
 //Todo: Lógica hacer el registro de un usuario.
 export const userRegister = createAsyncThunk(
   "userRegister",
@@ -110,7 +109,7 @@ export const userDelete = createAsyncThunk(
       };
 
       const { data } = await userApi.delete("/delete/", user_name, config);
-      localStorage.removeItem("userInfo");
+
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -169,7 +168,30 @@ export const userSolo = createAsyncThunk(
     }
   }
 );
+// Todo:Lógica listar el usuario que está logueado.
+export const userRefresh = createAsyncThunk(
+  "userRefresh",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
+      const { data } = await userApi.get(`userProfile`, config);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
 // Todo: Lógica hacer subir la foto de un usuario.
 export const userUploadImage = createAsyncThunk(
   "userUploadImage",
@@ -209,8 +231,9 @@ const userInfoStorage = localStorage.getItem("userInfo")
   : null; // Cambio esto a null para que no almacene nada si no hay datos en localStorage
 
 const initialState = {
-  userInfo: userInfoStorage ? [userInfoStorage] : [], // Solo almacena userInfo si userInfoStorage no es null,
+  userInfo: userInfoStorage ? userInfoStorage : {}, // Solo almacena userInfo si userInfoStorage no es null,
   users: [],
+  userSolo,
   loading: false,
   error: false,
   success: false,
@@ -222,7 +245,8 @@ export const userSlice = createSlice({
   reducers: {
     userLogout: (state, action) => {
       // Lógica para desloguear un usuario.
-      state.userInfo = [];
+      state.userInfo = {};
+      state.userSolo = {};
       state.loading = false;
       state.users = [];
       state.error = false;
@@ -237,7 +261,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(userLogin.fulfilled, (state, action) => {
       state.loading = false;
-      state.userInfo.push(action.payload);
+      state.userInfo = action.payload;
       state.success = true;
     });
     builder.addCase(userLogin.rejected, (state, action) => {
@@ -250,7 +274,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(userRegister.fulfilled, (state, action) => {
       state.loading = false;
-      state.userInfo.push(action.payload);
+      state.userInfo = action.payload;
       state.success = true;
     });
     builder.addCase(userRegister.rejected, (state, action) => {
@@ -263,7 +287,17 @@ export const userSlice = createSlice({
     });
     builder.addCase(userUpdate.fulfilled, (state, action) => {
       state.loading = false;
-      state.userInfo.push(action.payload);
+      state.userInfo = {
+        //! copio el mismo estado que ya tenía.
+        ...state.userInfo,
+        //! Actualizo solo las propiedades que vienen
+        email: action.payload.email,
+        user_name: action.payload.user_name,
+        role: action.payload.role,
+        is_admin: action.payload.is_admin,
+        bio: action.payload.bio,
+        image: action.payload.image,
+      };
       state.success = true;
     });
     builder.addCase(userUpdate.rejected, (state, action) => {
@@ -290,7 +324,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(userSolo.fulfilled, (state, action) => {
       state.loading = false;
-      state.users = [action.payload];
+      state.userSolo = action.payload;
       state.success = true;
     });
     builder.addCase(userSolo.rejected, (state, action) => {
@@ -304,11 +338,6 @@ export const userSlice = createSlice({
     builder.addCase(userDelete.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      //Borro de la lista el que borré.
-      const { id } = action.payload;
-      if (id) {
-        state.users = state.users.filter((ele) => ele.id !== id);
-      }
     });
     builder.addCase(userDelete.rejected, (state, action) => {
       state.loading = false;
@@ -323,6 +352,29 @@ export const userSlice = createSlice({
       state.success = true;
     });
     builder.addCase(userUploadImage.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    });
+    builder.addCase(userRefresh.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(userRefresh.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userInfo = {
+        //! copio el mismo estado que ya tenía.
+        ...state.userInfo,
+        //! Actualizo solo las propiedades que vienen
+        email: action.payload.email,
+        user_name: action.payload.user_name,
+        role: action.payload.role,
+        is_admin: action.payload.is_admin,
+        bio: action.payload.bio,
+        image: action.payload.image,
+      };
+      state.success = true;
+    });
+    builder.addCase(userRefresh.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.success = false;
