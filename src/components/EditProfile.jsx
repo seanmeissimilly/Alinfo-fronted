@@ -86,7 +86,7 @@ export default function EditProfile() {
     const formData = new FormData();
 
     formData.append("image", file);
-    formData.append("user_id", user.id);
+    formData.append("user_id", userInfo[0].id);
 
     setUploading(true);
 
@@ -94,15 +94,11 @@ export default function EditProfile() {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${userInfo[0].token}`,
         },
       };
 
-      const { data } = await axios.post(
-        "http://127.0.0.1:8000/users/image/",
-        formData,
-        config
-      );
+      const { data } = await api.post("/users/image/", formData, config);
 
       setImage(data);
       setUploading(false);
