@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
-import { useParams } from "react-router-dom";
 import { blogDelete, blogList } from "../redux/blogSlice";
 
 export default function MiPerfil() {
@@ -100,16 +99,16 @@ export default function MiPerfil() {
         -- Publicaciones --
       </h2>
 
-      {blogs.map((blog) => (
+      {blogs.map((blog_element) => (
         <>
-          {userInfo[0].user_name === blog.user && (
+          {userInfo[0].user_name === blog_element.user && (
             <div className="py-20 bg-gray-200">
               <div className=" px-10">
                 <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
                       <div
-                        key={blog.id}
+                        key={blog_element.id}
                         className="flex justify-between items-center m-8"
                       >
                         <div className="flex flex-row items-center">
@@ -119,18 +118,20 @@ export default function MiPerfil() {
                             width="40"
                           />
                           <div className="flex flex-row items-center ml-2">
-                            <span className="font-bold mr-1">{blog.user}</span>
+                            <span className="font-bold mr-1">
+                              {blog_element.user}
+                            </span>
                           </div>
                         </div>
                       </div>
                       <div></div>
                       <div className="p-4 flex justify-between items-center">
-                        <p>{blog.body}</p>
+                        <p>{blog_element.body}</p>
                       </div>
                       <div className="p-4 flex justify-between items-center">
                         <div className="flex flex-row items-center">
                           <a
-                            href={`/editBlog/${blog.id}`}
+                            href={`/editBlog/${blog_element.id}`}
                             className="group mx-6 relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             {" "}
@@ -138,7 +139,7 @@ export default function MiPerfil() {
                           </a>
 
                           <button
-                            onClick={() => deleteHandler(blog.id)}
+                            onClick={() => deleteHandler(blog_element.id)}
                             className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             {" "}
