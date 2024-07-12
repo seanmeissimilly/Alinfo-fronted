@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { userSolo, userUpdate } from "../redux/userSlice.js";
+import { userSolo, userUpdate, userUploadImage } from "../redux/userSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import PasswordChecklist from "react-password-checklist";
 
@@ -44,23 +44,17 @@ export default function EditProfile() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const { error, loading, users, userInfo } = user;
+  const { error, loading, users, userInfo, success } = user;
 
   useEffect(() => {
-    //Reviso si el id del usuario que esta logueado es el mismo que traje para editar.
-    if (
-      users !== undefined &&
-      users.length !== 0 &&
-      userInfo[0].id !== users[0].id
-    ) {
-      dispatch(userSolo({ id: userInfo[0].id, token: userInfo[0].token }));
-    } else {
-      setUserName(userInfo[0].user_name);
-      setEmail(userInfo[0].email);
-      setBio(userInfo[0].bio);
-      setImage(userInfo[0].image);
+    if (success) {
+      setUploading(success);
     }
-  }, [dispatch, users, userInfo]);
+    setUserName(userInfo[0].user_name);
+    setEmail(userInfo[0].email);
+    setBio(userInfo[0].bio);
+    setImage(userInfo[0].image);
+  }, [dispatch, users, userInfo, loading, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -82,30 +76,11 @@ export default function EditProfile() {
     }
   };
 
-  const uploadFileHandler = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-
-    formData.append("image", file);
-    formData.append("user_id", userInfo[0].id);
-
-    setUploading(true);
-
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo[0].token}`,
-        },
-      };
-
-      const { data } = await api.post("/users/image/", formData, config);
-
-      setImage(data);
-      setUploading(false);
-    } catch (error) {
-      setUploading(false);
-    }
+  const uploadFileHandler = (e) => {
+    setUploading(false);
+    dispatch(
+      userUploadImage({ e, id: userInfo[0].id, token: userInfo[0].token })
+    );
   };
 
   return (

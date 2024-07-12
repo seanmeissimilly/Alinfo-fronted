@@ -170,6 +170,40 @@ export const userSolo = createAsyncThunk(
   }
 );
 
+// Todo: Lógica hacer subir la foto de un usuario.
+export const userUploadImage = createAsyncThunk(
+  "userUploadImage",
+  async ({ e, id, token }, { rejectWithValue }) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("image", file);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await userApi.post(
+        "/image/",
+        { user_id: id, formData },
+        config
+      );
+
+      return data;
+    } catch (error) {
+      rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
 const userInfoStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null; // Cambio esto a null para que no almacene nada si no hay datos en localStorage
@@ -276,6 +310,19 @@ export const userSlice = createSlice({
       }
     });
     builder.addCase(userDelete.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    });
+    builder.addCase(userUploadImage.pending, (state, action) => {
+      state.loading = true;
+      state.success = false;
+    });
+    builder.addCase(userUploadImage.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+    });
+    builder.addCase(userUploadImage.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.success = false;
