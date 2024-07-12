@@ -86,7 +86,7 @@ export const userUpdate = createAsyncThunk(
         { user_name, email, role, password, bio, image, id },
         config
       );
-
+      localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(

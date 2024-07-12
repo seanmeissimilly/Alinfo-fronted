@@ -29,15 +29,17 @@ export default function MiPerfil() {
 
   const { userInfo } = user;
 
-  // useEffect(() => {
-  //   dispatch(listBlogs());
-  // }, [dispatch, successDelete]);
+  useEffect(() => {}, []);
 
   // const deleteHandler = (id) => {
   //   if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
   //     dispatch(deleteBlogAction(id));
   //   }
   // };
+
+  // useEffect(() => {
+  //   dispatch(userRefresh());
+  // }, [dispatch, userInfo]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">

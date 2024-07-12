@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { userSolo, userUpdate } from "../redux/userSlice.js";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import PasswordChecklist from "react-password-checklist";
 
 //Declaro la url de la Api
 const URL =
@@ -25,9 +27,19 @@ export default function EditProfile() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [isValid, setIsValid] = useState(false); // Estado inicial: no válido
+  const [openpassword, setOpenPassword] = useState(false);
+  const [openconfirmpassword, setOpenConfirmPassword] = useState(false); //
 
   const navigate = useNavigate();
   const path = "/miPerfil";
+
+  const handleshowpassword = () => {
+    setOpenPassword(!openpassword);
+  };
+  const handleshowconfirmpassword = () => {
+    setOpenConfirmPassword(!openconfirmpassword);
+  };
 
   const dispatch = useDispatch();
 
@@ -53,9 +65,7 @@ export default function EditProfile() {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      setMessage("Las Contraseñas deben coincidir");
-    } else {
+    if (isValid) {
       dispatch(
         userUpdate({
           user_name: user_name,
@@ -188,26 +198,78 @@ export default function EditProfile() {
                     >
                       Actualiza tu contraseña
                     </label>
-                    <div className="mt-1 flex rounded-md shadow-sm">
-                      <input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        type="password"
-                        id="password"
-                        className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                        placeholder="Contraseña"
-                      />
+                    <div className=" mx-auto relative  items-center">
+                      <div className="mt-1 flex rounded-md shadow-sm">
+                        <input
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          type={openpassword ? "text" : "password"}
+                          id="password"
+                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Contraseña"
+                        />
+                      </div>
+                      <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl">
+                        {!openpassword ? (
+                          <AiFillEye onClick={handleshowpassword} />
+                        ) : (
+                          <AiFillEyeInvisible onClick={handleshowpassword} />
+                        )}
+                      </div>
                     </div>
 
-                    <div className="mt-1 flex rounded-md shadow-sm">
-                      <input
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        type="password"
-                        id="confirm Password"
-                        className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                        placeholder="Confirmar Contraseña"
-                      />
+                    <div className="">
+                      <div className=" mx-auto relative  items-center">
+                        <div className="mt-1 flex rounded-md shadow-sm">
+                          <input
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type={openconfirmpassword ? "text" : "password"}
+                            id="confirm Password"
+                            className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            placeholder="Confirmar Contraseña"
+                          />
+                        </div>
+                        <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl">
+                          {!openconfirmpassword ? (
+                            <AiFillEye onClick={handleshowconfirmpassword} />
+                          ) : (
+                            <AiFillEyeInvisible
+                              onClick={handleshowconfirmpassword}
+                            />
+                          )}
+                        </div>
+                      </div>
+                      <div className="my-8">
+                        <PasswordChecklist
+                          className=""
+                          rules={[
+                            "minLength",
+                            "specialChar",
+                            "number",
+                            "capital",
+                            "match",
+                            "lowercase",
+                            "notEmpty",
+                          ]}
+                          minLength={8}
+                          value={password}
+                          valueAgain={confirmPassword}
+                          messages={{
+                            minLength:
+                              "La contraseña tiene más de 8 caracteres.",
+                            specialChar:
+                              "La contraseña tiene caracteres especiales.",
+                            number: "La contraseña tiene un número.",
+                            capital: "La contraseña tiene una letra mayúscula.",
+                            match: "Las contraseñas coinciden.",
+                            lowercase:
+                              "La contraseña tiene una letra minúscula.",
+                            notEmpty: "La contraseña no está en blanco.",
+                          }}
+                          onChange={(e) => setIsValid(e)}
+                        />
+                      </div>
                     </div>
 
                     <form>
