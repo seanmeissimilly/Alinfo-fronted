@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { createBlogAction, listBlogs } from "../redux/blogActions";
+import { blogCreate, blogList } from "../redux/blogSlice";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { toast } from "react-hot-toast";
@@ -12,15 +12,19 @@ export default function AddBlog() {
   const navigate = useNavigate();
   const path = "/";
 
-  const blogCreate = useSelector((state) => state.blogCreate);
-  const { loading, error } = blogCreate;
+  const blog = useSelector((state) => state.blog);
+  const { loading, error } = blog;
+
+  const user = useSelector((state) => state.user);
+
+  const { userInfo } = user;
 
   const [body, setBody] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createBlogAction(body));
-    dispatch(listBlogs());
+    dispatch(blogCreate({ body, token: userInfo[0].token }));
+    dispatch(blogList({ token: userInfo[0].token }));
     navigate(path),
       toast.success("Publicación Añadida", {
         position: "bottom-right",

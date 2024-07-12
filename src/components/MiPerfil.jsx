@@ -45,7 +45,7 @@ export default function MiPerfil() {
             />
             <br></br>
             <h3 className="text-lg font-medium leading-6 text-gray-900">
-              {userInfo.user_name} &nbsp;&nbsp;&nbsp;&nbsp;
+              {userInfo[0].user_name} &nbsp;&nbsp;&nbsp;&nbsp;
               <a
                 style={{ textDecoration: "none" }}
                 href={"/editProfile"}

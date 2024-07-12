@@ -29,11 +29,11 @@ export default function Feed() {
         <div className="py-10 bg-gray-200">
           {blogs &&
             blogs.map((blog) => (
-              <div className="py-8">
+              <div key={blog.id} className="py-8">
                 <div className="max-w-md mx-auto  bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
-                      <div class="flex justify-between items-center m-8">
+                      <div className="flex justify-between items-center m-8">
                         <div className="flex flex-row items-center">
                           {users &&
                             users.map((user) => (
@@ -42,7 +42,7 @@ export default function Feed() {
                                   <div className="flex flex-row items-center ml-2">
                                     <img
                                       src={`http://127.0.0.1:8000${user.image}`}
-                                      class="rounded-full"
+                                      className="rounded-full"
                                       width="40"
                                     />
                                     <span className="font-bold mr-1 ml-2">
@@ -54,7 +54,7 @@ export default function Feed() {
                                       href={`/userProfile/${user.id}`}
                                       className="text-blue-600 text-sm hover:text-blue-800"
                                     >
-                                      Ver Perfil
+                                      See Profile
                                     </a>
                                   </div>
                                 )}
@@ -67,14 +67,14 @@ export default function Feed() {
                         <p>{blog.body}</p>
                       </div>
 
-                      <div class="p-4 flex justify-between items-center">
-                        <div class="flex flex-row items-center ">
+                      <div className="p-4 flex justify-between items-center">
+                        <div className="flex flex-row items-center ">
                           <a
                             style={{ textDecoration: "none" }}
                             href={`/soloBlog/${blog.id}`}
                             className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
-                            Ver más
+                            See More
                           </a>
                           <p className="mb-2 pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
                             {blog.date.substring(0, 10)}

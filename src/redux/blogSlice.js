@@ -167,7 +167,7 @@ export const blogCreate = createAsyncThunk(
 export const blogSlice = createSlice({
   name: "blog",
   initialState: {
-    bloginfo: {},
+    blogInfo: {},
     blogs: [],
     loading: false,
     error: false,
@@ -180,7 +180,7 @@ export const blogSlice = createSlice({
     });
     builder.addCase(blogDetails.fulfilled, (state, action) => {
       state.loading = false;
-      state.bloginfo = action.payload;
+      state.blogInfo = action.payload;
       state.success = true;
     });
     builder.addCase(blogDetails.rejected, (state, action) => {
@@ -205,7 +205,7 @@ export const blogSlice = createSlice({
     });
     builder.addCase(blogUpdate.fulfilled, (state, action) => {
       state.loading = false;
-      state.bloginfo = action.payload;
+      state.blogInfo = action.payload;
       state.success = true;
     });
     builder.addCase(blogUpdate.rejected, (state, action) => {
@@ -239,7 +239,7 @@ export const blogSlice = createSlice({
     });
     builder.addCase(blogCreate.fulfilled, (state, action) => {
       state.loading = false;
-      state.bloginfo = action.payload;
+      state.blogInfo = action.payload;
       state.success = true;
     });
     builder.addCase(blogCreate.rejected, (state, action) => {

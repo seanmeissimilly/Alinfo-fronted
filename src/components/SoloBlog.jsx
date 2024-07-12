@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { blogActionDetails, createBlogComment } from "../redux/blogActions";
-import { getListUsers } from "../redux/userActions";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { BLOG_CREATE_COMMENT_RESET } from "../redux/blogConstants";
+import { createComment, blogDetails } from "../redux/blogSlice";
+import { userList } from "../redux/userSlice.js";
 
 export default function SoloBlog() {
   const { id } = useParams();
@@ -20,27 +19,25 @@ export default function SoloBlog() {
 
   const [text, setText] = useState("");
 
-  const commentBlog = useSelector((state) => state.commentBlog);
-  const { success } = commentBlog;
+  const blog = useSelector((state) => state.blog);
+  const { success, loading, error, blogInfo } = blog;
 
-  const soloBlog = useSelector((state) => state.soloBlog);
-  const { loading, error, blog } = soloBlog;
-
-  const userList = useSelector((state) => state.userList);
-  const { users } = userList;
+  const user = useSelector((state) => state.user);
+  const { users, userInfo } = user;
 
   useEffect(() => {
     if (success) {
       setText("");
-      dispatch({ type: BLOG_CREATE_COMMENT_RESET });
     }
-    dispatch(getListUsers());
-    dispatch(blogActionDetails(id));
-  }, [dispatch, success]);
+    dispatch(userList({ token: userInfo[0].token }));
+    dispatch(blogDetails({ id: blogInfo.id, token: userInfo[0].token }));
+  }, [dispatch, success, userInfo, blogInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createBlogComment(id, { text }));
+    dispatch(
+      createComment({ id: blogInfo.id, text, token: userInfo[0].token })
+    );
   };
 
   return (
@@ -57,17 +54,17 @@ export default function SoloBlog() {
                 <div className="max-w-md mx-auto  bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
-                      <div class="flex justify-between items-center m-8">
+                      <div className="flex justify-between items-center m-8">
                         <div className="flex flex-row items-center">
                           {users &&
-                            users.map((user) => (
-                              <div key={user.id}>
-                                {user.user_name === blog.user && (
+                            users.map((u) => (
+                              <div key={u.id}>
+                                {u.user_name === blog.user && (
                                   <>
                                     <div className="flex flex-row items-center ml-2">
                                       <img
-                                        src={`${URL}${user.image}`}
-                                        class="rounded-full"
+                                        src={`${URL}${u.image}`}
+                                        className="rounded-full"
                                         width="40"
                                       />
                                       <span className="font-bold mr-1 ml-2">
@@ -76,7 +73,7 @@ export default function SoloBlog() {
                                       <small className="h-1 w-1 bg-gray-300 rounded-full mr-1 mt-1"></small>
                                       <a
                                         style={{ textDecoration: "none" }}
-                                        href={`/userProfile/${user.id}`}
+                                        href={`/userProfile/${u.id}`}
                                         className="text-blue-600 text-sm hover:text-blue-800"
                                       >
                                         Ver Perfil
@@ -93,8 +90,8 @@ export default function SoloBlog() {
                         <p>{blog.body}</p>
                       </div>
 
-                      <div class="p-4 flex justify-between items-center">
-                        <div class="flex flex-row items-center ">
+                      <div className="p-4 flex justify-between items-center">
+                        <div className="flex flex-row items-center ">
                           <p className="mb-2 pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
                             {blog.date?.substring(0, 10)}
                           </p>
