@@ -12,12 +12,10 @@ export default function MiPerfil() {
       ? import.meta.env.VITE_BACKEND_URL
       : "http://localhost:8000";
 
-  const { id } = useParams();
-
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
-  const { blogs, bloginfo, success } = blog;
+  const { blogs, success } = blog;
 
   const user = useSelector((state) => state.user);
 
@@ -102,39 +100,37 @@ export default function MiPerfil() {
         -- Publicaciones --
       </h2>
 
-      {blogs.map((bloginfo) => (
+      {blogs.map((blog) => (
         <>
-          {userInfo.user_name === bloginfo.user && (
+          {userInfo[0].user_name === blog.user && (
             <div className="py-20 bg-gray-200">
               <div className=" px-10">
                 <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
                       <div
-                        key={bloginfo.id}
-                        class="flex justify-between items-center m-8"
+                        key={blog.id}
+                        className="flex justify-between items-center m-8"
                       >
                         <div className="flex flex-row items-center">
                           <img
-                            src={`${URL}${userInfo.image}`}
-                            classname="rounded-full"
+                            src={`${URL}${userInfo[0].image}`}
+                            className="rounded-full"
                             width="40"
                           />
                           <div className="flex flex-row items-center ml-2">
-                            <span className="font-bold mr-1">
-                              {bloginfo.user}
-                            </span>
+                            <span className="font-bold mr-1">{blog.user}</span>
                           </div>
                         </div>
                       </div>
                       <div></div>
                       <div className="p-4 flex justify-between items-center">
-                        <p>{bloginfo.body}</p>
+                        <p>{blog.body}</p>
                       </div>
                       <div className="p-4 flex justify-between items-center">
                         <div className="flex flex-row items-center">
                           <a
-                            href={`/editBlog/${bloginfo.id}`}
+                            href={`/editBlog/${blog.id}`}
                             className="group mx-6 relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             {" "}
@@ -142,7 +138,7 @@ export default function MiPerfil() {
                           </a>
 
                           <button
-                            onClick={() => deleteHandler(bloginfo.id)}
+                            onClick={() => deleteHandler(blog.id)}
                             className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             {" "}

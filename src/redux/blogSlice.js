@@ -23,7 +23,7 @@ export const blogList = createAsyncThunk(
       };
 
       const { data } = await blogApi.get(`/get/`, config);
-
+      // localStorage.setItem("blogs", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -48,7 +48,7 @@ export const blogDetails = createAsyncThunk(
       };
 
       const { data } = await blogApi.get(`/get/${id}/`, config);
-
+      // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -77,7 +77,7 @@ export const blogUpdate = createAsyncThunk(
       };
 
       const { data } = await blogApi.put(`/put/${blog.id}/`, body, config);
-
+      // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -152,7 +152,7 @@ export const blogCreate = createAsyncThunk(
       };
 
       const { data } = await blogApi.post(`/post/`, { body }, config);
-
+      localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -164,15 +164,25 @@ export const blogCreate = createAsyncThunk(
   }
 );
 
+const blogsInfoStorage = localStorage.getItem("blogs")
+  ? JSON.parse(localStorage.getItem("blogs"))
+  : null; // Cambio esto a null para que no almacene nada si no hay datos en localStorage
+
+const blogInfoStorage = localStorage.getItem("blogInfo")
+  ? JSON.parse(localStorage.getItem("blogInfo"))
+  : {};
+
+const initialState = {
+  blogInfo: blogInfoStorage,
+  blogs: blogsInfoStorage ? [blogsInfoStorage] : [],
+  loading: false,
+  error: false,
+  success: false,
+};
+
 export const blogSlice = createSlice({
   name: "blog",
-  initialState: {
-    blogInfo: {},
-    blogs: [],
-    loading: false,
-    error: false,
-    success: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(blogDetails.pending, (state, action) => {
@@ -249,12 +259,4 @@ export const blogSlice = createSlice({
   },
 });
 
-// export const {
-//   blogUpdate,
-//   blogDelete,
-//   createComment,
-//   blogDetails,
-//   blogCreate,
-//   blogList,
-// } = blogSlice.actions;
 export default blogSlice.reducer;

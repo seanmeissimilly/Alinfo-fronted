@@ -110,7 +110,7 @@ export const userDelete = createAsyncThunk(
       };
 
       const { data } = await userApi.delete("/delete/", user_name, config);
-
+      localStorage.removeItem("userInfo");
       return data;
     } catch (error) {
       return rejectWithValue(
