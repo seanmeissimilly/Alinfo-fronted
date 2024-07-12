@@ -29,6 +29,7 @@ export default function EditProfile() {
   const [isValid, setIsValid] = useState(false); // Estado inicial: no válido
   const [openpassword, setOpenPassword] = useState(false);
   const [openconfirmpassword, setOpenConfirmPassword] = useState(false); //
+  const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
   const path = "/miPerfil";
@@ -43,17 +44,19 @@ export default function EditProfile() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const { error, loading, users, userInfo, success } = user;
+  const { error, loading, userInfo, success } = user;
 
   useEffect(() => {
-    if (success) {
-      setImage(loading);
-    }
+    // if (success) {
+    //   setImage(error);
+    // } else {
+    //   setImage(userInfo[0].image);
+    // }
     setUserName(userInfo[0].user_name);
     setEmail(userInfo[0].email);
     setBio(userInfo[0].bio);
     setImage(userInfo[0].image);
-  }, [dispatch, users, userInfo, loading, success]);
+  }, [userInfo, success, error]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -75,10 +78,37 @@ export default function EditProfile() {
     }
   };
 
-  const uploadFileHandler = (e) => {
-    dispatch(
-      userUploadImage({ e, id: userInfo[0].id, token: userInfo[0].token })
-    );
+  const uploadFileHandler = async (e) => {
+    // dispatch(
+    //   userUploadImage({ e, id: userInfo[0].id, token: userInfo[0].token })
+    // );
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("image", file);
+    formData.append("user_id", user.id);
+
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://127.0.0.1:8000/users/image/",
+        formData,
+        config
+      );
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      setUploading(false);
+    }
   };
 
   return (

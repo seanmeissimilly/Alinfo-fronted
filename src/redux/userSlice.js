@@ -318,7 +318,7 @@ export const userSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(userUploadImage.fulfilled, (state, action) => {
-      state.loading = action.payload;
+      state.loading = false;
       state.success = true;
     });
     builder.addCase(userUploadImage.rejected, (state, action) => {
