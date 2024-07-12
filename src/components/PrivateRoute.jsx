@@ -6,12 +6,10 @@ const PrivateRoute = () => {
 
   const { userInfo } = user;
 
+  const isEmpty = (obj) => JSON.stringify(obj) === "{}";
+
   //Reviso si userInfo no está vacio para saber si hay algún usuario logueado.
-  return userInfo !== undefined && userInfo.length !== 0 ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/landing" />
-  );
+  return !isEmpty(userInfo) ? <Outlet /> : <Navigate to="/landing" />;
 };
 
 export default PrivateRoute;

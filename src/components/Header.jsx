@@ -24,6 +24,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+//todo: Declaro la url de la Api en dependencia del entorno
+const URL =
+  process.env.NODE_ENV === "production"
+    ? import.meta.env.VITE_BACKEND_URL
+    : "http://localhost:8000";
+
 export default function Header() {
   const user = useSelector((state) => state.user);
 
@@ -33,11 +39,7 @@ export default function Header() {
 
   const logoutHandler = () => dispatch(userLogout());
 
-  //Declaro la url de la Api en dependencia del entorno
-  const URL =
-    process.env.NODE_ENV === "production"
-      ? import.meta.env.VITE_BACKEND_URL
-      : "http://localhost:8000";
+  const isEmpty = (obj) => JSON.stringify(obj) === "{}";
 
   return (
     <Popover className="relative bg-white">
@@ -55,7 +57,7 @@ export default function Header() {
             </PopoverButton>
           </div>
 
-          {userInfo !== undefined && userInfo.length !== 0 ? (
+          {!isEmpty(userInfo) ? ( //!Reviso si userInfo está vacio.
             <>
               <PopoverGroup as="nav" className="hidden space-x-10 md:flex">
                 <a
@@ -107,7 +109,7 @@ export default function Header() {
                       <span className="sr-only">Abrir Menú de Usuario</span>
                       <img
                         className="h-10 w-10 rounded-full"
-                        src={`${URL}${userInfo[0].image}`}
+                        src={`${URL}${userInfo.image}`}
                         alt=""
                       />
                     </MenuButton>
@@ -252,7 +254,7 @@ export default function Header() {
                           <span className="sr-only">Abrir Menú de Usuario</span>
                           <img
                             className="h-10 w-10 rounded-full"
-                            src={`${URL}${userInfo[0].image}`}
+                            src={`${URL}${userInfo.image}`}
                             alt=""
                           />
                         </MenuButton>

@@ -4,7 +4,7 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router";
 import Loader from "./Loader";
 import Messages from "./Messages";
-import u from "../media/user.png";
+import user_icon from "../media/user.png";
 import { toast } from "react-hot-toast";
 import { userRegister } from "../redux/userSlice.js";
 import PasswordChecklist from "react-password-checklist";
@@ -28,6 +28,8 @@ export default function Register() {
   const navigate = useNavigate();
   const path = "/";
 
+  const isEmpty = (obj) => JSON.stringify(obj) === "{}";
+
   const handleshowpassword = () => {
     setOpenPassword(!openpassword);
   };
@@ -36,8 +38,8 @@ export default function Register() {
   };
 
   useEffect(() => {
-    if (userInfo.length !== 0) {
-      //Redirigo la página y mando una notificación a la pantalla.
+    if (!isEmpty(userInfo)) {
+      //todo Redirigo la página y mando una notificación a la pantalla.
       navigate(path),
         toast.success("Registro Satisfactorio", {
           position: "bottom-right",
@@ -47,11 +49,11 @@ export default function Register() {
           },
         });
     }
-  }, [userInfo]);
+  }, [userInfo, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-
+    //todo: Reviso que se cumplan las condiciones para la contraseña
     if (isValid) {
       dispatch(userRegister({ user_name, email, password }));
     }
@@ -67,7 +69,11 @@ export default function Register() {
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
             <div>
-              <img className="mx-auto h-12 w-auto" src={u} alt="Your Company" />
+              <img
+                className="mx-auto h-12 w-auto"
+                src={user_icon}
+                alt="Your Company"
+              />
               <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
                 Registre su cuenta
               </h2>
@@ -150,7 +156,7 @@ export default function Register() {
                       <input
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        id="password"
+                        id="confirmpassword"
                         name="password"
                         type={openconfirmpassword ? "text" : "password"}
                         autoComplete="current-password"
