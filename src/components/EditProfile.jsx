@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { userSolo, userUpdate, userUploadImage } from "../redux/userSlice.js";
+import { userUpdate } from "../redux/userSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import PasswordChecklist from "react-password-checklist";
 
@@ -74,6 +74,7 @@ export default function EditProfile() {
           id: userInfo[0].id,
         })
       );
+
       navigate(path);
     }
   };

@@ -15,15 +15,15 @@ export default function MiPerfil() {
 
   const dispatch = useDispatch();
 
-  // const blogList = useSelector((state) => state.blogList);
-  // const { error: errorBlog, loading: blogLoading, blogs } = blogList;
+  const blogList = useSelector((state) => state.blogList);
+  const { error: errorBlog, loading: blogLoading, blogs } = blogList;
 
-  // const deleteBlog = useSelector((state) => state.deleteBlog);
-  // const {
-  //   error: errorDelete,
-  //   loading: loadingDelete,
-  //   success: successDelete,
-  // } = deleteBlog;
+  const deleteBlog = useSelector((state) => state.deleteBlog);
+  const {
+    error: errorDelete,
+    loading: loadingDelete,
+    success: successDelete,
+  } = deleteBlog;
 
   const user = useSelector((state) => state.user);
 
