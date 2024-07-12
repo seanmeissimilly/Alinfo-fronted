@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
+import { blogDelete, blogList } from "../redux/blogSlice";
 
 export default function MiPerfil() {
   //Declaro la url de la Api en dependencia del entorno
@@ -15,31 +16,22 @@ export default function MiPerfil() {
 
   const dispatch = useDispatch();
 
-  const blogList = useSelector((state) => state.blogList);
-  const { error: errorBlog, loading: blogLoading, blogs } = blogList;
-
-  const deleteBlog = useSelector((state) => state.deleteBlog);
-  const {
-    error: errorDelete,
-    loading: loadingDelete,
-    success: successDelete,
-  } = deleteBlog;
+  const blog = useSelector((state) => state.blog);
+  const { blogs, bloginfo, success } = blog;
 
   const user = useSelector((state) => state.user);
 
   const { userInfo } = user;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(blogList({ token: userInfo[0].token }));
+  }, [dispatch, success, userInfo]);
 
-  // const deleteHandler = (id) => {
-  //   if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
-  //     dispatch(deleteBlogAction(id));
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   dispatch(userRefresh());
-  // }, [dispatch, userInfo]);
+  const deleteHandler = (id) => {
+    if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
+      dispatch(blogDelete({ id, token: userInfo[0].token }));
+    }
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
@@ -110,37 +102,39 @@ export default function MiPerfil() {
         -- Publicaciones --
       </h2>
 
-      {/* {blogs.map((blog) => (
+      {blogs.map((bloginfo) => (
         <>
-          {userInfo.user_name === blog.user && (
+          {userInfo.user_name === bloginfo.user && (
             <div className="py-20 bg-gray-200">
               <div className=" px-10">
                 <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
                       <div
-                        key={blog.id}
+                        key={bloginfo.id}
                         class="flex justify-between items-center m-8"
                       >
                         <div className="flex flex-row items-center">
                           <img
                             src={`${URL}${userInfo.image}`}
-                            class="rounded-full"
+                            classname="rounded-full"
                             width="40"
                           />
                           <div className="flex flex-row items-center ml-2">
-                            <span className="font-bold mr-1">{blog.user}</span>
+                            <span className="font-bold mr-1">
+                              {bloginfo.user}
+                            </span>
                           </div>
                         </div>
                       </div>
                       <div></div>
                       <div className="p-4 flex justify-between items-center">
-                        <p>{blog.body}</p>
+                        <p>{bloginfo.body}</p>
                       </div>
-                      <div class="p-4 flex justify-between items-center">
-                        <div class="flex flex-row items-center">
+                      <div className="p-4 flex justify-between items-center">
+                        <div className="flex flex-row items-center">
                           <a
-                            href={`/editBlog/${blog.id}`}
+                            href={`/editBlog/${bloginfo.id}`}
                             className="group mx-6 relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             {" "}
@@ -148,7 +142,7 @@ export default function MiPerfil() {
                           </a>
 
                           <button
-                            onClick={() => deleteHandler(blog.id)}
+                            onClick={() => deleteHandler(bloginfo.id)}
                             className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             {" "}
@@ -163,7 +157,7 @@ export default function MiPerfil() {
             </div>
           )}
         </>
-      ))} */}
+      ))}
     </div>
   );
 }
