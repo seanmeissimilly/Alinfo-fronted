@@ -21,12 +21,12 @@ export default function MiPerfil() {
   const { userInfo } = user;
 
   useEffect(() => {
-    dispatch(blogList({ token: userInfo[0].token }));
+    dispatch(blogList(userInfo));
   }, [dispatch, success, userInfo]);
 
   const deleteHandler = (id) => {
     if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
-      dispatch(blogDelete({ id, token: userInfo[0].token }));
+      dispatch(blogDelete({ id, token: userInfo.token }));
     }
   };
 
@@ -37,12 +37,12 @@ export default function MiPerfil() {
           <center>
             <img
               className="h-40 w-55 rounded-full"
-              src={`${URL}${userInfo[0].image}`}
+              src={`${URL}${userInfo.image}`}
               alt=""
             />
             <br></br>
             <h3 className="text-lg font-medium leading-6 text-gray-900">
-              {userInfo[0].user_name} &nbsp;&nbsp;&nbsp;&nbsp;
+              {userInfo.user_name} &nbsp;&nbsp;&nbsp;&nbsp;
               <a
                 style={{ textDecoration: "none" }}
                 href={"/editProfile"}
@@ -64,7 +64,7 @@ export default function MiPerfil() {
                 Nombre de Usuario
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {userInfo[0].user_name}
+                {userInfo.user_name}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -72,7 +72,7 @@ export default function MiPerfil() {
                 Correo Electrónico
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {userInfo[0].email}
+                {userInfo.email}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -80,7 +80,7 @@ export default function MiPerfil() {
                 Rol de Usuario
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {userInfo[0].role}
+                {userInfo.role}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -88,7 +88,7 @@ export default function MiPerfil() {
                 Acerca de ti
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {userInfo[0].bio}
+                {userInfo.bio}
               </dd>
             </div>
           </dl>
@@ -101,7 +101,7 @@ export default function MiPerfil() {
 
       {blogs.map((blog_element) => (
         <>
-          {userInfo[0].user_name === blog_element.user && (
+          {userInfo.user_name === blog_element.user && (
             <div className="py-20 bg-gray-200">
               <div className=" px-10">
                 <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
@@ -113,7 +113,7 @@ export default function MiPerfil() {
                       >
                         <div className="flex flex-row items-center">
                           <img
-                            src={`${URL}${userInfo[0].image}`}
+                            src={`${URL}${userInfo.image}`}
                             className="rounded-full"
                             width="40"
                           />

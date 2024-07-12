@@ -47,15 +47,10 @@ export default function EditProfile() {
   const { error, loading, userInfo, success } = user;
 
   useEffect(() => {
-    // if (success) {
-    //   setImage(error);
-    // } else {
-    //   setImage(userInfo[0].image);
-    // }
-    setUserName(userInfo[0].user_name);
-    setEmail(userInfo[0].email);
-    setBio(userInfo[0].bio);
-    setImage(userInfo[0].image);
+    setUserName(userInfo.user_name);
+    setEmail(userInfo.email);
+    setBio(userInfo.bio);
+    setImage(userInfo.image);
   }, [userInfo, success, error]);
 
   const submitHandler = (e) => {
@@ -69,9 +64,9 @@ export default function EditProfile() {
           bio: bio,
           image: image,
           password: password,
-          role: userInfo[0].role,
-          token: userInfo[0].token,
-          id: userInfo[0].id,
+          role: userInfo.role,
+          token: userInfo.token,
+          id: userInfo.id,
         })
       );
 
@@ -87,7 +82,7 @@ export default function EditProfile() {
     const formData = new FormData();
 
     formData.append("image", file);
-    formData.append("user_id", userInfo[0].id);
+    formData.append("user_id", userInfo.id);
 
     setUploading(true);
 
@@ -95,7 +90,7 @@ export default function EditProfile() {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userInfo[0].token}`,
+          Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
@@ -225,7 +220,7 @@ export default function EditProfile() {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             type={openconfirmpassword ? "text" : "password"}
-                            id="confirm Password"
+                            id="confirmpassword"
                             className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                             placeholder="Confirmar Contraseña"
                           />

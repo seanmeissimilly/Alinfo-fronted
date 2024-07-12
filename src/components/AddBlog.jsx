@@ -23,8 +23,8 @@ export default function AddBlog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(blogCreate({ body, token: userInfo[0].token }));
-    dispatch(blogList({ token: userInfo[0].token }));
+    dispatch(blogCreate({ body, token: userInfo.token }));
+
     navigate(path),
       toast.success("Publicación Añadida", {
         position: "bottom-right",

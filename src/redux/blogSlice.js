@@ -63,7 +63,7 @@ export const blogDetails = createAsyncThunk(
 //todo: Lógica  para actualizar un blog.
 export const blogUpdate = createAsyncThunk(
   "blogUpdate",
-  async ({ blog, token }, { rejectWithValue }) => {
+  async ({ id, body, token }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -72,11 +72,7 @@ export const blogUpdate = createAsyncThunk(
         },
       };
 
-      const body = {
-        body: `${blog.body}`,
-      };
-
-      const { data } = await blogApi.put(`/put/${blog.id}/`, body, config);
+      const { data } = await blogApi.put(`/put/${id}/`, { body }, config);
       // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
@@ -249,7 +245,7 @@ export const blogSlice = createSlice({
     });
     builder.addCase(blogCreate.fulfilled, (state, action) => {
       state.loading = false;
-      state.blogInfo = action.payload;
+      //? state.blogInfo = action.payload;
       state.success = true;
     });
     builder.addCase(blogCreate.rejected, (state, action) => {

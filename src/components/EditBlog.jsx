@@ -5,7 +5,6 @@ import { blogUpdate, blogDetails } from "../redux/blogSlice";
 import { useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { toast } from "react-hot-toast";
 
 export default function EditBlog() {
   const { id } = useParams();
@@ -15,8 +14,6 @@ export default function EditBlog() {
 
   const dispatch = useDispatch();
 
-  const [body, setBody] = useState("");
-
   const blog = useSelector((state) => state.blog);
   const { error, loading, blogInfo, success } = blog;
 
@@ -24,9 +21,11 @@ export default function EditBlog() {
 
   const { userInfo } = user;
 
+  const [body, setBody] = useState("");
+
   useEffect(() => {
-    if (success && blogInfo.id !== Number(id)) {
-      dispatch(blogDetails({ id, token: userInfo[0].token }));
+    if (blogInfo.id !== Number(id)) {
+      dispatch(blogDetails({ id, token: userInfo.token }));
     } else {
       setBody(blogInfo.body);
     }
@@ -38,12 +37,10 @@ export default function EditBlog() {
       blogUpdate({
         id: id,
         body: body,
-        token: userInfo[0].token,
+        token: userInfo.token,
       })
     );
     navigate(path);
-    //Recargar la pagina
-    window.location.reload();
   };
 
   return (
