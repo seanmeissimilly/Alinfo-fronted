@@ -26,7 +26,6 @@ export default function EditProfile() {
   const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [uploading, setUploading] = useState(false);
   const [isValid, setIsValid] = useState(false); // Estado inicial: no válido
   const [openpassword, setOpenPassword] = useState(false);
   const [openconfirmpassword, setOpenConfirmPassword] = useState(false); //
@@ -48,7 +47,7 @@ export default function EditProfile() {
 
   useEffect(() => {
     if (success) {
-      setUploading(success);
+      setImage(loading);
     }
     setUserName(userInfo[0].user_name);
     setEmail(userInfo[0].email);
@@ -77,7 +76,6 @@ export default function EditProfile() {
   };
 
   const uploadFileHandler = (e) => {
-    setUploading(false);
     dispatch(
       userUploadImage({ e, id: userInfo[0].id, token: userInfo[0].token })
     );
