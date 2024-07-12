@@ -10,7 +10,7 @@ const userApi = axios.create({
   baseURL: `${URL}/users`,
 });
 
-// Lógica hacer el login de un usuario.
+//Todo: Lógica hacer el login de un usuario.
 export const userLogin = createAsyncThunk(
   "userLogin",
   async ({ email, password }, { rejectWithValue }) => {
@@ -38,7 +38,7 @@ export const userLogin = createAsyncThunk(
   }
 );
 
-// Lógica hacer el registro de un usuario.
+//Todo: Lógica hacer el registro de un usuario.
 export const userRegister = createAsyncThunk(
   "userRegister",
   async ({ user_name, email, password }, { rejectWithValue }) => {
@@ -65,7 +65,7 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
-// Lógica hacer el update de un usuario.
+//Todo: Lógica hacer el update de un usuario.
 export const userUpdate = createAsyncThunk(
   "userUpdate",
   async (
@@ -97,7 +97,7 @@ export const userUpdate = createAsyncThunk(
     }
   }
 );
-// Lógica para borrar un usuario.
+//Todo: Lógica para borrar un usuario.
 export const userDelete = createAsyncThunk(
   "userDelete",
   async ({ user_name, token }, { rejectWithValue }) => {
@@ -121,7 +121,7 @@ export const userDelete = createAsyncThunk(
     }
   }
 );
-// Lógica listar los usuarios.
+//Todo: Lógica listar los usuarios.
 export const userList = createAsyncThunk(
   "userList",
   async ({ token }, { rejectWithValue }) => {
@@ -145,7 +145,7 @@ export const userList = createAsyncThunk(
     }
   }
 );
-// Lógica listar un usuario.
+// Todo:Lógica listar un usuario.
 export const userSolo = createAsyncThunk(
   "userSolo",
   async ({ id, token }, { rejectWithValue }) => {
@@ -273,10 +273,11 @@ export const userSlice = createSlice({
     });
     builder.addCase(userList.pending, (state, action) => {
       state.loading = true;
+      state.users = [];
     });
     builder.addCase(userList.fulfilled, (state, action) => {
       state.loading = false;
-      state.users.push(action.payload);
+      state.users = action.payload;
       state.success = true;
     });
     builder.addCase(userList.rejected, (state, action) => {

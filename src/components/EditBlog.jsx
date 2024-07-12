@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { updateBlogAction, blogActionDetails } from "../redux/blogActions";
+import { blogUpdate, blogDetails } from "../redux/blogSlice";
 import { useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { BLOG_UPDATE_RESET } from "../redux/blogConstants";
 import { toast } from "react-hot-toast";
 
 export default function EditBlog() {
@@ -18,30 +17,28 @@ export default function EditBlog() {
 
   const [body, setBody] = useState("");
 
-  const soloBlog = useSelector((state) => state.soloBlog);
-  const { error: errorSolo, loading: loadingSolo, blog } = soloBlog;
+  const blog = useSelector((state) => state.blog);
+  const { error, loading, blogInfo, success } = blog;
 
-  const updateBlog = useSelector((state) => state.updateBlog);
-  const { error, loading, success } = updateBlog;
+  const user = useSelector((state) => state.user);
+
+  const { userInfo } = user;
 
   useEffect(() => {
-    if (success) {
-      dispatch({ type: BLOG_UPDATE_RESET });
+    if (success && blogInfo.id !== Number(id)) {
+      dispatch(blogDetails({ id, token: userInfo[0].token }));
     } else {
-      if (blog.id !== Number(id)) {
-        dispatch(blogActionDetails(id));
-      } else {
-        setBody(blog.body);
-      }
+      setBody(blogInfo.body);
     }
-  }, [dispatch, blog, id, success]);
+  }, [dispatch, blogInfo, id, success, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
-      updateBlogAction({
+      blogUpdate({
         id: id,
         body: body,
+        token: userInfo[0].token,
       })
     );
     navigate(path);
@@ -51,8 +48,8 @@ export default function EditBlog() {
 
   return (
     <>
-      {loadingSolo && <Loader />}
-      {errorSolo && <Messages>{errorSolo}</Messages>}
+      {loading && <Loader />}
+      {error && <Messages>{error}</Messages>}
       {loading ? (
         <Loader />
       ) : error ? (

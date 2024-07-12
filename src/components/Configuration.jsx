@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { getListUsers } from "../redux/userActions";
+import { userList } from "../redux/userSlice.js";
 import ReactPaginate from "react-paginate";
 
 export default function Configuration() {
@@ -18,11 +18,11 @@ export default function Configuration() {
   const pagesVisited = pageNumber * usersPerPage;
   const dispatch = useDispatch();
 
-  const userList = useSelector((state) => state.userList);
-  const { users, error, loading } = userList;
+  const user = useSelector((state) => state.user);
+  const { users, error, loading, userInfo } = user;
 
   useEffect(() => {
-    dispatch(getListUsers());
+    dispatch(userList({ token: userInfo[0].token }));
     toast.success("Configuración", {
       position: "bottom-right",
       style: {
@@ -30,7 +30,7 @@ export default function Configuration() {
         color: "#fff",
       },
     });
-  }, [dispatch]);
+  }, [dispatch, userInfo]);
 
   function changePage({ selected }) {
     setPageNumber(selected);

@@ -2,22 +2,22 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { getListUsers } from "../redux/userActions.js";
-import { listBlogs } from "../redux/blogActions.js";
+import { userList } from "../redux/userSlice.js";
+import { blogList } from "../redux/blogSlice";
 
 export default function Feed() {
   const dispatch = useDispatch();
 
-  const blogList = useSelector((state) => state.blogList);
-  const { error, loading, blogs } = blogList;
+  const blog = useSelector((state) => state.blog);
+  const { error, loading, blogs } = blog;
 
-  const userList = useSelector((state) => state.userList);
-  const { users } = userList;
+  const user = useSelector((state) => state.user);
+  const { users, userInfo } = user;
 
   useEffect(() => {
-    dispatch(listBlogs());
-    dispatch(getListUsers());
-  }, [dispatch]);
+    dispatch(blogList({ token: userInfo[0].token }));
+    dispatch(userList({ token: userInfo[0].token }));
+  }, [dispatch, userInfo]);
 
   return (
     <>
