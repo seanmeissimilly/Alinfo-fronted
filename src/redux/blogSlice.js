@@ -203,7 +203,7 @@ export const blogSlice = createSlice({
     });
     builder.addCase(blogList.fulfilled, (state, action) => {
       state.loading = false;
-      state.blogs.push(action.payload);
+      state.blogs = action.payload; // Reiniciar el array blogs con los elementos del payload
       state.success = true;
     });
     builder.addCase(blogList.rejected, (state, action) => {
