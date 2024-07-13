@@ -122,7 +122,7 @@ export const createComment = createAsyncThunk(
         },
       };
 
-      const { data } = await blogApi.post(`/comment/${id}/`, text, config);
+      const { data } = await blogApi.post(`/comment/${id}/`, { text }, config);
 
       return data;
     } catch (error) {
@@ -240,6 +240,22 @@ export const blogSlice = createSlice({
     builder.addCase(createComment.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
+
+      const { blog_id, id, user, text, date, blog } = action.payload;
+
+      if (blog) {
+        const blog_found = state.blogs.find((u) => u.id === blog);
+        if (blog_found) {
+          blog_found.comments.push({
+            blog_id,
+            id,
+            user_id: user,
+            text,
+            date,
+            blog,
+          });
+        }
+      }
     });
     builder.addCase(createComment.rejected, (state, action) => {
       state.loading = false;
