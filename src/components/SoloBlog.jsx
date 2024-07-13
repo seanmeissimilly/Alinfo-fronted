@@ -29,15 +29,13 @@ export default function SoloBlog() {
     if (success) {
       setText("");
     }
-    dispatch(userList({ token: userInfo[0].token }));
-    dispatch(blogDetails({ id: blogInfo.id, token: userInfo[0].token }));
-  }, [dispatch, success, userInfo, blogInfo]);
+    dispatch(userList({ token: userInfo.token }));
+    dispatch(blogDetails({ id: id, token: userInfo.token }));
+  }, [dispatch, success, userInfo, id]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      createComment({ id: blogInfo.id, text, token: userInfo[0].token })
-    );
+    dispatch(createComment({ id: id, text, token: userInfo.token }));
   };
 
   return (
@@ -50,7 +48,7 @@ export default function SoloBlog() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
           <div>
             <div className="py-10 bg-gray-200">
-              <div className="py-8" key={blog.id}>
+              <div className="py-8" key={blogInfo.id}>
                 <div className="max-w-md mx-auto  bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
@@ -59,7 +57,7 @@ export default function SoloBlog() {
                           {users &&
                             users.map((u) => (
                               <div key={u.id}>
-                                {u.user_name === blog.user && (
+                                {u.user_name === blogInfo.user && (
                                   <>
                                     <div className="flex flex-row items-center ml-2">
                                       <img
@@ -68,7 +66,7 @@ export default function SoloBlog() {
                                         width="40"
                                       />
                                       <span className="font-bold mr-1 ml-2">
-                                        {blog.user}
+                                        {blogInfo.user}
                                       </span>
                                       <small className="h-1 w-1 bg-gray-300 rounded-full mr-1 mt-1"></small>
                                       <a
@@ -87,13 +85,13 @@ export default function SoloBlog() {
                       </div>
 
                       <div className="p-4 flex justify-between items-center">
-                        <p>{blog.body}</p>
+                        <p>{blogInfo.body}</p>
                       </div>
 
                       <div className="p-4 flex justify-between items-center">
                         <div className="flex flex-row items-center ">
                           <p className="mb-2 pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
-                            {blog.date?.substring(0, 10)}
+                            {blogInfo.date?.substring(0, 10)}
                           </p>
                         </div>
                       </div>
@@ -131,8 +129,8 @@ export default function SoloBlog() {
               </div>
             </form>
 
-            {blog.comments &&
-              blog.comments.map((comment) => (
+            {blogInfo.comments &&
+              blogInfo.comments.map((comment) => (
                 <>
                   {users &&
                     users.map((u) => (
