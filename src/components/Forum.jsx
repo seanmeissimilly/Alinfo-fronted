@@ -6,6 +6,12 @@ import { userList } from "../redux/userSlice.js";
 import { blogList } from "../redux/blogSlice";
 
 export default function Feed() {
+  //todo:Declaro la url de la Api en dependencia del entorno
+  const URL =
+    process.env.NODE_ENV === "production"
+      ? import.meta.env.VITE_BACKEND_URL
+      : "http://localhost:8000";
+
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
@@ -15,8 +21,8 @@ export default function Feed() {
   const { users, userInfo } = user;
 
   useEffect(() => {
-    dispatch(blogList({ token: userInfo[0].token }));
-    dispatch(userList({ token: userInfo[0].token }));
+    dispatch(blogList({ token: userInfo.token }));
+    dispatch(userList({ token: userInfo.token }));
   }, [dispatch, userInfo]);
 
   return (
@@ -29,11 +35,11 @@ export default function Feed() {
         <div className="py-10 bg-gray-200">
           {blogs &&
             blogs.map((blog) => (
-              <div className="py-8">
+              <div key={blog.id} className="py-8">
                 <div className="max-w-md mx-auto  bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
-                      <div class="flex justify-between items-center m-8">
+                      <div className="flex justify-between items-center m-8">
                         <div className="flex flex-row items-center">
                           {users &&
                             users.map((user) => (
@@ -41,8 +47,8 @@ export default function Feed() {
                                 {user.user_name === blog.user && (
                                   <div className="flex flex-row items-center ml-2">
                                     <img
-                                      src={`http://127.0.0.1:8000${user.image}`}
-                                      class="rounded-full"
+                                      src={`${URL}${userInfo.image}`}
+                                      className="rounded-full"
                                       width="40"
                                     />
                                     <span className="font-bold mr-1 ml-2">
@@ -67,8 +73,8 @@ export default function Feed() {
                         <p>{blog.body}</p>
                       </div>
 
-                      <div class="p-4 flex justify-between items-center">
-                        <div class="flex flex-row items-center ">
+                      <div className="p-4 flex justify-between items-center">
+                        <div className="flex flex-row items-center ">
                           <a
                             style={{ textDecoration: "none" }}
                             href={`/soloBlog/${blog.id}`}

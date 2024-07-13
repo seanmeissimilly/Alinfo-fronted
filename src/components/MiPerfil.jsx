@@ -5,7 +5,7 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { blogDelete, blogList } from "../redux/blogSlice";
 
 export default function MiPerfil() {
-  //Declaro la url de la Api en dependencia del entorno
+  //todo:Declaro la url de la Api en dependencia del entorno
   const URL =
     process.env.NODE_ENV === "production"
       ? import.meta.env.VITE_BACKEND_URL
@@ -31,7 +31,7 @@ export default function MiPerfil() {
   };
 
   return (
-    <div key={userInfo.id} className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
           <center>
