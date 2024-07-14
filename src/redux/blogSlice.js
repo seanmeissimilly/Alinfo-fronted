@@ -148,7 +148,7 @@ export const blogCreate = createAsyncThunk(
       };
 
       const { data } = await blogApi.post(`/post/`, { body }, config);
-      //localStorage.setItem("blogInfo", JSON.stringify(data));
+      // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(

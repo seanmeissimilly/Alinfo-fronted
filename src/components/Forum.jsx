@@ -15,7 +15,7 @@ export default function Feed() {
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
-  const { error, loading, blogs } = blog;
+  const { error, loading, blogs, blogInfo } = blog;
 
   const user = useSelector((state) => state.user);
   const { users, userInfo } = user;
@@ -23,7 +23,7 @@ export default function Feed() {
   useEffect(() => {
     dispatch(blogList({ token: userInfo.token }));
     dispatch(userList({ token: userInfo.token }));
-  }, [dispatch, userInfo]);
+  }, [dispatch, userInfo, blogInfo]);
 
   return (
     <>
