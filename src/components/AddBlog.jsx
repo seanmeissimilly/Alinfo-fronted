@@ -10,7 +10,7 @@ export default function AddBlog() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const path = "/";
+  const path = "/forum";
 
   const blog = useSelector((state) => state.blog);
   const { loading, error } = blog;

@@ -148,7 +148,7 @@ export const blogCreate = createAsyncThunk(
       };
 
       const { data } = await blogApi.post(`/post/`, { body }, config);
-      localStorage.setItem("blogInfo", JSON.stringify(data));
+      //localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -179,7 +179,12 @@ const initialState = {
 export const blogSlice = createSlice({
   name: "blog",
   initialState,
-  reducers: {},
+  reducers: {
+    createCommentReset: (state, action) => {
+      //state.blogInfo = {};
+      state.success = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(blogDetails.pending, (state, action) => {
       state.loading = true;
@@ -241,21 +246,17 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.success = true;
 
-      const { blog_id, id, user, text, date, blog } = action.payload;
+      // const { id, user, text, date, blog } = action.payload;
 
-      if (blog) {
-        const blog_found = state.blogs.find((u) => u.id === blog);
-        if (blog_found) {
-          blog_found.comments.push({
-            blog_id,
-            id,
-            user_id: user,
-            text,
-            date,
-            blog,
-          });
-        }
-      }
+      // if (blog === state.blogInfo.id) {
+      //   state.blogInfo.comments.push({
+      //     id,
+      //     user_id: user,
+      //     text,
+      //     date,
+      //     blog,
+      //   });
+      // }
     });
     builder.addCase(createComment.rejected, (state, action) => {
       state.loading = false;
@@ -266,7 +267,7 @@ export const blogSlice = createSlice({
     });
     builder.addCase(blogCreate.fulfilled, (state, action) => {
       state.loading = false;
-      //? state.blogInfo = action.payload;
+      state.blogInfo = action.payload;
       state.success = true;
     });
     builder.addCase(blogCreate.rejected, (state, action) => {
@@ -276,4 +277,5 @@ export const blogSlice = createSlice({
   },
 });
 
+export const { createCommentReset } = blogSlice.actions;
 export default blogSlice.reducer;

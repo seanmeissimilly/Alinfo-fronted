@@ -18,6 +18,7 @@ export default function SoloBlog() {
   const dispatch = useDispatch();
 
   const [text, setText] = useState("");
+  const [cont, setCont] = useState(0);
 
   const blog = useSelector((state) => state.blog);
   const { success, loading, error, blogInfo } = blog;
@@ -26,16 +27,18 @@ export default function SoloBlog() {
   const { users, userInfo } = user;
 
   useEffect(() => {
-    if (success) {
-      setText("");
-    }
+    setText("");
     dispatch(userList({ token: userInfo.token }));
     dispatch(blogDetails({ id: id, token: userInfo.token }));
-  }, [dispatch, success, userInfo, id]);
+  }, [dispatch, userInfo, id, cont]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(createComment({ id: id, text, token: userInfo.token }));
+    if (success) {
+      //aumento el contador.
+      setCont(cont + 1);
+    }
   };
 
   return (
