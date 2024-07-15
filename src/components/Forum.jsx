@@ -6,13 +6,12 @@ import { userList } from "../redux/userSlice.js";
 import { blogList } from "../redux/blogSlice";
 import { AiFillPlusSquare } from "react-icons/ai";
 
-//todo:Declaro la url de la Api en dependencia del entorno
-const URL =
-  process.env.NODE_ENV === "production"
-    ? import.meta.env.VITE_BACKEND_URL
-    : "http://localhost:8000";
-
 export default function Forum() {
+  //todo:Declaro la url de la Api en dependencia del entorno
+  const URL =
+    process.env.NODE_ENV === "production"
+      ? import.meta.env.VITE_BACKEND_URL
+      : "http://localhost:8000";
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
@@ -86,7 +85,7 @@ export default function Forum() {
                         src={`${URL}${blog.image}`}
                         className="w-full object-cover rounded-md"
                       />
-                      <div className="p-4 flex justify-center items-center">
+                      <div className="p-4 flex justify-center items-center text-xl">
                         <p className="font-bold text-center">{blog.title}</p>
                       </div>
                       <div className="p-4 flex justify-between items-center">

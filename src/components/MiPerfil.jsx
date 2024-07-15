@@ -14,7 +14,7 @@ export default function MiPerfil() {
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
-  const { blogs, success } = blog;
+  const { blogs, success, blogInfo } = blog;
 
   const user = useSelector((state) => state.user);
 
@@ -22,7 +22,7 @@ export default function MiPerfil() {
 
   useEffect(() => {
     dispatch(blogList(userInfo));
-  }, [dispatch, success, userInfo]);
+  }, [dispatch, success, userInfo, blogInfo]);
 
   const deleteHandler = (id) => {
     if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
@@ -125,6 +125,15 @@ export default function MiPerfil() {
                         </div>
                       </div>
                       <div></div>
+                      <img
+                        src={`${URL}${blog_element.image}`}
+                        className="w-full object-cover rounded-md"
+                      />
+                      <div className="p-4 flex justify-center items-center text-xl">
+                        <p className="font-bold text-center">
+                          {blog_element.title}
+                        </p>
+                      </div>
                       <div className="p-4 flex justify-between items-center">
                         <p>{blog_element.body}</p>
                       </div>

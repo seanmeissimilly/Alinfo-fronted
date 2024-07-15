@@ -67,19 +67,23 @@ export const blogUpdate = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("body", body);
+
+      let data;
       if (image) {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("body", body);
         formData.append("image", image);
+        config.headers["Content-Type"] = "multipart/form-data";
+        data = await blogApi.put(`/put/${id}/`, formData, config);
+      } else {
+        config.headers["Content-Type"] = "application/json";
+        data = await blogApi.put(`/put/${id}/`, { title, body }, config);
       }
 
-      const { data } = await blogApi.put(`/put/${id}/`, formData, config);
-      // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -148,20 +152,24 @@ export const blogCreate = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };
 
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("body", body);
+      let data;
       if (image) {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("body", body);
         formData.append("image", image);
+        config.headers["Content-Type"] = "multipart/form-data";
+        data = await blogApi.post(`/post/`, formData, config);
+      } else {
+        config.headers["Content-Type"] = "application/json";
+        // localStorage.setItem("blogInfo", JSON.stringify(data));
+        data = await blogApi.post(`/post/`, { title, body }, config);
       }
 
-      const { data } = await blogApi.post(`/post/`, formData, config);
-      // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(

@@ -88,7 +88,15 @@ export default function SoloBlog() {
                             ))}
                         </div>
                       </div>
-
+                      <img
+                        src={`${URL}${blogInfo.image}`}
+                        className="w-full object-cover rounded-md"
+                      />
+                      <div className="p-4 flex justify-center items-center text-xl">
+                        <p className="font-bold text-center">
+                          {blogInfo.title}
+                        </p>
+                      </div>
                       <div className="p-4 flex justify-between items-center">
                         <p>{blogInfo.body}</p>
                       </div>

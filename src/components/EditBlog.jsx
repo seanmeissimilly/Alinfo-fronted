@@ -42,9 +42,9 @@ export default function EditBlog() {
     if (blogInfo.id !== Number(id)) {
       dispatch(blogDetails({ id, token: userInfo.token }));
     } else {
-      setBody(blogInfo.body);
-      setTitle(blogInfo.title);
       if (!image) {
+        setBody(blogInfo.body);
+        setTitle(blogInfo.title);
         setImage(blogInfo.image);
         setImageUrl(`${URL_API}${blogInfo.image}`);
       }
@@ -54,7 +54,7 @@ export default function EditBlog() {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    const payload = { id, title, body, token: userInfo.token };
+    const payload = { id: id, title: title, body: body, token: userInfo.token };
     if (image) {
       Object.assign(payload, { image });
     }
