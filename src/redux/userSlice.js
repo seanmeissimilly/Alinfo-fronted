@@ -157,7 +157,7 @@ export const userSolo = createAsyncThunk(
       };
 
       const { data } = await userApi.get(`/${id}/`, config);
-
+      localStorage.setItem("userSolo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -230,10 +230,14 @@ const userInfoStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null; // Cambio esto a null para que no almacene nada si no hay datos en localStorage
 
+const userOnlyStorage = localStorage.getItem("userSolo")
+  ? JSON.parse(localStorage.getItem("userSolo"))
+  : null; // Cambio esto a null para que no almacene nada si no hay datos en localStorage
+
 const initialState = {
   userInfo: userInfoStorage ? userInfoStorage : {}, // Solo almacena userInfo si userInfoStorage no es null,
   users: [],
-  userSolo,
+  userOnly: userOnlyStorage ? userOnlyStorage : {},
   loading: false,
   error: false,
   success: false,
@@ -246,7 +250,7 @@ export const userSlice = createSlice({
     userLogout: (state, action) => {
       // Lógica para desloguear un usuario.
       state.userInfo = {};
-      state.userSolo = {};
+      state.userOnly = {};
       state.loading = false;
       state.users = [];
       state.error = false;
@@ -324,7 +328,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(userSolo.fulfilled, (state, action) => {
       state.loading = false;
-      state.userSolo = action.payload;
+      state.userOnly = action.payload;
       state.success = true;
     });
     builder.addCase(userSolo.rejected, (state, action) => {

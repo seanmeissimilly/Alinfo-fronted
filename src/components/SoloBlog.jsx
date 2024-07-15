@@ -38,6 +38,7 @@ export default function SoloBlog() {
     if (success) {
       //aumento el contador.
       setCont(cont + 1);
+      dispatch(blogDetails({ id: id, token: userInfo.token }));
     }
   };
 
