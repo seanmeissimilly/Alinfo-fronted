@@ -98,7 +98,7 @@ export default function Header() {
                 <a
                   href="/suggestions"
                   className="text-base font-medium text-green-800 hover:text-gray-900"
-                  title="Quejas y Sugerencias"
+                  title="Quejas o Sugerencias"
                 >
                   <RiMessage2Fill size={30} />
                 </a>
@@ -139,22 +139,6 @@ export default function Header() {
                         )}
                       </MenuItem>
 
-                      {userInfo.role === "admin" && (
-                        <MenuItem>
-                          {({ isActive }) => (
-                            <a
-                              style={{ textDecoration: "none" }}
-                              href="/configuration"
-                              className={classNames(
-                                isActive ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              Configuración
-                            </a>
-                          )}
-                        </MenuItem>
-                      )}
                       {(userInfo.role === "editor" ||
                         userInfo.role === "admin") && (
                         <MenuItem>
@@ -268,7 +252,7 @@ export default function Header() {
                     <a
                       href="/suggestions"
                       className="text-base font-medium text-green-800 hover:text-gray-900"
-                      title="Quejas y Sugerencias"
+                      title="Quejas o Sugerencias"
                     >
                       <RiMessage2Fill size={30} />
                     </a>
@@ -312,22 +296,6 @@ export default function Header() {
                             )}
                           </MenuItem>
 
-                          {userInfo.role === "admin" && (
-                            <MenuItem>
-                              {({ isActive }) => (
-                                <a
-                                  style={{ textDecoration: "none" }}
-                                  href="/configuration"
-                                  className={classNames(
-                                    isActive ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  Configuración
-                                </a>
-                              )}
-                            </MenuItem>
-                          )}
                           {(userInfo.role === "editor" ||
                             userInfo.role === "admin") && (
                             <MenuItem>

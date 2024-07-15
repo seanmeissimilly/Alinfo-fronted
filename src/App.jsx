@@ -14,7 +14,6 @@ import AddBlog from "./components/AddBlog.jsx";
 import SoloBlog from "./components/SoloBlog.jsx";
 import EditBlog from "./components/EditBlog.jsx";
 import EditProfile from "./components/EditProfile.jsx";
-import Configuration from "./components/Configuration.jsx";
 import HomePage from "./components/HomePage.jsx";
 import Reports from "./components/Reports.jsx";
 import Documents from "./components/Documents.jsx";
@@ -45,11 +44,6 @@ function App() {
             <Route path="/reports" element={<Reports />} />
             <Route path="/addBlog" element={<AddBlog />} />
             <Route path="/editBlog/:id" element={<EditBlog />} />
-          </Route>
-          <Route
-            element={<ProtectedRoute allowedRoles={["admin"]} />} //todo:solo se puede acceder con rol de admin
-          >
-            <Route path="/configuration" element={<Configuration />} />
           </Route>
         </Route>
 
