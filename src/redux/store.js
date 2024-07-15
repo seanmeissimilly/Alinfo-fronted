@@ -4,6 +4,7 @@ import blogReducer from "./blogSlice";
 import appReducer from "./appSlice";
 import documentReducer from "./documentSlice";
 import suggestionReducer from "./suggestionSlice";
+import multimediaReducer from "./multimediaSlice";
 
 export const store = configureStore({
   reducer: {
@@ -21,5 +22,8 @@ export const store = configureStore({
 
     // Suggestion stuff
     suggestion: suggestionReducer,
+
+    // Multimedia stuff
+    multimedia: multimediaReducer,
   },
 });

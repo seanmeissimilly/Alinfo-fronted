@@ -6,13 +6,13 @@ const URL =
     ? import.meta.env.VITE_BACKEND_URL
     : "http://localhost:8000";
 
-const appApi = axios.create({
-  baseURL: `${URL}/applications`,
+const multimediaApi = axios.create({
+  baseURL: `${URL}/multimedia`,
 });
 
-//todo:  Lógica para listar los apps existentes.
-export const appList = createAsyncThunk(
-  "appList",
+//todo:  Lógica para listar los multimedias existentes.
+export const multimediaList = createAsyncThunk(
+  "multimediaList",
   async ({ token }, { rejectWithValue }) => {
     try {
       const config = {
@@ -22,7 +22,7 @@ export const appList = createAsyncThunk(
         },
       };
 
-      const { data } = await appApi.get(`/`, config);
+      const { data } = await multimediaApi.get(`/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -34,9 +34,9 @@ export const appList = createAsyncThunk(
   }
 );
 
-//todo: Lógica para listar un solo apps.
-export const appDetails = createAsyncThunk(
-  "appDetails",
+//todo: Lógica para listar un solo multimedias.
+export const multimediaDetails = createAsyncThunk(
+  "multimediaDetails",
   async ({ id, token }, { rejectWithValue }) => {
     try {
       const config = {
@@ -46,7 +46,7 @@ export const appDetails = createAsyncThunk(
         },
       };
 
-      const { data } = await appApi.get(`/${id}/`, config);
+      const { data } = await multimediaApi.get(`/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -58,11 +58,11 @@ export const appDetails = createAsyncThunk(
   }
 );
 
-//todo: Lógica  para actualizar un app.
-export const appUpdate = createAsyncThunk(
-  "appUpdate",
+//todo: Lógica  para actualizar un multimedia.
+export const multimediaUpdate = createAsyncThunk(
+  "multimediaUpdate",
   async (
-    { id, title, version, data, description, applicationclassification, token },
+    { id, title, data, description, multimediaclassification, token },
     { rejectWithValue }
   ) => {
     try {
@@ -75,19 +75,22 @@ export const appUpdate = createAsyncThunk(
       let request;
       if (data) {
         const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("applicationclassification", applicationclassification);
-        formData.append("version", version);
-        formData.append("data", data);
+        formData.multimediaend("title", title);
+        formData.multimediaend("description", description);
+        formData.multimediaend(
+          "multimediaclassification",
+          multimediaclassification
+        );
+
+        formData.multimediaend("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await appApi.put(`/${id}/`, formData, config);
+        request = await multimediaApi.put(`/${id}/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
-        request = await appApi.put(
+        request = await multimediaApi.put(
           `/${id}/`,
-          { title, version, description, applicationclassification },
+          { title, description, multimediaclassification },
           config
         );
       }
@@ -102,9 +105,9 @@ export const appUpdate = createAsyncThunk(
     }
   }
 );
-//todo: Lógica para eliminar un app.
-export const appDelete = createAsyncThunk(
-  "appDelete",
+//todo: Lógica para eliminar un multimedia.
+export const multimediaDelete = createAsyncThunk(
+  "multimediaDelete",
   async ({ id, token }, { rejectWithValue }) => {
     try {
       const config = {
@@ -114,7 +117,7 @@ export const appDelete = createAsyncThunk(
         },
       };
 
-      const { data } = await appApi.delete(`/${id}/`, config);
+      const { data } = await multimediaApi.delete(`/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -126,11 +129,11 @@ export const appDelete = createAsyncThunk(
   }
 );
 
-//todo: Lógica para añadir un app.
-export const appCreate = createAsyncThunk(
-  "appCreate",
+//todo: Lógica para añadir un multimedia.
+export const multimediaCreate = createAsyncThunk(
+  "multimediaCreate",
   async (
-    { title, version, data, description, applicationclassification, token },
+    { title, data, description, multimediaclassification, token },
     { rejectWithValue }
   ) => {
     try {
@@ -143,19 +146,22 @@ export const appCreate = createAsyncThunk(
       let request;
       if (data) {
         const formData = new FormData();
-        formData.append("title", title);
-        formData.append("description", description);
-        formData.append("applicationclassification", applicationclassification);
-        formData.append("version", version);
-        formData.append("data", data);
+        formData.multimediaend("title", title);
+        formData.multimediaend("description", description);
+        formData.multimediaend(
+          "multimediaclassification",
+          multimediaclassification
+        );
+
+        formData.multimediaend("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await appApi.post(`/`, formData, config);
+        request = await multimediaApi.post(`/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
-        request = await appApi.post(
+        request = await multimediaApi.post(
           `/`,
-          { title, version, description, applicationclassification },
+          { title, description, multimediaclassification },
           config
         );
       }
@@ -171,84 +177,86 @@ export const appCreate = createAsyncThunk(
   }
 );
 
-const appInfoStorage = localStorage.getItem("appInfo")
-  ? JSON.parse(localStorage.getItem("appInfo"))
+const multimediaInfoStorage = localStorage.getItem("multimediaInfo")
+  ? JSON.parse(localStorage.getItem("multimediaInfo"))
   : {};
 
 const initialState = {
-  appInfo: appInfoStorage,
-  apps: [],
+  multimediaInfo: multimediaInfoStorage,
+  multimedias: [],
   loading: false,
   error: false,
   success: false,
 };
 
-export const appSlice = createSlice({
-  name: "app",
+export const multimediaSlice = createSlice({
+  name: "multimedia",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(appDetails.pending, (state, action) => {
+    builder.addCase(multimediaDetails.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(appDetails.fulfilled, (state, action) => {
+    builder.addCase(multimediaDetails.fulfilled, (state, action) => {
       state.loading = false;
-      state.appInfo = action.payload;
+      state.multimediaInfo = action.payload;
       state.success = true;
     });
-    builder.addCase(appDetails.rejected, (state, action) => {
+    builder.addCase(multimediaDetails.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appList.pending, (state, action) => {
+    builder.addCase(multimediaList.pending, (state, action) => {
       state.loading = true;
-      state.apps = [];
+      state.multimedias = [];
     });
-    builder.addCase(appList.fulfilled, (state, action) => {
+    builder.addCase(multimediaList.fulfilled, (state, action) => {
       state.loading = false;
-      state.apps = action.payload;
+      state.multimedias = action.payload;
       state.success = true;
     });
-    builder.addCase(appList.rejected, (state, action) => {
+    builder.addCase(multimediaList.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appUpdate.pending, (state, action) => {
+    builder.addCase(multimediaUpdate.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(appUpdate.fulfilled, (state, action) => {
+    builder.addCase(multimediaUpdate.fulfilled, (state, action) => {
       state.loading = false;
-      state.appInfo = action.payload;
+      state.multimediaInfo = action.payload;
       state.success = true;
     });
-    builder.addCase(appUpdate.rejected, (state, action) => {
+    builder.addCase(multimediaUpdate.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appDelete.pending, (state, action) => {
+    builder.addCase(multimediaDelete.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(appDelete.fulfilled, (state, action) => {
+    builder.addCase(multimediaDelete.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
       const { id } = action.payload;
       if (id) {
-        state.apps = state.apps.filter((app) => app.id !== id);
+        state.multimedias = state.multimedias.filter(
+          (multimedia) => multimedia.id !== id
+        );
       }
     });
-    builder.addCase(appDelete.rejected, (state, action) => {
+    builder.addCase(multimediaDelete.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appCreate.pending, (state, action) => {
+    builder.addCase(multimediaCreate.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(appCreate.fulfilled, (state, action) => {
+    builder.addCase(multimediaCreate.fulfilled, (state, action) => {
       state.loading = false;
-      state.appInfo = action.payload;
+      state.multimediaInfo = action.payload;
       state.success = true;
     });
-    builder.addCase(appCreate.rejected, (state, action) => {
+    builder.addCase(multimediaCreate.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
@@ -257,5 +265,5 @@ export const appSlice = createSlice({
 
 // export const {
 
-// } = appSlice.actions;
-export default appSlice.reducer;
+// } = multimediaSlice.actions;
+export default multimediaSlice.reducer;
