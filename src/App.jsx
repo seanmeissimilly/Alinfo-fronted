@@ -21,6 +21,7 @@ import Documents from "./components/Documents.jsx";
 import Apps from "./components/Apps.jsx";
 import Multimedia from "./components/Multimedia.jsx";
 import Suggestions from "./components/Suggestions.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
   return (
@@ -41,7 +42,17 @@ function App() {
           <Route path="/apps" element={<Apps />} />
           <Route path="/multimedia" element={<Multimedia />} />
           <Route path="/suggestions" element={<Suggestions />} />
-          <Route path="/reports" element={<Reports />} />
+
+          <Route
+            element={<ProtectedRoute allowedRoles={["admin", "editor"]} />} //todo:solo se puede acceder con rol de editor o admin
+          >
+            <Route path="/reports" element={<Reports />} />
+          </Route>
+          <Route
+            element={<ProtectedRoute allowedRoles={["admin"]} />} //todo:solo se puede acceder con rol de admin
+          >
+            <Route path="/configuration" element={<Configuration />} />
+          </Route>
         </Route>
 
         <Route path="/landing" element={<Landing />} />
