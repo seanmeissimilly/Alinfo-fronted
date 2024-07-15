@@ -7,6 +7,12 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 
 export default function EditBlog() {
+  //todo:Declaro la url de la Api en dependencia del entorno
+  const URL_API =
+    process.env.NODE_ENV === "production"
+      ? import.meta.env.VITE_BACKEND_URL
+      : "http://localhost:8000";
+
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -22,24 +28,37 @@ export default function EditBlog() {
   const { userInfo } = user;
 
   const [body, setBody] = useState("");
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setImageUrl(URL.createObjectURL(file));
+  };
 
   useEffect(() => {
     if (blogInfo.id !== Number(id)) {
       dispatch(blogDetails({ id, token: userInfo.token }));
     } else {
       setBody(blogInfo.body);
+      setTitle(blogInfo.title);
+      if (!image) {
+        setImage(blogInfo.image);
+        setImageUrl(`${URL_API}${blogInfo.image}`);
+      }
     }
-  }, [dispatch, blogInfo, id, success, userInfo]);
+  }, [dispatch, blogInfo, id, success, userInfo, URL_API, image]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      blogUpdate({
-        id: id,
-        body: body,
-        token: userInfo.token,
-      })
-    );
+
+    const payload = { id, title, body, token: userInfo.token };
+    if (image) {
+      Object.assign(payload, { image });
+    }
+    dispatch(blogUpdate(payload));
     navigate(path);
   };
 
@@ -72,6 +91,27 @@ export default function EditBlog() {
                         htmlFor="about"
                         className="block text-sm font-medium text-gray-700"
                       >
+                        Título
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                          name="title"
+                          required
+                          type="text"
+                          id="title"
+                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Título de la publicación"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="about"
+                        className="block text-sm font-medium text-gray-700"
+                      >
                         Temática
                       </label>
                       <div className="mt-1">
@@ -85,6 +125,34 @@ export default function EditBlog() {
                           placeholder="Escribe aquí la publicación"
                         />
                       </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="image"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Imagen
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          onChange={handleImageChange}
+                          name="image"
+                          type="file"
+                          id="image"
+                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                      {imageUrl && (
+                        <div className="mt-4">
+                          <img
+                            src={imageUrl}
+                            //src={`${URL}${blogInfo.image}`}
+                            alt="Selected"
+                            className="h-48 w-full object-cover"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">

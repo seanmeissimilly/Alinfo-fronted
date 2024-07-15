@@ -63,7 +63,7 @@ export const blogDetails = createAsyncThunk(
 //todo: Lógica  para actualizar un blog.
 export const blogUpdate = createAsyncThunk(
   "blogUpdate",
-  async ({ id, body, token }, { rejectWithValue }) => {
+  async ({ id, title, body, image, token }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -71,8 +71,14 @@ export const blogUpdate = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("body", body);
+      if (image) {
+        formData.append("image", image);
+      }
 
-      const { data } = await blogApi.put(`/put/${id}/`, { body }, config);
+      const { data } = await blogApi.put(`/put/${id}/`, formData, config);
       // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {
@@ -138,7 +144,7 @@ export const createComment = createAsyncThunk(
 //todo: Lógica para añadir un blog.
 export const blogCreate = createAsyncThunk(
   "blogCreate",
-  async ({ body, token }, { rejectWithValue }) => {
+  async ({ title, body, image, token }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -147,7 +153,14 @@ export const blogCreate = createAsyncThunk(
         },
       };
 
-      const { data } = await blogApi.post(`/post/`, { body }, config);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("body", body);
+      if (image) {
+        formData.append("image", image);
+      }
+
+      const { data } = await blogApi.post(`/post/`, formData, config);
       // localStorage.setItem("blogInfo", JSON.stringify(data));
       return data;
     } catch (error) {

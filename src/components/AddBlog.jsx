@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { blogCreate, blogList } from "../redux/blogSlice";
+import { blogCreate } from "../redux/blogSlice";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { toast } from "react-hot-toast";
@@ -20,10 +20,23 @@ export default function AddBlog() {
   const { userInfo } = user;
 
   const [body, setBody] = useState("");
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setImageUrl(URL.createObjectURL(file));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(blogCreate({ body, token: userInfo.token }));
+    const payload = { title, body, token: userInfo.token };
+    if (image) {
+      payload.image = image;
+    }
+    dispatch(blogCreate(payload));
 
     navigate(path),
       toast.success("Publicación Añadida", {
@@ -61,6 +74,27 @@ export default function AddBlog() {
                         htmlFor="about"
                         className="block text-sm font-medium text-gray-700"
                       >
+                        Título
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                          name="title"
+                          required
+                          type="text"
+                          id="title"
+                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Título de la publicación"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="about"
+                        className="block text-sm font-medium text-gray-700"
+                      >
                         Temática
                       </label>
                       <div className="mt-1">
@@ -74,6 +108,33 @@ export default function AddBlog() {
                           placeholder="Escribe aquí la publicación"
                         />
                       </div>
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="image"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Imagen
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          onChange={handleImageChange}
+                          name="image"
+                          type="file"
+                          id="image"
+                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        />
+                      </div>
+                      {imageUrl && (
+                        <div className="mt-4">
+                          <img
+                            src={imageUrl}
+                            alt="Selected"
+                            className="h-48 w-full object-cover"
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
 
