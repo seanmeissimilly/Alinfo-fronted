@@ -285,6 +285,7 @@ export default function EditProfile() {
                       <input
                         label="Choose file"
                         type="file"
+                        accept="image/*"
                         onChange={uploadFileHandler}
                       ></input>
                     </form>
