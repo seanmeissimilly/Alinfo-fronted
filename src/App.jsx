@@ -34,13 +34,21 @@ function App() {
           <Route path="/miPerfil" element={<MiPerfil />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/userProfile/:id" element={<UserProfile />} />
-          <Route path="/addBlog" element={<AddBlog />} />
-          <Route path="/soloBlog/:id" element={<SoloBlog />} />
-          <Route path="/editBlog/:id" element={<EditBlog />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/apps" element={<Apps />} />
           <Route path="/multimedia" element={<Multimedia />} />
           <Route path="/suggestions" element={<Suggestions />} />
+          <Route
+            element={<ProtectedRoute allowedRoles={["admin", "editor"]} />} //todo:solo se puede acceder con rol de editor o admin
+          >
+            <Route path="/addBlog" element={<AddBlog />} />
+          </Route>
+          <Route path="/soloBlog/:id" element={<SoloBlog />} />
+          <Route
+            element={<ProtectedRoute allowedRoles={["admin", "editor"]} />} //todo:solo se puede acceder con rol de editor o admin
+          >
+            <Route path="/editBlog/:id" element={<EditBlog />} />
+          </Route>
 
           <Route
             element={<ProtectedRoute allowedRoles={["admin", "editor"]} />} //todo:solo se puede acceder con rol de editor o admin
