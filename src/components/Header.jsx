@@ -46,7 +46,7 @@ export default function Header() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="/landing">
+            <a href="/landing" title="Página Inicial">
               <img className="h-12 w-auto sm:h-12" src={logo_cujae} alt="" />
             </a>
           </div>
@@ -62,46 +62,46 @@ export default function Header() {
               <PopoverGroup as="nav" className="hidden space-x-10 md:flex">
                 <a
                   href="/"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  className="text-base font-medium text-green-800 hover:text-gray-900"
+                  title="Inicio"
                 >
                   <AiFillHome size={30} />
                 </a>
                 <a
                   href="/forum"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  className="text-base font-medium text-green-800 hover:text-gray-900"
+                  title="Foro"
                 >
                   <MdForum size={30} />
                 </a>
                 <a
                   href="/documents"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  className="text-base font-medium text-green-800 hover:text-gray-900"
+                  title="Documentos"
                 >
                   <IoDocumentSharp size={30} />
                 </a>
                 <a
                   href="/multimedia"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  className="text-base font-medium text-green-800 hover:text-gray-900"
+                  title="Videos"
                 >
                   <MdVideoLibrary size={30} />
                 </a>
                 <a
                   href="/apps"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  className="text-base font-medium text-green-800 hover:text-gray-900"
+                  title="Aplicaciones"
                 >
                   <AiFillProduct size={30} />
                 </a>
                 <a
                   href="/suggestions"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                  className="text-base font-medium text-green-800 hover:text-gray-900"
+                  title="Quejas y Sugerencias"
                 >
                   <RiMessage2Fill size={30} />
                 </a>
-                {/* <a
-                  href="/addBlog"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
-                >
-                  <AiFillPlusSquare size={30} />
-                </a> */}
 
                 <Menu as="div" className="relative ml-3">
                   <div>
@@ -125,12 +125,12 @@ export default function Header() {
                   >
                     <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <MenuItem>
-                        {({ active }) => (
+                        {({ isActive }) => (
                           <a
                             style={{ textDecoration: "none" }}
                             href="/miPerfil"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
+                              isActive ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
@@ -139,28 +139,47 @@ export default function Header() {
                         )}
                       </MenuItem>
 
-                      <MenuItem>
-                        {({ active }) => (
-                          <a
-                            style={{ textDecoration: "none" }}
-                            href="/configuration"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Configuración
-                          </a>
-                        )}
-                      </MenuItem>
+                      {userInfo.role === "admin" && (
+                        <MenuItem>
+                          {({ isActive }) => (
+                            <a
+                              style={{ textDecoration: "none" }}
+                              href="/configuration"
+                              className={classNames(
+                                isActive ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Configuración
+                            </a>
+                          )}
+                        </MenuItem>
+                      )}
+                      {(userInfo.role === "editor" ||
+                        userInfo.role === "admin") && (
+                        <MenuItem>
+                          {({ isActive }) => (
+                            <a
+                              style={{ textDecoration: "none" }}
+                              href="/reports"
+                              className={classNames(
+                                isActive ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Reportes
+                            </a>
+                          )}
+                        </MenuItem>
+                      )}
 
                       <MenuItem>
-                        {({ active }) => (
+                        {({ isActive }) => (
                           <a
                             onClick={logoutHandler}
                             style={{ textDecoration: "none" }}
                             className={classNames(
-                              active ? "bg-gray-100" : "",
+                              isActive ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                           >
@@ -208,49 +227,58 @@ export default function Header() {
         >
           <div className="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
             <div className="space-y-6 py-6 px-5">
-              {userInfo !== undefined && userInfo.length !== 0 ? (
+              {!isEmpty(userInfo) ? (
                 <>
                   <div className="grid grid-cols-3 gap-y-4 gap-x-8">
                     <a
                       href="/"
-                      className="text-base font-medium text-gray-500 hover:text-gray-900"
+                      className="text-base font-medium text-green-800 hover:text-gray-900"
+                      title="Inicio"
                     >
                       <AiFillHome size={30} />
                     </a>
                     <a
                       href="/forum"
-                      className="text-base font-medium text-gray-500 hover:text-gray-900"
+                      className="text-base font-medium text-green-800 hover:text-gray-900"
+                      title="Foro"
                     >
                       <MdForum size={30} />
                     </a>
                     <a
                       href="/documents"
-                      className="text-base font-medium text-gray-500 hover:text-gray-900"
+                      className="text-base font-medium text-green-800 hover:text-gray-900"
+                      title="Documentos"
                     >
                       <IoDocumentSharp size={30} />
                     </a>
                     <a
                       href="/multimedia"
-                      className="text-base font-medium text-gray-500 hover:text-gray-900"
+                      className="text-base font-medium text-green-800 hover:text-gray-900"
+                      title="Videos"
                     >
                       <MdVideoLibrary size={30} />
                     </a>
                     <a
                       href="/apps"
-                      className="text-base font-medium text-gray-500 hover:text-gray-900"
+                      className="text-base font-medium text-green-800 hover:text-gray-900"
+                      title="Aplicaciones"
                     >
                       <AiFillProduct size={30} />
                     </a>
                     <a
                       href="/suggestions"
-                      className="text-base font-medium text-gray-500 hover:text-gray-900"
+                      className="text-base font-medium text-green-800 hover:text-gray-900"
+                      title="Quejas y Sugerencias"
                     >
                       <RiMessage2Fill size={30} />
                     </a>
 
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <MenuButton
+                          className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                          title="Perfil de Usuario"
+                        >
                           <span className="sr-only">Abrir Menú de Usuario</span>
                           <img
                             className="h-10 w-10 rounded-full"
@@ -270,12 +298,12 @@ export default function Header() {
                       >
                         <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <MenuItem>
-                            {({ active }) => (
+                            {({ isActive }) => (
                               <a
                                 style={{ textDecoration: "none" }}
                                 href="/miPerfil"
                                 className={classNames(
-                                  active ? "bg-gray-100" : "",
+                                  isActive ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
@@ -284,28 +312,46 @@ export default function Header() {
                             )}
                           </MenuItem>
 
+                          {userInfo.role === "admin" && (
+                            <MenuItem>
+                              {({ isActive }) => (
+                                <a
+                                  style={{ textDecoration: "none" }}
+                                  href="/configuration"
+                                  className={classNames(
+                                    isActive ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}
+                                >
+                                  Configuración
+                                </a>
+                              )}
+                            </MenuItem>
+                          )}
+                          {(userInfo.role === "editor" ||
+                            userInfo.role === "admin") && (
+                            <MenuItem>
+                              {({ isActive }) => (
+                                <a
+                                  style={{ textDecoration: "none" }}
+                                  href="/reports"
+                                  className={classNames(
+                                    isActive ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}
+                                >
+                                  Reportes
+                                </a>
+                              )}
+                            </MenuItem>
+                          )}
                           <MenuItem>
-                            {({ active }) => (
-                              <a
-                                style={{ textDecoration: "none" }}
-                                href="/configuration"
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                Configuración
-                              </a>
-                            )}
-                          </MenuItem>
-
-                          <MenuItem>
-                            {({ active }) => (
+                            {({ isActive }) => (
                               <a
                                 onClick={logoutHandler}
                                 style={{ textDecoration: "none" }}
                                 className={classNames(
-                                  active ? "bg-gray-100" : "",
+                                  isActive ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >

@@ -16,6 +16,11 @@ import EditBlog from "./components/EditBlog.jsx";
 import EditProfile from "./components/EditProfile.jsx";
 import Configuration from "./components/Configuration.jsx";
 import HomePage from "./components/HomePage.jsx";
+import Reports from "./components/Reports.jsx";
+import Documents from "./components/Documents.jsx";
+import Apps from "./components/Apps.jsx";
+import Multimedia from "./components/Multimedia.jsx";
+import Suggestions from "./components/Suggestions.jsx";
 
 function App() {
   return (
@@ -32,10 +37,11 @@ function App() {
           <Route path="/addBlog" element={<AddBlog />} />
           <Route path="/soloBlog/:id" element={<SoloBlog />} />
           <Route path="/editBlog/:id" element={<EditBlog />} />
-          <Route path="/documents" element={<Configuration />} />
-          <Route path="/apps" element={<Configuration />} />
-          <Route path="/multimedia" element={<Configuration />} />
-          <Route path="/suggestions" element={<Configuration />} />
+          <Route path="/documents" element={<Documents />} />
+          <Route path="/apps" element={<Apps />} />
+          <Route path="/multimedia" element={<Multimedia />} />
+          <Route path="/suggestions" element={<Suggestions />} />
+          <Route path="/reports" element={<Reports />} />
         </Route>
 
         <Route path="/landing" element={<Landing />} />

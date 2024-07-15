@@ -4,14 +4,15 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { userList } from "../redux/userSlice.js";
 import { blogList } from "../redux/blogSlice";
+import { AiFillPlusSquare } from "react-icons/ai";
 
-export default function Feed() {
-  //todo:Declaro la url de la Api en dependencia del entorno
-  const URL =
-    process.env.NODE_ENV === "production"
-      ? import.meta.env.VITE_BACKEND_URL
-      : "http://localhost:8000";
+//todo:Declaro la url de la Api en dependencia del entorno
+const URL =
+  process.env.NODE_ENV === "production"
+    ? import.meta.env.VITE_BACKEND_URL
+    : "http://localhost:8000";
 
+export default function Forum() {
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
@@ -33,6 +34,19 @@ export default function Feed() {
         <Messages>{error}</Messages>
       ) : (
         <div className="py-10 bg-gray-200">
+          {["admin", "editor"].includes(userInfo.role) && (
+            <a
+              href="/addBlog"
+              className="text-base font-medium text-gray-500 hover:text-gray-900"
+              title="Añadir Publicación"
+            >
+              <AiFillPlusSquare
+                className="ml-6 text-green-900 hover:text-gray-900 "
+                size={30}
+              />
+            </a>
+          )}
+
           {blogs &&
             blogs.map((blog) => (
               <div key={blog.id} className="py-8">
@@ -47,7 +61,7 @@ export default function Feed() {
                                 {user.user_name === blog.user && (
                                   <div className="flex flex-row items-center ml-2">
                                     <img
-                                      src={`${URL}${userInfo.image}`}
+                                      src={`${URL}${user.image}`}
                                       className="rounded-full"
                                       width="40"
                                     />
