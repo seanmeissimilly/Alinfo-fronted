@@ -3,43 +3,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { createComment, blogDetails } from "../redux/blogSlice";
+import {
+  createComment,
+  blogDetails,
+  createCommentReset,
+} from "../redux/blogSlice";
 import { userList } from "../redux/userSlice.js";
+
+//Declaro la url de la Api en dependencia del entorno
+const URL =
+  process.env.NODE_ENV === "production"
+    ? import.meta.env.VITE_BACKEND_URL
+    : "http://localhost:8000";
 
 export default function SoloBlog() {
   const { id } = useParams();
 
-  //Declaro la url de la Api en dependencia del entorno
-  const URL =
-    process.env.NODE_ENV === "production"
-      ? import.meta.env.VITE_BACKEND_URL
-      : "http://localhost:8000";
-
   const dispatch = useDispatch();
 
   const [text, setText] = useState("");
-  const [cont, setCont] = useState(0);
 
   const blog = useSelector((state) => state.blog);
-  const { success, loading, error, blogInfo } = blog;
+  const { success_comment, loading, error, blogInfo } = blog;
 
   const user = useSelector((state) => state.user);
   const { users, userInfo } = user;
 
   useEffect(() => {
-    setText("");
+    if (success_comment) {
+      setText("");
+      dispatch(createCommentReset());
+    }
     dispatch(userList({ token: userInfo.token }));
     dispatch(blogDetails({ id: id, token: userInfo.token }));
-  }, [dispatch, userInfo, id, cont]);
+  }, [dispatch, userInfo, id, success_comment]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(createComment({ id: id, text, token: userInfo.token }));
-    if (success) {
-      //aumento el contador.
-      setCont(cont + 1);
-      dispatch(blogDetails({ id: id, token: userInfo.token }));
-    }
   };
 
   return (

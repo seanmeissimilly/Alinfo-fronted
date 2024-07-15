@@ -174,6 +174,7 @@ const initialState = {
   loading: false,
   error: false,
   success: false,
+  success_comment: false,
 };
 
 export const blogSlice = createSlice({
@@ -181,8 +182,8 @@ export const blogSlice = createSlice({
   initialState,
   reducers: {
     createCommentReset: (state, action) => {
-      //state.blogInfo = {};
-      state.success = false;
+      state.blogInfo = {};
+      state.success_comment = false;
     },
   },
   extraReducers: (builder) => {
@@ -245,18 +246,7 @@ export const blogSlice = createSlice({
     builder.addCase(createComment.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-
-      // const { id, user, text, date, blog } = action.payload;
-
-      // if (blog === state.blogInfo.id) {
-      //   state.blogInfo.comments.push({
-      //     id,
-      //     user_id: user,
-      //     text,
-      //     date,
-      //     blog,
-      //   });
-      // }
+      state.success_comment = true;
     });
     builder.addCase(createComment.rejected, (state, action) => {
       state.loading = false;
