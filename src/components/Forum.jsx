@@ -82,7 +82,13 @@ export default function Forum() {
                             ))}
                         </div>
                       </div>
-
+                      <img
+                        src={`${URL}${blog.image}`}
+                        className="w-full object-cover rounded-md"
+                      />
+                      <div className="p-4 flex justify-center items-center">
+                        <p className="font-bold text-center">{blog.title}</p>
+                      </div>
                       <div className="p-4 flex justify-between items-center">
                         <p>{blog.body}</p>
                       </div>
