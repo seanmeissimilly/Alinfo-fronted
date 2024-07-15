@@ -67,7 +67,7 @@ export const blogUpdate = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };
@@ -148,7 +148,7 @@ export const blogCreate = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       };
