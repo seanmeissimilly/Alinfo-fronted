@@ -33,7 +33,6 @@ function App() {
           <Route path="/forum" exact element={<Forum />} />
           <Route path="/miPerfil" element={<MiPerfil />} />
           <Route path="/editProfile" element={<EditProfile />} />
-          <Route path="/configuration" element={<Configuration />} />
           <Route path="/userProfile/:id" element={<UserProfile />} />
           <Route path="/addBlog" element={<AddBlog />} />
           <Route path="/soloBlog/:id" element={<SoloBlog />} />

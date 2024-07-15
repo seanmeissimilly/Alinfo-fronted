@@ -9,8 +9,12 @@ const ProtectedRoute = ({ allowedRoles }) => {
 
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
 
-  if (isEmpty(userInfo) || !allowedRoles.includes(userInfo.role)) {
+  if (isEmpty(userInfo)) {
     return <Navigate to="/login" />;
+  }
+
+  if (!allowedRoles.includes(userInfo.role)) {
+    return <Navigate to="/" />;
   }
 
   return <Outlet />;
