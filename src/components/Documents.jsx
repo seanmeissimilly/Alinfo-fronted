@@ -26,7 +26,7 @@ function Documents() {
   useEffect(() => {
     dispatch(documentList({ token: userInfo.token }));
     dispatch(userList({ token: userInfo.token }));
-  }, [dispatch, userInfo, userSuccess, documentSuccess]);
+  }, [dispatch, userInfo]);
 
   const handleDelete = (id) => {
     if (window.confirm("¿Estás seguro de que deseas borrar este documento?")) {
@@ -37,21 +37,25 @@ function Documents() {
   return (
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {documents.map((doc) => (
-          <Document
-            key={doc.id}
-            id={doc.id}
-            name={doc.title}
-            description={doc.description}
-            type={doc.type}
-            classification={doc.classification}
-            user={doc.user}
-            userImage={doc.userImage}
-            userRole={user.role}
-            downloadLink={doc.downloadLink}
-            onDelete={() => handleDelete(doc.id)}
-          />
-        ))}
+        {documents.map((doc) => {
+          const user = users.find((user) => user.user_name === doc.user);
+          return (
+            <Document
+              key={doc.id}
+              id={doc.id}
+              title={doc.title}
+              description={doc.description}
+              type={doc.documenttypes}
+              classification={doc.documentclassification}
+              user={doc.user}
+              userImage={user ? `${URL}${user.image}` : ""}
+              userRole={user ? user.role : "reader"}
+              data={doc.data}
+              date={doc.date.substring(0, 10)}
+              onDelete={() => handleDelete(doc.id)}
+            />
+          );
+        })}
       </div>
     </div>
   );
