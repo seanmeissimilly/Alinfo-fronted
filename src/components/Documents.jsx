@@ -9,25 +9,25 @@ import {
 import { userList } from "../redux/userSlice.js";
 import Document from "./Document";
 
-function Documents() {
-  // Declaro la URL de la API en dependencia del entorno
+const Documents = () => {
   const URL =
     process.env.NODE_ENV === "production"
       ? import.meta.env.VITE_BACKEND_URL
       : "http://localhost:8000";
   const dispatch = useDispatch();
 
-  const document = useSelector((state) => state.document);
-  const { documents, documenttypes, documentclassification } = document;
-
-  const user = useSelector((state) => state.user);
-  const { users, userInfo } = user;
+  const { documents, documenttypes, documentclassification } = useSelector(
+    (state) => state.document
+  );
+  const { users, userInfo } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(documentList({ token: userInfo.token }));
-    dispatch(documenttypesList({ token: userInfo.token }));
-    dispatch(documentclassificationList({ token: userInfo.token }));
-    dispatch(userList({ token: userInfo.token }));
+    if (userInfo?.token) {
+      dispatch(documentList({ token: userInfo.token }));
+      dispatch(documenttypesList({ token: userInfo.token }));
+      dispatch(documentclassificationList({ token: userInfo.token }));
+      dispatch(userList({ token: userInfo.token }));
+    }
   }, [dispatch, userInfo]);
 
   const handleDelete = (id) => {
@@ -61,7 +61,7 @@ function Documents() {
               }
               user={doc.user}
               userImage={user ? `${URL}${user.image}` : ""}
-              userRole={user ? user.role : "reader"}
+              userRole={userInfo ? userInfo.role : "reader"}
               data={doc.data}
               date={doc.date.substring(0, 10)}
               onDelete={() => handleDelete(doc.id)}
@@ -71,6 +71,6 @@ function Documents() {
       </div>
     </div>
   );
-}
+};
 
 export default Documents;
