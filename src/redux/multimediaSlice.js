@@ -22,7 +22,7 @@ export const multimediaList = createAsyncThunk(
         },
       };
 
-      const { data } = await multimediaApi.get(`/`, config);
+      const { data } = await multimediaApi.get(`/mmt/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -46,7 +46,7 @@ export const multimediaDetails = createAsyncThunk(
         },
       };
 
-      const { data } = await multimediaApi.get(`/${id}/`, config);
+      const { data } = await multimediaApi.get(`/mmt/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -84,12 +84,12 @@ export const multimediaUpdate = createAsyncThunk(
 
         formData.multimediaend("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await multimediaApi.put(`/${id}/`, formData, config);
+        request = await multimediaApi.put(`/mmt/${id}/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
         request = await multimediaApi.put(
-          `/${id}/`,
+          `/mmt/${id}/`,
           { title, description, multimediaclassification },
           config
         );
@@ -117,7 +117,7 @@ export const multimediaDelete = createAsyncThunk(
         },
       };
 
-      const { data } = await multimediaApi.delete(`/${id}/`, config);
+      const { data } = await multimediaApi.delete(`/mmt/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -155,12 +155,12 @@ export const multimediaCreate = createAsyncThunk(
 
         formData.multimediaend("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await multimediaApi.post(`/`, formData, config);
+        request = await multimediaApi.post(`/mmt/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
         request = await multimediaApi.post(
-          `/`,
+          `/mmt/`,
           { title, description, multimediaclassification },
           config
         );

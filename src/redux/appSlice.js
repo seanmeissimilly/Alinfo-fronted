@@ -22,7 +22,7 @@ export const appList = createAsyncThunk(
         },
       };
 
-      const { data } = await appApi.get(`/`, config);
+      const { data } = await appApi.get(`/app/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -46,7 +46,7 @@ export const appDetails = createAsyncThunk(
         },
       };
 
-      const { data } = await appApi.get(`/${id}/`, config);
+      const { data } = await appApi.get(`/app/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -81,12 +81,12 @@ export const appUpdate = createAsyncThunk(
         formData.append("version", version);
         formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await appApi.put(`/${id}/`, formData, config);
+        request = await appApi.put(`/app/${id}/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
         request = await appApi.put(
-          `/${id}/`,
+          `/app/${id}/`,
           { title, version, description, applicationclassification },
           config
         );
@@ -114,7 +114,7 @@ export const appDelete = createAsyncThunk(
         },
       };
 
-      const { data } = await appApi.delete(`/${id}/`, config);
+      const { data } = await appApi.delete(`/app/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -149,12 +149,12 @@ export const appCreate = createAsyncThunk(
         formData.append("version", version);
         formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await appApi.post(`/`, formData, config);
+        request = await appApi.post(`/app/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
         request = await appApi.post(
-          `/`,
+          `/app/`,
           { title, version, description, applicationclassification },
           config
         );

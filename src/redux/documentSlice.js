@@ -9,12 +9,6 @@ const URL =
 const documentApi = axios.create({
   baseURL: `${URL}/documents`,
 });
-const documentClassificationApi = axios.create({
-  baseURL: `${URL}/documents/classification`,
-});
-const documentTypesApi = axios.create({
-  baseURL: `${URL}/documents/types`,
-});
 
 //todo:  Lógica para listar los documents existentes.
 export const documentList = createAsyncThunk(
@@ -28,7 +22,7 @@ export const documentList = createAsyncThunk(
         },
       };
 
-      const { data } = await documentApi.get(`/`, config);
+      const { data } = await documentApi.get(`/doc/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -52,7 +46,7 @@ export const documenttypesList = createAsyncThunk(
         },
       };
 
-      const { data } = await documentTypesApi.get(`/`, config);
+      const { data } = await documentApi.get(`/types/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -76,7 +70,7 @@ export const documentclassificationList = createAsyncThunk(
         },
       };
 
-      const { data } = await documentClassificationApi.get(`/`, config);
+      const { data } = await documentApi.get(`/classification/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -100,7 +94,7 @@ export const documentDetails = createAsyncThunk(
         },
       };
 
-      const { data } = await documentApi.get(`/${id}/`, config);
+      const { data } = await documentApi.get(`/doc/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -143,12 +137,12 @@ export const documentUpdate = createAsyncThunk(
         formData.append("documenttypes", documenttypes);
         formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await documentApi.put(`/${id}/`, formData, config);
+        request = await documentApi.put(`/doc/${id}/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
         request = await documentApi.put(
-          `/${id}/`,
+          `/doc/${id}/`,
           { title, description, documentclassification, documenttypes },
           config
         );
@@ -176,7 +170,7 @@ export const documentDelete = createAsyncThunk(
         },
       };
 
-      const { data } = await documentApi.delete(`/${id}/`, config);
+      const { data } = await documentApi.delete(`/doc/${id}/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -211,12 +205,12 @@ export const documentCreate = createAsyncThunk(
         formData.append("documenttypes", documenttypes);
         formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
-        request = await documentApi.post(`/`, formData, config);
+        request = await documentApi.post(`/doc/`, formData, config);
       } else {
         config.headers["Content-Type"] = "application/json";
 
         request = await documentApi.post(
-          `/`,
+          `/doc/`,
           { title, description, documentclassification, documenttypes },
           config
         );
