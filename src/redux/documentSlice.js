@@ -9,6 +9,12 @@ const URL =
 const documentApi = axios.create({
   baseURL: `${URL}/documents`,
 });
+const documentClassificationApi = axios.create({
+  baseURL: `${URL}/documents/classification`,
+});
+const documentTypesApi = axios.create({
+  baseURL: `${URL}/documents/types`,
+});
 
 //todo:  Lógica para listar los documents existentes.
 export const documentList = createAsyncThunk(
@@ -23,6 +29,54 @@ export const documentList = createAsyncThunk(
       };
 
       const { data } = await documentApi.get(`/`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
+//todo:  Lógica para listar los documents existentes.
+export const documenttypesList = createAsyncThunk(
+  "documenttypesList",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await documentTypesApi.get(`/`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
+//todo:  Lógica para listar los documents existentes.
+export const documentclassificationList = createAsyncThunk(
+  "documentclassificationList",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await documentClassificationApi.get(`/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -186,6 +240,8 @@ const documentInfoStorage = localStorage.getItem("documentInfo")
 const initialState = {
   documentInfo: documentInfoStorage,
   documents: [],
+  documenttypes: [],
+  documentclassification: [],
   loading: false,
   error: false,
   success: false,
@@ -259,6 +315,32 @@ export const documentSlice = createSlice({
       state.success = true;
     });
     builder.addCase(documentCreate.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(documenttypesList.pending, (state, action) => {
+      state.loading = true;
+      state.documenttypes = [];
+    });
+    builder.addCase(documenttypesList.fulfilled, (state, action) => {
+      state.loading = false;
+      state.documenttypes = action.payload;
+      state.success = true;
+    });
+    builder.addCase(documenttypesList.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(documentclassificationList.pending, (state, action) => {
+      state.loading = true;
+      state.documentclassification = [];
+    });
+    builder.addCase(documentclassificationList.fulfilled, (state, action) => {
+      state.loading = false;
+      state.documentclassification = action.payload;
+      state.success = true;
+    });
+    builder.addCase(documentclassificationList.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });

@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { documentList, documentDelete } from "../redux/documentSlice";
+import {
+  documentList,
+  documentDelete,
+  documentclassificationList,
+  documenttypesList,
+} from "../redux/documentSlice";
 import { userList } from "../redux/userSlice.js";
 import Document from "./Document";
 
@@ -13,18 +18,15 @@ function Documents() {
   const dispatch = useDispatch();
 
   const document = useSelector((state) => state.document);
-  const {
-    error: documentError,
-    loading: documentLoading,
-    documents,
-    success: documentSuccess,
-  } = document;
+  const { documents, documenttypes, documentclassification } = document;
 
   const user = useSelector((state) => state.user);
-  const { users, userInfo, success: userSuccess } = user;
+  const { users, userInfo } = user;
 
   useEffect(() => {
     dispatch(documentList({ token: userInfo.token }));
+    dispatch(documenttypesList({ token: userInfo.token }));
+    dispatch(documentclassificationList({ token: userInfo.token }));
     dispatch(userList({ token: userInfo.token }));
   }, [dispatch, userInfo]);
 
@@ -39,14 +41,24 @@ function Documents() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {documents.map((doc) => {
           const user = users.find((user) => user.user_name === doc.user);
+          const type = documenttypes.find(
+            (type) => type.id === doc.documenttypes
+          );
+          const classification = documentclassification.find(
+            (classification) => classification.id === doc.documentclassification
+          );
           return (
             <Document
               key={doc.id}
               id={doc.id}
               title={doc.title}
               description={doc.description}
-              type={doc.documenttypes}
-              classification={doc.documentclassification}
+              type={type ? type.description : doc.documenttypes}
+              classification={
+                classification
+                  ? classification.description
+                  : doc.documentclassification
+              }
               user={doc.user}
               userImage={user ? `${URL}${user.image}` : ""}
               userRole={user ? user.role : "reader"}
