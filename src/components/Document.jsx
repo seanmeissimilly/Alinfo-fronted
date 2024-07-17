@@ -77,7 +77,7 @@ const Document = ({
         {(userRole === "admin" || userRole === "editor") && (
           <div className="flex space-x-2">
             <a
-              href={`/edit/${id}`}
+              href={`/editDocument/${id}`}
               className="text-blue-600 hover:text-blue-900 relative group"
             >
               <FaEdit />

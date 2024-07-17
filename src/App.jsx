@@ -22,6 +22,9 @@ import Apps from "./components/Apps";
 import Multimedia from "./components/Multimedia";
 import Suggestions from "./components/Suggestions";
 import ProtectedRoute from "./components/ProtectedRoute";
+import DocumentForm from "./components/DocumentForm";
+import VideoForm from "./components/VideoForm";
+import AppForm from "./components/AppForm";
 
 function App() {
   return (
@@ -45,6 +48,12 @@ function App() {
             <Route path="/reports" element={<Reports />} />
             <Route path="/addBlog" element={<AddBlog />} />
             <Route path="/editBlog/:id" element={<EditBlog />} />
+            <Route path="/createDocument" element={<DocumentForm />} />
+            <Route path="/editDocument/:id" element={<DocumentForm />} />
+            <Route path="/createVideo" element={<VideoForm />} />
+            <Route path="/editVideo/:id" element={<VideoForm />} />
+            <Route path="/createApp" element={<AppForm />} />
+            <Route path="/editApp/:id" element={<AppForm />} />
           </Route>
         </Route>
         <Route path="/landing" element={<Landing />} />
