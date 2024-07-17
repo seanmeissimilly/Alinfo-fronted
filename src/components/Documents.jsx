@@ -10,6 +10,7 @@ import { userList } from "../redux/userSlice.js";
 import Document from "./Document";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
+import { AiFillPlusSquare } from "react-icons/ai"; // Asegúrate de importar el icono
 
 const Documents = () => {
   const URL =
@@ -82,6 +83,20 @@ const Documents = () => {
         <Messages>{error}</Messages>
       ) : (
         <div className="container mx-auto p-4">
+          {["admin", "editor"].includes(userInfo.role) && (
+            <div className="mb-4 flex justify-start">
+              <a
+                href="/addDocument"
+                className="text-base font-medium text-gray-500 hover:text-gray-900"
+                title="Añadir Documento"
+              >
+                <AiFillPlusSquare
+                  className="text-green-900 hover:text-gray-900"
+                  size={30}
+                />
+              </a>
+            </div>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {renderDocuments()}
           </div>
