@@ -60,7 +60,7 @@ export default function VideoForm() {
       if (!isEmpty(multimediaInfo)) {
         setTitle(multimediaInfo.title);
         setDescription(multimediaInfo.description);
-        setClassificationId(multimediaInfo.documentclassification);
+        setClassificationId(multimediaInfo.multimediaclassification);
         setData(multimediaInfo.data);
       }
     }

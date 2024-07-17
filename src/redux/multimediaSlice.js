@@ -98,14 +98,10 @@ export const multimediaUpdate = createAsyncThunk(
       let request;
       if (data) {
         const formData = new FormData();
-        formData.multimediaend("title", title);
-        formData.multimediaend("description", description);
-        formData.multimediaend(
-          "multimediaclassification",
-          multimediaclassification
-        );
-
-        formData.multimediaend("data", data);
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("multimediaclassification", multimediaclassification);
+        formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
         request = await multimediaApi.put(`/mmt/${id}/`, formData, config);
       } else {
@@ -169,14 +165,10 @@ export const multimediaCreate = createAsyncThunk(
       let request;
       if (data) {
         const formData = new FormData();
-        formData.multimediaend("title", title);
-        formData.multimediaend("description", description);
-        formData.multimediaend(
-          "multimediaclassification",
-          multimediaclassification
-        );
-
-        formData.multimediaend("data", data);
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("multimediaclassification", multimediaclassification);
+        formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
         request = await multimediaApi.post(`/mmt/`, formData, config);
       } else {
