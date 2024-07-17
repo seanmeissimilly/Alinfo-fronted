@@ -289,12 +289,7 @@ export const documentSlice = createSlice({
     builder.addCase(documentDelete.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      const { id } = action.payload;
-      if (id) {
-        state.documents = state.documents.filter(
-          (document) => document.id !== id
-        );
-      }
+      state.documentInfo = {};
     });
     builder.addCase(documentDelete.rejected, (state, action) => {
       state.loading = false;

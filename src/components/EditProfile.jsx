@@ -75,9 +75,6 @@ export default function EditProfile() {
   };
 
   const uploadFileHandler = async (e) => {
-    // dispatch(
-    //   userUploadImage({ e, id: userInfo[0].id, token: userInfo[0].token })
-    // );
     const file = e.target.files[0];
     const formData = new FormData();
 
