@@ -74,17 +74,13 @@ export default function EditBlog() {
         <div className="md:grid md:grid-cols-4 md:gap-6">
           <div className="md:col-span-1"></div>
           <div className="mt-5 md:col-span-2 md:mt-0">
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
               Actualizar Publicación
             </h2>
 
             <form onSubmit={submitHandler}>
               <div className="shadow sm:overflow-hidden sm:rounded-md">
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                  <div className="grid grid-cols-3 gap-6">
-                    <div className="col-span-3 sm:col-span-2"></div>
-                  </div>
-
                   <div>
                     <label
                       htmlFor="title"

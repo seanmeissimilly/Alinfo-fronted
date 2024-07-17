@@ -114,6 +114,9 @@ export default function EditProfile() {
           <div className="md:grid md:grid-cols-4 md:gap-6">
             <div className="md:col-span-1"></div>
             <div className="mt-5 md:col-span-2 md:mt-0">
+              <h2 className="mt-6 text-left ml-5 text-2xl font-bold tracking-tight text-gray-900">
+                Editar Perfil
+              </h2>
               <form action="#" method="POST" onSubmit={submitHandler}>
                 <div className="shadow sm:overflow-hidden sm:rounded-md">
                   <div className="space-y-6 bg-white px-4 py-5 sm:p-6">

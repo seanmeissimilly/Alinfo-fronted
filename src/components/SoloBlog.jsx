@@ -114,7 +114,7 @@ export default function SoloBlog() {
               </div>
             </div>
 
-            <h2 className="mt-6 mb-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            <h2 className="mt-6 mb-6 text-center text-2xl font-bold tracking-tight text-gray-900">
               Comentarios
             </h2>
 
