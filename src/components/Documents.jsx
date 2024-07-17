@@ -10,7 +10,7 @@ import { userList } from "../redux/userSlice.js";
 import Document from "./Document";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { AiFillPlusSquare } from "react-icons/ai"; // Asegúrate de importar el icono
+import { AiFillPlusSquare } from "react-icons/ai";
 
 const Documents = () => {
   const URL =

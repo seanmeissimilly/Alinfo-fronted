@@ -33,6 +33,29 @@ export const multimediaList = createAsyncThunk(
     }
   }
 );
+//todo:  Lógica para listar los clasificaciones multimedias existentes.
+export const multimediaclassificationList = createAsyncThunk(
+  "multimediaclassificationList",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await multimediaApi.get(`/classification/`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
 
 //todo: Lógica para listar un solo multimedias.
 export const multimediaDetails = createAsyncThunk(
@@ -184,6 +207,7 @@ const multimediaInfoStorage = localStorage.getItem("multimediaInfo")
 const initialState = {
   multimediaInfo: multimediaInfoStorage,
   multimedias: [],
+  multimediaclassification: [],
   loading: false,
   error: false,
   success: false,
@@ -237,12 +261,7 @@ export const multimediaSlice = createSlice({
     builder.addCase(multimediaDelete.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      const { id } = action.payload;
-      if (id) {
-        state.multimedias = state.multimedias.filter(
-          (multimedia) => multimedia.id !== id
-        );
-      }
+      state.multimediaInfo = {};
     });
     builder.addCase(multimediaDelete.rejected, (state, action) => {
       state.loading = false;
@@ -257,6 +276,19 @@ export const multimediaSlice = createSlice({
       state.success = true;
     });
     builder.addCase(multimediaCreate.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(multimediaclassificationList.pending, (state, action) => {
+      state.loading = true;
+      state.multimediaclassification = [];
+    });
+    builder.addCase(multimediaclassificationList.fulfilled, (state, action) => {
+      state.loading = false;
+      state.multimediaclassification = action.payload;
+      state.success = true;
+    });
+    builder.addCase(multimediaclassificationList.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
