@@ -45,7 +45,9 @@ const Documents = () => {
   };
 
   const renderDocuments = () => {
-    return documents.map((doc) => {
+    // Hago una copia y ordeno los documentos por ID antes de renderizarlos
+    const sortedDocuments = [...documents].sort((a, b) => a.id - b.id);
+    return sortedDocuments.map((doc) => {
       const user = users.find((user) => user.user_name === doc.user);
       const type = documenttypes.find((type) => type.id === doc.documenttypes);
       const classification = documentclassification.find(
@@ -58,11 +60,11 @@ const Documents = () => {
           id={doc.id}
           title={doc.title}
           description={doc.description}
-          type={type ? type.description : doc.documenttypes}
+          type={type ? String(type.description) : String(doc.documenttypes)}
           classification={
             classification
-              ? classification.description
-              : doc.documentclassification
+              ? String(classification.description)
+              : String(doc.documentclassification)
           }
           user={doc.user}
           userImage={user ? `${URL}${user.image}` : ""}
