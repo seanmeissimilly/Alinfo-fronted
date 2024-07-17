@@ -14,14 +14,14 @@ import {
 export default function DocumentForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState("");
+  const [data, setData] = useState("");
   const [type, setTypeId] = useState("");
   const [classification, setClassificationId] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const params = useParams();
+  const { id } = useParams();
   const {
     documentInfo,
     error,
@@ -35,44 +35,45 @@ export default function DocumentForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("documenttypes", type);
-    formData.append("documentclassification", classification);
-    formData.append("file", file);
+    const payload = {
+      title,
+      description,
+      documenttypes: type,
+      documentclassification: classification,
+      token: userInfo.token,
+      user: userInfo.id,
+    };
 
-    if (params.id) {
-      dispatch(
-        documentUpdate({
-          id: params.id,
-          formData,
-          token: userInfo.token,
-        })
-      );
+    if (data && data instanceof File) {
+      payload.data = data;
+    }
+
+    if (id) {
+      payload.id = id;
+      dispatch(documentUpdate(payload));
     } else {
-      dispatch(
-        documentCreate({
-          formData,
-          token: userInfo.token,
-        })
-      );
+      dispatch(documentCreate(payload));
     }
 
     navigate("/documents");
   };
 
   useEffect(() => {
-    if (params.id !== documentInfo.id) {
-      dispatch(documentDetails({ token: userInfo.token }));
-    }
     dispatch(documenttypesList({ token: userInfo.token }));
     dispatch(documentclassificationList({ token: userInfo.token }));
-    setTitle(documentInfo.title);
-    setDescription(documentInfo.description);
-    setTypeId(documentInfo.documenttypes);
-    setClassificationId(documentInfo.documentclassification);
-  }, [params, userInfo, dispatch, documentInfo]);
+
+    if (Number(id) !== documentInfo.id) {
+      dispatch(documentDetails({ id, token: userInfo.token }));
+    } else {
+      if (!data) {
+        setTitle(documentInfo.title);
+        setDescription(documentInfo.description);
+        setTypeId(documentInfo.documenttypes);
+        setClassificationId(documentInfo.documentclassification);
+        setData(documentInfo.data);
+      }
+    }
+  }, [dispatch, id, userInfo, documentInfo, data]);
 
   return (
     <>
@@ -104,7 +105,7 @@ export default function DocumentForm() {
         <input
           type="file"
           name="file"
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={(e) => setData(e.target.files[0])}
           className="w-full p-2 rounded-md bg-zinc-600 mb-2"
         />
 
