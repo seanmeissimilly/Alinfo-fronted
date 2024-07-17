@@ -15,8 +15,8 @@ export default function DocumentForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [data, setData] = useState("");
-  const [type, setTypeId] = useState("");
-  const [classification, setClassificationId] = useState("");
+  const [type, setTypeId] = useState(1);
+  const [classification, setClassificationId] = useState(1);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +32,8 @@ export default function DocumentForm() {
 
   const { userInfo } = useSelector((state) => state.user);
 
+  const isEmpty = (obj) => JSON.stringify(obj) === "{}";
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -41,7 +43,6 @@ export default function DocumentForm() {
       documenttypes: type,
       documentclassification: classification,
       token: userInfo.token,
-      user: userInfo.id,
     };
 
     if (data && data instanceof File) {
@@ -62,10 +63,10 @@ export default function DocumentForm() {
     dispatch(documenttypesList({ token: userInfo.token }));
     dispatch(documentclassificationList({ token: userInfo.token }));
 
-    if (Number(id) !== documentInfo.id) {
+    if (id && Number(id) !== documentInfo.id) {
       dispatch(documentDetails({ id, token: userInfo.token }));
     } else {
-      if (!data) {
+      if (!isEmpty(documentInfo)) {
         setTitle(documentInfo.title);
         setDescription(documentInfo.description);
         setTypeId(documentInfo.documenttypes);
@@ -73,7 +74,7 @@ export default function DocumentForm() {
         setData(documentInfo.data);
       }
     }
-  }, [dispatch, id, userInfo, documentInfo, data]);
+  }, [dispatch, id, userInfo, documentInfo]);
 
   return (
     <>

@@ -186,15 +186,7 @@ export const documentDelete = createAsyncThunk(
 export const documentCreate = createAsyncThunk(
   "documentCreate",
   async (
-    {
-      title,
-      data,
-      description,
-      documentclassification,
-      documenttypes,
-      user,
-      token,
-    },
+    { title, data, description, documentclassification, documenttypes, token },
     { rejectWithValue }
   ) => {
     try {
@@ -207,7 +199,6 @@ export const documentCreate = createAsyncThunk(
       let request;
       if (data) {
         const formData = new FormData();
-        formData.append("user", user);
         formData.append("title", title);
         formData.append("description", description);
         formData.append("documentclassification", documentclassification);
@@ -220,7 +211,7 @@ export const documentCreate = createAsyncThunk(
 
         request = await documentApi.post(
           `/doc/`,
-          { user, title, description, documentclassification, documenttypes },
+          { title, description, documentclassification, documenttypes },
           config
         );
       }
