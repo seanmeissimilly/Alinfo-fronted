@@ -82,16 +82,16 @@ export default function Header() {
                   <IoDocumentSharp size={30} />
                 </a>
                 <a
-                  href="/multimedia"
+                  href="/videos"
                   className="text-base font-medium text-green-800 hover:text-gray-900"
                   title="Videos"
                 >
                   <MdVideoLibrary size={30} />
                 </a>
                 <a
-                  href="/apps"
+                  href="/tools"
                   className="text-base font-medium text-green-800 hover:text-gray-900"
-                  title="Aplicaciones"
+                  title="Herramientas"
                 >
                   <AiFillProduct size={30} />
                 </a>
@@ -236,16 +236,16 @@ export default function Header() {
                       <IoDocumentSharp size={30} />
                     </a>
                     <a
-                      href="/multimedia"
+                      href="/videos"
                       className="text-base font-medium text-green-800 hover:text-gray-900"
                       title="Videos"
                     >
                       <MdVideoLibrary size={30} />
                     </a>
                     <a
-                      href="/apps"
+                      href="/tools"
                       className="text-base font-medium text-green-800 hover:text-gray-900"
-                      title="Aplicaciones"
+                      title="Herramientas"
                     >
                       <AiFillProduct size={30} />
                     </a>

@@ -18,13 +18,13 @@ import EditProfile from "./components/EditProfile";
 import HomePage from "./components/HomePage";
 import Reports from "./components/Reports";
 import Documents from "./components/Documents";
-import Apps from "./components/Apps";
-import Multimedia from "./components/Multimedia";
+import Tools from "./components/Tools";
+import Videos from "./components/Videos";
 import Suggestions from "./components/Suggestions";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DocumentForm from "./components/DocumentForm";
 import VideoForm from "./components/VideoForm";
-import AppForm from "./components/AppForm";
+import ToolForm from "./components/ToolForm";
 
 function App() {
   return (
@@ -38,8 +38,8 @@ function App() {
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/userProfile/:id" element={<UserProfile />} />
           <Route path="/documents" element={<Documents />} />
-          <Route path="/apps" element={<Apps />} />
-          <Route path="/multimedia" element={<Multimedia />} />
+          <Route path="/tools" element={<Tools />} />
+          <Route path="/videos" element={<Videos />} />
           <Route path="/suggestions" element={<Suggestions />} />
           <Route path="/soloBlog/:id" element={<SoloBlog />} />
           <Route
@@ -52,8 +52,8 @@ function App() {
             <Route path="/editDocument/:id" element={<DocumentForm />} />
             <Route path="/createVideo" element={<VideoForm />} />
             <Route path="/editVideo/:id" element={<VideoForm />} />
-            <Route path="/createApp" element={<AppForm />} />
-            <Route path="/editApp/:id" element={<AppForm />} />
+            <Route path="/createTool" element={<ToolForm />} />
+            <Route path="/editTool/:id" element={<ToolForm />} />
           </Route>
         </Route>
         <Route path="/landing" element={<Landing />} />

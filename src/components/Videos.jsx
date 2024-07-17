@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import Video from "./Video";
+import Video from "./Video.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   multimediaList,
   multimediaDelete,
   multimediaclassificationList,
-} from "../redux/multimediaSlice";
+} from "../redux/multimediaSlice.js";
 import { userList } from "../redux/userSlice.js";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
 
-const Multimedia = () => {
+const Videos = () => {
   const URL =
     process.env.NODE_ENV === "production"
       ? import.meta.env.VITE_BACKEND_URL
@@ -104,4 +104,4 @@ const Multimedia = () => {
   );
 };
 
-export default Multimedia;
+export default Videos;

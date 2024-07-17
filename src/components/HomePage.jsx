@@ -11,8 +11,8 @@ const HomePage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           <Section title="Foro" link="/forum" />
           <Section title="Documentos" link="/documents" />
-          <Section title="Videos" link="/multimedia" />
-          <Section title="Aplicaciones" link="/apps" />
+          <Section title="Videos" link="/videos" />
+          <Section title="Herramientas" link="/tools" />
           <Section title="Quejas o Sugerencias" link="/suggestions" />
         </div>
       </div>
