@@ -80,7 +80,11 @@ export default function MiPerfil() {
                 Rol de Usuario
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {userInfo.role}
+                {userInfo.role === "reader"
+                  ? "Lector"
+                  : userInfo.role === "editor"
+                  ? "Editor"
+                  : "Administrador"}
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -96,7 +100,7 @@ export default function MiPerfil() {
       </div>
 
       <h2 className="mt-6 mb-6 text-center text-2xl font-bold tracking-tight text-gray-900">
-        -- Publicaciones --
+        {userInfo.role === "reader" ? "" : " -- Publicaciones --"}
       </h2>
 
       {blogs.map((blog_element) => (
