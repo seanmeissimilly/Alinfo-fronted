@@ -121,7 +121,7 @@ const Tools = () => {
                   setClassificationSelected(e);
                 }}
                 components={animatedComponets}
-                className="w-48 rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
+                className="w-full rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
               />
             </div>
           </div>
