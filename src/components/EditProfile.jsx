@@ -8,17 +8,12 @@ import { userUpdate } from "../redux/userSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import PasswordChecklist from "react-password-checklist";
 
-//Declaro la url de la Api
-const URL =
-  process.env.NODE_ENV === "production"
-    ? import.meta.env.VITE_BACKEND_URL
-    : "http://localhost:8000";
-
-const api = axios.create({
-  baseURL: `${URL}`,
-});
-
 export default function EditProfile() {
+  const URL = import.meta.env.VITE_BACKEND_URL;
+
+  const api = axios.create({
+    baseURL: `${URL}`,
+  });
   const [user_name, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");

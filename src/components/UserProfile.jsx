@@ -9,11 +9,7 @@ import Loader from "./Loader";
 export default function UserProfile() {
   const { id } = useParams();
 
-  //Declaro la url de la Api en dependencia del entorno
-  const URL =
-    process.env.NODE_ENV === "production"
-      ? import.meta.env.VITE_BACKEND_URL
-      : "http://localhost:8000";
+  const URL = import.meta.env.VITE_BACKEND_URL;
 
   const dispatch = useDispatch();
 

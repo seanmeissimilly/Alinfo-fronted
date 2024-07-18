@@ -13,10 +13,8 @@ import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
 
 const Documents = () => {
-  const URL =
-    process.env.NODE_ENV === "production"
-      ? import.meta.env.VITE_BACKEND_URL
-      : "http://localhost:8000";
+  const URL = import.meta.env.VITE_BACKEND_URL;
+
   const dispatch = useDispatch();
 
   const {

@@ -7,11 +7,7 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 
 export default function EditBlog() {
-  //todo:Declaro la url de la Api en dependencia del entorno
-  const URL_API =
-    process.env.NODE_ENV === "production"
-      ? import.meta.env.VITE_BACKEND_URL
-      : "http://localhost:8000";
+  const URL_API = import.meta.env.VITE_BACKEND_URL;
 
   const { id } = useParams();
 

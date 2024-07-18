@@ -20,17 +20,12 @@ import { MdVideoLibrary } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
 import { userLogout } from "../redux/userSlice";
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-//todo: Declaro la url de la Api en dependencia del entorno
-const URL =
-  process.env.NODE_ENV === "production"
-    ? import.meta.env.VITE_BACKEND_URL
-    : "http://localhost:8000";
-
 export default function Header() {
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+
+  const URL = import.meta.env.VITE_BACKEND_URL;
   const user = useSelector((state) => state.user);
 
   const { userInfo } = user;

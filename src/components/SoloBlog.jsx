@@ -10,13 +10,8 @@ import {
 } from "../redux/blogSlice";
 import { userList } from "../redux/userSlice.js";
 
-//Declaro la url de la Api en dependencia del entorno
-const URL =
-  process.env.NODE_ENV === "production"
-    ? import.meta.env.VITE_BACKEND_URL
-    : "http://localhost:8000";
-
 export default function SoloBlog() {
+  const URL = import.meta.env.VITE_BACKEND_URL;
   const { id } = useParams();
 
   const dispatch = useDispatch();
