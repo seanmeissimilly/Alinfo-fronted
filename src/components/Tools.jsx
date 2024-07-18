@@ -54,7 +54,7 @@ const Tools = () => {
 
   const renderApps = () => {
     // Ordeno los documentos por ID antes de renderizarlos
-    const sortedApps = results.sort((a, b) => a.id - b.id);
+    const sortedApps = results.sort((a, b) => b.id - a.id);
     return sortedApps.map((app) => {
       const user = users.find((user) => user.user_name === app.user);
 

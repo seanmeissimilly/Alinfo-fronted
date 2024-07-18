@@ -56,7 +56,7 @@ const Videos = () => {
 
   const renderMultimedias = () => {
     // Ordeno los documentos por ID antes de renderizarlos
-    const sortedMultimedias = results.sort((a, b) => a.id - b.id);
+    const sortedMultimedias = results.sort((a, b) => b.id - a.id);
     return sortedMultimedias.map((video) => {
       const user = users.find((user) => user.user_name === video.user);
 
