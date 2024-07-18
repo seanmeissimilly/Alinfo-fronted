@@ -13,6 +13,7 @@ import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
+import { useSpring, animated } from "react-spring";
 
 const Documents = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -71,6 +72,18 @@ const Documents = () => {
     }
   };
 
+  const fadeIn = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    delay: 200,
+  });
+
+  const scale = useSpring({
+    from: { transform: "scale(0)" },
+    to: { transform: "scale(1)" },
+    delay: 500,
+  });
+
   const renderDocuments = () => {
     // Ordeno los documentos por ID antes de renderizarlos
     const sortedDocuments = results.sort((a, b) => b.id - a.id);
@@ -114,13 +127,14 @@ const Documents = () => {
       ) : (
         <div>
           <div className="mb-3 mt-3 mr-5 flex justify-end">
-            <input
+            <animated.input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               type="search"
               placeholder="Buscar"
               className="block min-w-0 rounded border bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
               id="search"
+              style={{ ...fadeIn, ...scale }}
             />
             <div className="ml-1">
               <Select
