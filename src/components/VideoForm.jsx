@@ -48,7 +48,7 @@ export default function VideoForm() {
       dispatch(multimediaCreate(payload));
     }
 
-    navigate("/multimedia");
+    navigate("/videos");
   };
 
   useEffect(() => {

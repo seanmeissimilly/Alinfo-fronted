@@ -34,6 +34,30 @@ export const appList = createAsyncThunk(
   }
 );
 
+//todo:  Lógica para listar los clasificaciones multimedias existentes.
+export const appClassificationList = createAsyncThunk(
+  "appClassificationList",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await appApi.get(`/classification/`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
 //todo: Lógica para listar un solo apps.
 export const appDetails = createAsyncThunk(
   "appDetails",
@@ -62,7 +86,7 @@ export const appDetails = createAsyncThunk(
 export const appUpdate = createAsyncThunk(
   "appUpdate",
   async (
-    { id, title, version, data, description, applicationclassification, token },
+    { id, title, data, description, applicationclassification, token },
     { rejectWithValue }
   ) => {
     try {
@@ -78,7 +102,6 @@ export const appUpdate = createAsyncThunk(
         formData.append("title", title);
         formData.append("description", description);
         formData.append("applicationclassification", applicationclassification);
-        formData.append("version", version);
         formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
         request = await appApi.put(`/app/${id}/`, formData, config);
@@ -87,7 +110,7 @@ export const appUpdate = createAsyncThunk(
 
         request = await appApi.put(
           `/app/${id}/`,
-          { title, version, description, applicationclassification },
+          { title, description, applicationclassification },
           config
         );
       }
@@ -130,7 +153,7 @@ export const appDelete = createAsyncThunk(
 export const appCreate = createAsyncThunk(
   "appCreate",
   async (
-    { title, version, data, description, applicationclassification, token },
+    { title, data, description, applicationclassification, token },
     { rejectWithValue }
   ) => {
     try {
@@ -146,7 +169,6 @@ export const appCreate = createAsyncThunk(
         formData.append("title", title);
         formData.append("description", description);
         formData.append("applicationclassification", applicationclassification);
-        formData.append("version", version);
         formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
         request = await appApi.post(`/app/`, formData, config);
@@ -155,7 +177,7 @@ export const appCreate = createAsyncThunk(
 
         request = await appApi.post(
           `/app/`,
-          { title, version, description, applicationclassification },
+          { title, description, applicationclassification },
           config
         );
       }
@@ -178,6 +200,7 @@ const appInfoStorage = localStorage.getItem("appInfo")
 const initialState = {
   appInfo: appInfoStorage,
   apps: [],
+  appclassification: [],
   loading: false,
   error: false,
   success: false,
@@ -231,10 +254,7 @@ export const appSlice = createSlice({
     builder.addCase(appDelete.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      const { id } = action.payload;
-      if (id) {
-        state.apps = state.apps.filter((app) => app.id !== id);
-      }
+      state.appInfo = {};
     });
     builder.addCase(appDelete.rejected, (state, action) => {
       state.loading = false;
@@ -249,6 +269,19 @@ export const appSlice = createSlice({
       state.success = true;
     });
     builder.addCase(appCreate.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(appClassificationList.pending, (state, action) => {
+      state.loading = true;
+      state.appclassification = [];
+    });
+    builder.addCase(appClassificationList.fulfilled, (state, action) => {
+      state.loading = false;
+      state.appclassification = action.payload;
+      state.success = true;
+    });
+    builder.addCase(appClassificationList.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
