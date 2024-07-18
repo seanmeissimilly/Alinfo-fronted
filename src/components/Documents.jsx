@@ -11,12 +11,17 @@ import Document from "./Document";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
+import Select from "react-select";
+import makeAnaimated from "react-select/animated";
 
 const Documents = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
 
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+  const [typeSelected, setTypeSelected] = useState([]);
+
+  const animatedComponets = makeAnaimated();
 
   const {
     documents,
@@ -37,15 +42,18 @@ const Documents = () => {
     }
   }, [dispatch, userInfo, documentInfo, error]);
 
-  //función de búsqueda
-  const searcher = (e) => {
-    setSearch(e.target.value);
-  };
+  const resultsTypes =
+    typeSelected.length === 0
+      ? [...documents]
+      : documents.filter((doc) => {
+          return typeSelected.some(
+            (selected) => selected.value === doc.documenttypes
+          );
+        });
 
-  //metodo de filtrado
   const results = !search
-    ? [...documents]
-    : [...documents].filter((doc) =>
+    ? resultsTypes
+    : resultsTypes.filter((doc) =>
         doc.title.toLowerCase().includes(search.toLocaleLowerCase())
       );
 
@@ -61,6 +69,7 @@ const Documents = () => {
     return sortedDocuments.map((doc) => {
       const user = users.find((user) => user.user_name === doc.user);
       const type = documenttypes.find((type) => type.id === doc.documenttypes);
+
       const classification = documentclassification.find(
         (classification) => classification.id === doc.documentclassification
       );
@@ -96,15 +105,30 @@ const Documents = () => {
         <Messages>{error}</Messages>
       ) : (
         <div>
-          <div className="mb-3 mt-3 mr-3 flex justify-end">
+          <div className="mb-3 mt-3 mr-5 flex justify-end">
             <input
               value={search}
-              onChange={searcher}
+              onChange={(e) => setSearch(e.target.value)}
               type="search"
               placeholder="Buscar"
-              className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
+              className="block min-w-0 rounded border bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
               id="search"
             />
+            <div className="ml-1">
+              <Select
+                isMulti
+                placeholder="Tipo"
+                options={documenttypes.map((type) => ({
+                  value: type.id,
+                  label: type.description,
+                }))}
+                onChange={(e) => {
+                  setTypeSelected(e);
+                }}
+                components={animatedComponets}
+                className="w-48 rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
+              />
+            </div>
           </div>
 
           <div className="container mx-auto p-4">
