@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   documentList,
@@ -24,6 +24,7 @@ const Documents = () => {
     documentInfo,
     error,
     loading,
+    success,
   } = useSelector((state) => state.document);
   const { users, userInfo } = useSelector((state) => state.user);
 

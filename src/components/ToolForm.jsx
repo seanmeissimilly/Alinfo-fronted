@@ -9,6 +9,7 @@ import {
   appUpdate,
   appClassificationList,
 } from "../redux/appSlice";
+import { toast } from "react-hot-toast";
 
 export default function AppForm() {
   const [title, setTitle] = useState("");
@@ -49,7 +50,16 @@ export default function AppForm() {
       dispatch(appCreate(payload));
     }
 
-    navigate("/tools");
+    navigate(
+      "/tools",
+      toast.success(`Bienvenido a Herramientas`, {
+        position: "bottom-right",
+        style: {
+          background: "#101010",
+          color: "#fff",
+        },
+      })
+    );
   };
 
   useEffect(() => {

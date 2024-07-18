@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
@@ -10,6 +10,7 @@ import {
   documentclassificationList,
   documenttypesList,
 } from "../redux/documentSlice";
+import { toast } from "react-hot-toast";
 
 export default function DocumentForm() {
   const [title, setTitle] = useState("");
@@ -56,7 +57,16 @@ export default function DocumentForm() {
       dispatch(documentCreate(payload));
     }
 
-    navigate("/documents");
+    navigate(
+      "/documents",
+      toast.success(`Bienvenido a Documentos`, {
+        position: "bottom-right",
+        style: {
+          background: "#101010",
+          color: "#fff",
+        },
+      })
+    );
   };
 
   useEffect(() => {

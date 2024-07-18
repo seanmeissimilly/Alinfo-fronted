@@ -1,7 +1,9 @@
-import React from "react";
 import PropTypes from "prop-types";
+import { Toaster, toast } from "react-hot-toast";
 
 const HomePage = () => {
+  const notify = () => toast("¡Notificación de ejemplo!");
+
   return (
     <div className="flex justify-center">
       <div className="w-4/5">
@@ -16,20 +18,37 @@ const HomePage = () => {
           <Section title="Quejas o Sugerencias" link="/suggestions" />
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
 
-const Section = ({ title, link }) => (
-  <div className="p-4 border rounded-lg shadow-md">
-    <h2 className="text-2xl font-semibold text-center mb-8">{title}</h2>
-    <div className="flex justify-center">
-      <a href={link} className="text-blue-500 hover:underline text-center">
-        Ir a {title}
-      </a>
+const Section = ({ title, link }) => {
+  const handleSectionClick = () => {
+    toast.success(`Bienvenido a ${title}`, {
+      position: "bottom-right",
+      style: {
+        background: "#101010",
+        color: "#fff",
+      },
+    });
+  };
+
+  return (
+    <div className="p-4 border rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold text-center mb-8">{title}</h2>
+      <div className="flex justify-center">
+        <a
+          href={link}
+          className="text-blue-500 hover:underline text-center"
+          onClick={handleSectionClick}
+        >
+          Ir a {title}
+        </a>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Section.propTypes = {
   title: PropTypes.string.isRequired,

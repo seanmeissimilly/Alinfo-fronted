@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Landing() {
   return (
     <div className="relative overflow-hidden bg-white">

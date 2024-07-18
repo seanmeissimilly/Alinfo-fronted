@@ -9,6 +9,7 @@ import {
   multimediaUpdate,
   multimediaclassificationList,
 } from "../redux/multimediaSlice";
+import { toast } from "react-hot-toast";
 
 export default function VideoForm() {
   const [title, setTitle] = useState("");
@@ -48,7 +49,16 @@ export default function VideoForm() {
       dispatch(multimediaCreate(payload));
     }
 
-    navigate("/videos");
+    navigate(
+      "/videos",
+      toast.success(`Bienvenido a Videos`, {
+        position: "bottom-right",
+        style: {
+          background: "#101010",
+          color: "#fff",
+        },
+      })
+    );
   };
 
   useEffect(() => {
