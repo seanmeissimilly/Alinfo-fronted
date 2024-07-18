@@ -42,20 +42,21 @@ const Documents = () => {
     }
   }, [dispatch, userInfo, documentInfo, error]);
 
-  const resultsTypes =
-    typeSelected.length === 0
-      ? [...documents]
-      : documents.filter((doc) => {
-          return typeSelected.some(
-            (selected) => selected.value === doc.documenttypes
-          );
-        });
+  //metodo de filtrado
+  let results = [...documents];
 
-  const results = !search
-    ? resultsTypes
-    : resultsTypes.filter((doc) =>
-        doc.title.toLowerCase().includes(search.toLocaleLowerCase())
+  if (typeSelected.length !== 0) {
+    results = results.filter((doc) => {
+      return typeSelected.some(
+        (selected) => selected.value === doc.documenttypes
       );
+    });
+  }
+  if (search !== "") {
+    results = results.filter((doc) =>
+      doc.title.toLowerCase().includes(search.toLocaleLowerCase())
+    );
+  }
 
   const handleDelete = (id) => {
     if (window.confirm("¿Estás seguro de que deseas borrar este documento?")) {

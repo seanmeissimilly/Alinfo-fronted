@@ -10,6 +10,8 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
 import Tool from "./Tool.jsx";
+import Select from "react-select";
+import makeAnaimated from "react-select/animated";
 
 const Tools = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -17,6 +19,8 @@ const Tools = () => {
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
+  const [classificationSelected, setClassificationSelected] = useState([]);
+  const animatedComponets = makeAnaimated();
 
   const { apps, appclassification, appInfo, error, loading } = useSelector(
     (state) => state.app
@@ -32,17 +36,21 @@ const Tools = () => {
     }
   }, [dispatch, userInfo, appInfo, error]);
 
-  //función de búsqueda
-  const searcher = (e) => {
-    setSearch(e.target.value);
-  };
-
   //metodo de filtrado
-  const results = !search
-    ? [...apps]
-    : [...apps].filter((tool) =>
-        tool.title.toLowerCase().includes(search.toLocaleLowerCase())
+  let results = [...apps];
+
+  if (classificationSelected.length !== 0) {
+    results = results.filter((app) => {
+      return classificationSelected.some(
+        (selected) => selected.value === app.applicationclassification
       );
+    });
+  }
+  if (search !== "") {
+    results = results.filter((tool) =>
+      tool.title.toLowerCase().includes(search.toLocaleLowerCase())
+    );
+  }
 
   const handleDelete = (id) => {
     if (
@@ -95,12 +103,27 @@ const Tools = () => {
           <div className="mb-3 mt-3 mr-3 flex justify-end">
             <input
               value={search}
-              onChange={searcher}
+              onChange={(e) => setSearch(e.target.value)}
               type="search"
               placeholder="Buscar"
               className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
               id="search"
             />
+            <div className="ml-1">
+              <Select
+                isMulti
+                placeholder="Clasificación"
+                options={appclassification.map((type) => ({
+                  value: type.id,
+                  label: type.description,
+                }))}
+                onChange={(e) => {
+                  setClassificationSelected(e);
+                }}
+                components={animatedComponets}
+                className="w-48 rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
+              />
+            </div>
           </div>
           <div className="container mx-auto p-4">
             {["admin", "editor"].includes(userInfo.role) && (

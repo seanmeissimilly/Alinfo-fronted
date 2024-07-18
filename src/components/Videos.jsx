@@ -10,6 +10,8 @@ import { userList } from "../redux/userSlice.js";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
+import Select from "react-select";
+import makeAnaimated from "react-select/animated";
 
 const Videos = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -17,6 +19,8 @@ const Videos = () => {
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
+  const [classificationSelected, setClassificationSelected] = useState([]);
+  const animatedComponets = makeAnaimated();
 
   const {
     multimedias,
@@ -36,17 +40,21 @@ const Videos = () => {
     }
   }, [dispatch, userInfo, multimediaInfo, error]);
 
-  //función de búsqueda
-  const searcher = (e) => {
-    setSearch(e.target.value);
-  };
-
   //metodo de filtrado
-  const results = !search
-    ? [...multimedias]
-    : [...multimedias].filter((video) =>
-        video.title.toLowerCase().includes(search.toLocaleLowerCase())
+  let results = [...multimedias];
+
+  if (classificationSelected.length !== 0) {
+    results = results.filter((video) => {
+      return classificationSelected.some(
+        (selected) => selected.value === video.multimediaclassification
       );
+    });
+  }
+  if (search !== "") {
+    results = results.filter((video) =>
+      video.title.toLowerCase().includes(search.toLocaleLowerCase())
+    );
+  }
 
   const handleDelete = (id) => {
     if (window.confirm("¿Estás seguro de que deseas borrar este video?")) {
@@ -97,12 +105,27 @@ const Videos = () => {
           <div className="mb-3 mt-3 mr-3 flex justify-end">
             <input
               value={search}
-              onChange={searcher}
+              onChange={(e) => setSearch(e.target.value)}
               type="search"
               placeholder="Buscar"
               className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
               id="search"
             />
+            <div className="ml-1">
+              <Select
+                isMulti
+                placeholder="Clasificación"
+                options={multimediaclassification.map((type) => ({
+                  value: type.id,
+                  label: type.description,
+                }))}
+                onChange={(e) => {
+                  setClassificationSelected(e);
+                }}
+                components={animatedComponets}
+                className="w-48 rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
+              />
+            </div>
           </div>
           <div className="container mx-auto p-4">
             {["admin", "editor"].includes(userInfo.role) && (
