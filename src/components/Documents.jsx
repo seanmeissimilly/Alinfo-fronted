@@ -20,7 +20,7 @@ const Documents = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [typeSelected, setTypeSelected] = useState([]);
-
+  const [classificationSelected, setClassificationSelected] = useState([]);
   const animatedComponets = makeAnaimated();
 
   const {
@@ -49,6 +49,13 @@ const Documents = () => {
     results = results.filter((doc) => {
       return typeSelected.some(
         (selected) => selected.value === doc.documenttypes
+      );
+    });
+  }
+  if (classificationSelected.length !== 0) {
+    results = results.filter((doc) => {
+      return classificationSelected.some(
+        (selected) => selected.value === doc.documentclassification
       );
     });
   }
@@ -125,6 +132,21 @@ const Documents = () => {
                 }))}
                 onChange={(e) => {
                   setTypeSelected(e);
+                }}
+                components={animatedComponets}
+                className="w-48 rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
+              />
+            </div>
+            <div className="ml-1">
+              <Select
+                isMulti
+                placeholder="Clasificación"
+                options={documentclassification.map((type) => ({
+                  value: type.id,
+                  label: type.description,
+                }))}
+                onChange={(e) => {
+                  setClassificationSelected(e);
                 }}
                 components={animatedComponets}
                 className="w-48 rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
