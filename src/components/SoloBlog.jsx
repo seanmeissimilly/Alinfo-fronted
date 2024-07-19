@@ -146,55 +146,57 @@ export default function SoloBlog() {
             </form>
 
             {blogInfo.comments &&
-              blogInfo.comments.map((comment) => (
-                <div key={comment.id} className="flex justify-center">
-                  <>
-                    {users &&
-                      users.map((user) => (
-                        <div key={user.id} className="py-6">
-                          {user.user_name === comment.user && (
-                            <div className="py-6">
-                              <div>
-                                <img
-                                  className="object-cover w-24 h-24 rounded-full shadow"
-                                  src={`${URL}${user.image}`}
-                                  alt="Person"
-                                />
-                                <div className="flex flex-col justify-center mt-2">
-                                  <p className="text-lg font-bold">
-                                    {comment.user}
-                                  </p>
-                                  <p className="mb-4 text-xs text-gray-800">
-                                    {comment.date.substring(0, 10)}
-                                  </p>
-                                  <p className="text-sm tracking-wide text-gray-800">
-                                    {comment.text}
-                                  </p>
-                                </div>
-                                {(userInfo.role === "admin" ||
-                                  userInfo.email === user.email) && (
-                                  <div className="flex justify-center mt-2 ml-auto">
-                                    <button
-                                      onClick={() =>
-                                        deleteHandlerComment(comment.id)
-                                      }
-                                      className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-1 px-2 text-xs font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                    >
-                                      <BsFillTrashFill size={20} />
-                                      <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
-                                        Borrar
-                                      </span>
-                                    </button>
+              [...blogInfo.comments]
+                .sort((a, b) => a.id - b.id)
+                .map((comment) => (
+                  <div key={comment.id} className="flex justify-center">
+                    <>
+                      {users &&
+                        users.map((user) => (
+                          <div key={user.id} className="py-6">
+                            {user.user_name === comment.user && (
+                              <div className="py-6">
+                                <div>
+                                  <img
+                                    className="object-cover w-24 h-24 rounded-full shadow"
+                                    src={`${URL}${user.image}`}
+                                    alt="Person"
+                                  />
+                                  <div className="flex flex-col justify-center mt-2">
+                                    <p className="text-lg font-bold">
+                                      {comment.user}
+                                    </p>
+                                    <p className="mb-4 text-xs text-gray-800">
+                                      {comment.date.substring(0, 10)}
+                                    </p>
+                                    <p className="text-sm tracking-wide text-gray-800">
+                                      {comment.text}
+                                    </p>
                                   </div>
-                                )}
+                                  {(userInfo.role === "admin" ||
+                                    userInfo.email === user.email) && (
+                                    <div className="flex justify-center mt-2 ml-auto">
+                                      <button
+                                        onClick={() =>
+                                          deleteHandlerComment(comment.id)
+                                        }
+                                        className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-1 px-2 text-xs font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                      >
+                                        <BsFillTrashFill size={20} />
+                                        <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                                          Borrar
+                                        </span>
+                                      </button>
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                  </>
-                </div>
-              ))}
+                            )}
+                          </div>
+                        ))}
+                    </>
+                  </div>
+                ))}
           </div>
         </div>
       )}
