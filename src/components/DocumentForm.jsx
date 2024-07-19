@@ -14,6 +14,7 @@ import { toast } from "react-hot-toast";
 
 export default function DocumentForm() {
   const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
   const [data, setData] = useState("");
   const [type, setTypeId] = useState(1);
@@ -40,6 +41,7 @@ export default function DocumentForm() {
 
     const payload = {
       title,
+      author,
       description,
       documenttypes: type,
       documentclassification: classification,
@@ -78,6 +80,7 @@ export default function DocumentForm() {
     } else {
       if (!isEmpty(documentInfo)) {
         setTitle(documentInfo.title);
+        setAuthor(documentInfo.author);
         setDescription(documentInfo.description);
         setTypeId(documentInfo.documenttypes);
         setClassificationId(documentInfo.documentclassification);
@@ -118,10 +121,27 @@ export default function DocumentForm() {
             </div>
             <div>
               <label
+                className="block text-sm font-medium text-gray-700"
+                htmlFor="author"
+              >
+                Autor(es):
+              </label>
+              <textarea
+                type="text"
+                name="author"
+                onChange={(e) => setAuthor(e.target.value)}
+                value={author}
+                className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+                placeholder="Escribe el/los autor(es)"
+                autoFocus
+              />
+            </div>
+            <div>
+              <label
                 htmlFor="description"
                 className="block text-sm font-medium text-gray-700"
               >
-                Descripción:
+                Resumen:
               </label>
               <textarea
                 type="text"
@@ -129,7 +149,7 @@ export default function DocumentForm() {
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
-                placeholder="Escribe una descripción"
+                placeholder="Escribe una resumen"
               />
             </div>
             <div>

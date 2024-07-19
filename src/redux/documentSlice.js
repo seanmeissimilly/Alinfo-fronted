@@ -110,6 +110,7 @@ export const documentUpdate = createAsyncThunk(
     {
       id,
       title,
+      author,
       data,
       description,
       documentclassification,
@@ -129,6 +130,7 @@ export const documentUpdate = createAsyncThunk(
       if (data) {
         const formData = new FormData();
         formData.append("title", title);
+        formData.append("author", author);
         formData.append("description", description);
         formData.append("documentclassification", documentclassification);
         formData.append("documenttypes", documenttypes);
@@ -140,7 +142,7 @@ export const documentUpdate = createAsyncThunk(
 
         request = await documentApi.put(
           `/doc/${id}/`,
-          { title, description, documentclassification, documenttypes },
+          { title, author, description, documentclassification, documenttypes },
           config
         );
       }
@@ -183,7 +185,15 @@ export const documentDelete = createAsyncThunk(
 export const documentCreate = createAsyncThunk(
   "documentCreate",
   async (
-    { title, data, description, documentclassification, documenttypes, token },
+    {
+      title,
+      author,
+      data,
+      description,
+      documentclassification,
+      documenttypes,
+      token,
+    },
     { rejectWithValue }
   ) => {
     try {
@@ -197,6 +207,7 @@ export const documentCreate = createAsyncThunk(
       if (data) {
         const formData = new FormData();
         formData.append("title", title);
+        formData.append("author", author);
         formData.append("description", description);
         formData.append("documentclassification", documentclassification);
         formData.append("documenttypes", documenttypes);
@@ -208,7 +219,7 @@ export const documentCreate = createAsyncThunk(
 
         request = await documentApi.post(
           `/doc/`,
-          { title, description, documentclassification, documenttypes },
+          { title, author, description, documentclassification, documenttypes },
           config
         );
       }
