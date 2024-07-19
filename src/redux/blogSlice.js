@@ -129,7 +129,11 @@ export const createComment = createAsyncThunk(
         },
       };
 
-      const { data } = await blogApi.post(`/comment/${id}/`, { text }, config);
+      const { data } = await blogApi.post(
+        `/comment/`,
+        { blog: id, text },
+        config
+      );
 
       return data;
     } catch (error) {
@@ -145,7 +149,7 @@ export const createComment = createAsyncThunk(
 //todo: Lógica para borrar un comentario.
 export const deleteComment = createAsyncThunk(
   "deleteComment",
-  async ({ id, token }, { rejectWithValue }) => {
+  async ({ comment_id, token }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -154,7 +158,7 @@ export const deleteComment = createAsyncThunk(
         },
       };
 
-      const { data } = await blogApi.delete(`/comment/${id}/`, config);
+      const { data } = await blogApi.delete(`/comment/${comment_id}/`, config);
 
       return data;
     } catch (error) {
@@ -304,6 +308,18 @@ export const blogSlice = createSlice({
       state.success = true;
     });
     builder.addCase(blogCreate.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(deleteComment.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteComment.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.success_comment = true;
+    });
+    builder.addCase(deleteComment.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
