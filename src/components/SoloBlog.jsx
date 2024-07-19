@@ -7,8 +7,10 @@ import {
   createComment,
   blogDetails,
   createCommentReset,
+  deleteComment,
 } from "../redux/blogSlice";
 import { userList } from "../redux/userSlice.js";
+import { BsFillTrashFill } from "react-icons/bs";
 
 export default function SoloBlog() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -35,7 +37,13 @@ export default function SoloBlog() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createComment({ id: id, text, token: userInfo.token }));
+    dispatch(createComment({ id, text, token: userInfo.token }));
+  };
+
+  const deleteHandlerComment = (comment_id) => {
+    if (window.confirm("¿Seguro que deseas eliminar esta comentario?")) {
+      dispatch(deleteComment({ comment_id, token: userInfo.token }));
+    }
   };
 
   return (
@@ -48,7 +56,7 @@ export default function SoloBlog() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
           <div>
             <div className="py-10 bg-gray-200">
-              <div className="py-8" key={blogInfo.id}>
+              <div className="py-8">
                 <div className="max-w-md mx-auto  bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
                   <div className="md:flex">
                     <div className="w-full">
@@ -139,35 +147,53 @@ export default function SoloBlog() {
 
             {blogInfo.comments &&
               blogInfo.comments.map((comment) => (
-                <>
-                  {users &&
-                    users.map((u) => (
-                      <div key={comment.id} className="flex justify-center">
-                        {u.user_name === comment.user && (
-                          <div className="py-6">
-                            <div>
-                              <img
-                                className="object-cover w-24 h-24 rounded-full shadow"
-                                src={`${URL}${u.image}`}
-                                alt="Person"
-                              />
-                              <div className="flex flex-col justify-center mt-2">
-                                <p className="text-lg font-bold">
-                                  {comment.user}
-                                </p>
-                                <p className="mb-4 text-xs text-gray-800">
-                                  {comment.date.substring(0, 10)}
-                                </p>
-                                <p className="text-sm tracking-wide text-gray-800">
-                                  {comment.text}
-                                </p>
+                <div key={comment.id} className="flex justify-center">
+                  <>
+                    {users &&
+                      users.map((user) => (
+                        <div key={user.id} className="py-6">
+                          {user.user_name === comment.user && (
+                            <div className="py-6">
+                              <div>
+                                <img
+                                  className="object-cover w-24 h-24 rounded-full shadow"
+                                  src={`${URL}${user.image}`}
+                                  alt="Person"
+                                />
+                                <div className="flex flex-col justify-center mt-2">
+                                  <p className="text-lg font-bold">
+                                    {comment.user}
+                                  </p>
+                                  <p className="mb-4 text-xs text-gray-800">
+                                    {comment.date.substring(0, 10)}
+                                  </p>
+                                  <p className="text-sm tracking-wide text-gray-800">
+                                    {comment.text}
+                                  </p>
+                                </div>
+                                {(userInfo.role === "admin" ||
+                                  userInfo.email === user.email) && (
+                                  <div className="flex justify-center mt-2 ml-auto">
+                                    <button
+                                      onClick={() =>
+                                        deleteHandlerComment(comment.id)
+                                      }
+                                      className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-1 px-2 text-xs font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    >
+                                      <BsFillTrashFill size={20} />
+                                      <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                                        Borrar
+                                      </span>
+                                    </button>
+                                  </div>
+                                )}
                               </div>
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                </>
+                          )}
+                        </div>
+                      ))}
+                  </>
+                </div>
               ))}
           </div>
         </div>

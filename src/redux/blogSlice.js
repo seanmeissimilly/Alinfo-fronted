@@ -142,6 +142,31 @@ export const createComment = createAsyncThunk(
   }
 );
 
+//todo: Lógica para borrar un comentario.
+export const deleteComment = createAsyncThunk(
+  "deleteComment",
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await blogApi.delete(`/comment/${id}/`, config);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
 //todo: Lógica para añadir un blog.
 export const blogCreate = createAsyncThunk(
   "blogCreate",
