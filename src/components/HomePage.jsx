@@ -2,13 +2,11 @@ import PropTypes from "prop-types";
 import { Toaster, toast } from "react-hot-toast";
 
 const HomePage = () => {
-  const notify = () => toast("¡Notificación de ejemplo!");
-
   return (
     <div className="flex justify-center">
       <div className="w-4/5">
         <h1 className="text-3xl font-bold text-center my-8">
-          Bienvenido a la AlInfo
+          Bienvenido a AlInfo
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           <Section title="Foro" link="/forum" />

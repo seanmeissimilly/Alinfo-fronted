@@ -12,7 +12,7 @@ export default function EditBlog() {
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const path = "/miPerfil";
+  const path = "/forum";
 
   const dispatch = useDispatch();
 
