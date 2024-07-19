@@ -5,6 +5,7 @@ import { FaEdit, FaTrash, FaDownload } from "react-icons/fa";
 const Document = ({
   id,
   title,
+  author,
   description,
   type,
   classification,
@@ -41,6 +42,10 @@ const Document = ({
           </button>
         )}
         <div className="mt-3">
+          <div className="mt-1">
+            <span className="text-gray-700">Autor(es): </span>
+            <span className="text-gray-900 font-bold">{author}</span>
+          </div>
           <div className="mt-1">
             <span className="text-gray-700">Clasificación: </span>
             <span className="text-gray-900 font-bold">{classification}</span>
@@ -104,6 +109,7 @@ const Document = ({
 Document.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   classification: PropTypes.string.isRequired,

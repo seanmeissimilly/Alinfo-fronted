@@ -100,6 +100,7 @@ const Documents = () => {
           key={doc.id}
           id={doc.id}
           title={doc.title}
+          author={doc.author}
           description={doc.description}
           type={type ? String(type.description) : String(doc.documenttypes)}
           classification={
