@@ -25,6 +25,7 @@
     "dotenv": "^16.4.5",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
+    "moment": "^2.30.1",
     "postcss": "^8.4.39",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
