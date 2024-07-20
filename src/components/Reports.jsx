@@ -9,6 +9,13 @@ import {
   multimediaList,
   multimediaclassificationList,
 } from "../redux/multimediaSlice.js";
+import { appList, appClassificationList } from "../redux/appSlice.js";
+import {
+  documentList,
+  documentclassificationList,
+  documenttypesList,
+} from "../redux/documentSlice";
+import { format } from "date-fns";
 
 function Reports() {
   const dispatch = useDispatch();
@@ -20,6 +27,14 @@ function Reports() {
   } = useSelector((state) => state.user);
 
   const {
+    documents,
+    documenttypes,
+    documentclassification,
+    error: errorDocument,
+    loading: loadingDocument,
+  } = useSelector((state) => state.document);
+
+  const {
     multimedias: videos,
     multimediaclassification,
 
@@ -27,32 +42,51 @@ function Reports() {
     loading: loadingVideo,
   } = useSelector((state) => state.multimedia);
 
+  const {
+    apps: tools,
+    appclassification,
+    error: errorTool,
+    loading: loadingTool,
+  } = useSelector((state) => state.app);
+
   useEffect(() => {
     if (userInfo?.token) {
       dispatch(userList({ token: userInfo.token }));
       dispatch(multimediaList({ token: userInfo.token }));
       dispatch(multimediaclassificationList({ token: userInfo.token }));
+      dispatch(documentList({ token: userInfo.token }));
+      dispatch(documenttypesList({ token: userInfo.token }));
+      dispatch(documentclassificationList({ token: userInfo.token }));
+      dispatch(appList({ token: userInfo.token }));
+      dispatch(appClassificationList({ token: userInfo.token }));
     }
   }, [dispatch, userInfo]);
 
   const formatDate = (date) => moment(date).format("DD-MM-YYYY");
 
-  // const usuarios = [
-  //   { id: 1, rol: 2 },
-  //   { id: 2, rol: 1 },
-  //   // ... otros usuarios
-  // ];
+  const documentsWithAll = [...documents].map((document) => ({
+    ...document,
+    type: documenttypes.find((type) => type.id === document.documenttypes)
+      ?.description,
+    classification: documentclassification.find(
+      (classification) => classification.id === document.documentclassification
+    )?.description,
+  }));
 
-  // const roles = [
-  //   { id_rol: 1, description: "Administrador" },
-  //   { id_rol: 2, description: "Vendedor" },
-  //   // ... otros roles
-  // ];
+  const videosWithAll = [...videos].map((video) => ({
+    ...video,
 
-  // const usuariosConDescripciones = usuarios.map((usuario) => ({
-  //   ...usuario,
-  //   descripcion_rol: roles.find((r) => r.id_rol === usuario.rol).description,
-  // }));
+    classification: multimediaclassification.find(
+      (classification) => classification.id === video.multimediaclassification
+    )?.description,
+  }));
+
+  const toolsWithAll = [...tools].map((tool) => ({
+    ...tool,
+    classification: appclassification.find(
+      (classification) => classification.id === tool.applicationclassification
+    )?.description,
+  }));
 
   const reports = [
     {
@@ -78,55 +112,44 @@ function Reports() {
     {
       id: 2,
       name: "Listado de Documentos",
-      columns: [
-        ["id", "Nombre de Usuario", "Correo", "Rol", "Fecha de Inicio"],
-      ],
-      data: [...users]
+      columns: [["id", "Título", "Fecha", "Tipo", "Clasificación", "Usuario"]],
+      data: documentsWithAll
         .sort((a, b) => a.id - b.id)
-        .map((user) => [
-          user.id,
-          user.user_name,
-          user.email,
-          user.role === "reader"
-            ? "Lector"
-            : user.role === "editor"
-            ? "Editor"
-            : "Administrador",
-          user.start_date.substring(0, 10),
+        .map((document) => [
+          document.id,
+          document.title,
+          document.date.substring(0, 10),
+          document.type,
+          document.classification,
+          document.user,
         ]),
     },
     {
       id: 3,
       name: "Listado de Videos",
       columns: [["id", "Título", "Fecha", "Clasificación", "Usuario"]],
-      data: [...videos]
+      data: videosWithAll
         .sort((a, b) => a.id - b.id)
         .map((video) => [
           video.id,
           video.title,
-          video.date.substring(0, 10),
-          video.multimediaclassification,
+          format(new Date(video.date), "dd-MM-yyyy"),
+          video.classification,
           video.user,
         ]),
     },
     {
       id: 4,
       name: "Listado de Herramientas",
-      columns: [
-        ["id", "Nombre de Usuario", "Correo", "Rol", "Fecha de Inicio"],
-      ],
-      data: [...users]
+      columns: [["id", "Título", "Fecha", "Clasificación", "Usuario"]],
+      data: toolsWithAll
         .sort((a, b) => a.id - b.id)
-        .map((user) => [
-          user.id,
-          user.user_name,
-          user.email,
-          user.role === "reader"
-            ? "Lector"
-            : user.role === "editor"
-            ? "Editor"
-            : "Administrador",
-          user.start_date.substring(0, 10),
+        .map((tool) => [
+          tool.id,
+          tool.title,
+          tool.date.substring(0, 10),
+          tool.classification,
+          tool.user,
         ]),
     },
   ];
@@ -145,9 +168,9 @@ function Reports() {
 
   return (
     <>
-      {loadingUser || loadingVideo ? (
+      {loadingUser || loadingVideo || loadingTool || loadingDocument ? (
         <Loader />
-      ) : errorUser || errorVideo ? (
+      ) : errorUser || errorVideo || errorTool || errorDocument ? (
         <Messages>{errorUser}</Messages>
       ) : (
         <div className="container mx-auto p-4">

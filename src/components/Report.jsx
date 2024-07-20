@@ -44,8 +44,8 @@ const Report = ({ name, columns, data, date }) => {
 
 Report.propTypes = {
   name: PropTypes.string.isRequired,
-  columns: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired,
+  columns: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
   date: PropTypes.string.isRequired,
 };
 
