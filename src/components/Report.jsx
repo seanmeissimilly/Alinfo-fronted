@@ -5,10 +5,23 @@ import autoTable from "jspdf-autotable";
 
 const Report = ({ name, columns, data, date }) => {
   const generateReport = () => {
-    const report = new jsPDF();
+    const report = new jsPDF({ orientation: "landscape", format: "letter" });
     report.text(name, 95, 20);
-    report.text(`Fecha: ${date}`, 10, 20);
-    report.save();
+    report.text(`Fecha: ${date}`, 10, 30);
+
+    //todo: Generar la tabla
+    report.autoTable({
+      // styles: { fillColor: [255, 0, 0] },
+      startY: 50,
+      head: columns,
+      margin: { top: 10 },
+      body: data,
+      theme: "striped",
+      fontStyle: "normal",
+      font: "times",
+    });
+
+    report.save(`${name} ${date}.pdf`);
   };
 
   return (

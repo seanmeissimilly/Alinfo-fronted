@@ -19,6 +19,39 @@ function Reports() {
     }
   }, [dispatch, userInfo, error]);
 
+  // const usuarios = [
+  //   { id: 1, rol: 2 },
+  //   { id: 2, rol: 1 },
+  //   // ... otros usuarios
+  // ];
+
+  // const roles = [
+  //   { id_rol: 1, description: "Administrador" },
+  //   { id_rol: 2, description: "Vendedor" },
+  //   // ... otros roles
+  // ];
+
+  // const usuariosConDescripciones = usuarios.map((usuario) => ({
+  //   ...usuario,
+  //   descripcion_rol: roles.find((r) => r.id_rol === usuario.rol).description,
+  // }));
+
+  const columns = [
+    "id",
+    "Nombre de Usuario",
+    "Correo",
+    "Rol",
+    "Fecha de Inicio",
+  ];
+
+  const userstable = users.map((user) => [
+    user.id,
+    user.user_name,
+    user.email,
+    user.role,
+    user.start_date.substring(0, 10),
+  ]);
+
   const renderReports = () => {
     // Ordeno los documentos por ID antes de renderizarlos
 
@@ -27,8 +60,8 @@ function Reports() {
       <Report
         key={"user.id"}
         name={"Listado de Usuarios"}
-        columns={"user.id"}
-        data={"user.id"}
+        columns={[columns]}
+        data={userstable}
         date={moment().format("DD-MM-YYYY")}
       />
     );
