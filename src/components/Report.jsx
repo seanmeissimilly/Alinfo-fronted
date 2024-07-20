@@ -43,7 +43,7 @@ const Report = ({ name, columns, data, date }) => {
 };
 
 Report.propTypes = {
-  name: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
   columns: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
