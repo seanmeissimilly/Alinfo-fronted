@@ -4,7 +4,6 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import Report from "./Report.jsx";
 import { userList } from "../redux/userSlice.js";
-import moment from "moment";
 import {
   multimediaList,
   multimediaclassificationList,
@@ -15,7 +14,6 @@ import {
   documentclassificationList,
   documenttypesList,
 } from "../redux/documentSlice";
-import { format } from "date-fns";
 
 function Reports() {
   const dispatch = useDispatch();
@@ -106,7 +104,7 @@ function Reports() {
             : user.role === "editor"
             ? "Editor"
             : "Administrador",
-          user.start_date.substring(0, 10),
+          formatDate(user.start_date),
         ]),
     },
     {
@@ -118,7 +116,7 @@ function Reports() {
         .map((document) => [
           document.id,
           document.title,
-          document.date.substring(0, 10),
+          formatDate(document.date),
           document.type,
           document.classification,
           document.user,
@@ -133,7 +131,7 @@ function Reports() {
         .map((video) => [
           video.id,
           video.title,
-          format(new Date(video.date), "dd-MM-yyyy"),
+          formatDate(video.date),
           video.classification,
           video.user,
         ]),
@@ -147,7 +145,7 @@ function Reports() {
         .map((tool) => [
           tool.id,
           tool.title,
-          tool.date.substring(0, 10),
+          formatDate(tool.date),
           tool.classification,
           tool.user,
         ]),
@@ -161,7 +159,7 @@ function Reports() {
         name={report.name}
         columns={report.columns}
         data={report.data}
-        date={formatDate(moment())}
+        date={formatDate(new Date())}
       />
     ));
   };
