@@ -75,6 +75,8 @@ const Document = ({
           href={data}
           className="text-indigo-600 hover:text-indigo-900 bg-indigo-100 hover:bg-indigo-200 px-2 py-1 rounded flex items-center"
           download
+          target="_blank"
+          rel="noopener noreferrer"
         >
           <FaDownload className="mr-1" />
           <span className="hidden group-hover:inline">Descargar</span>
