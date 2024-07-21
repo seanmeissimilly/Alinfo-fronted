@@ -10,7 +10,7 @@ export default function Landing() {
               <span className="block xl:inline">AlInfo </span>
             </h2>
             <StyledParagraph>
-              Biblioteca Digital de Ingeniería Alimentaria.
+              Repositorio Virtual de Ingeniería Alimentaria.
             </StyledParagraph>
             <StyledParagraph>
               Facultad de Ingeniería Química, Cujae.

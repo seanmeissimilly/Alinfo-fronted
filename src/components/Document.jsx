@@ -78,7 +78,7 @@ const Document = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FaDownload className="mr-1" />
+          <FaDownload />
           <span className="hidden group-hover:inline">Descargar</span>
         </a>
         {(userRole === "admin" || userRole === "editor") && (

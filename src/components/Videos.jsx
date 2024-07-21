@@ -13,6 +13,7 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
+import moment from "moment/moment.js";
 
 const Videos = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -63,6 +64,8 @@ const Videos = () => {
     }
   };
 
+  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+
   const fadeIn = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -100,7 +103,7 @@ const Videos = () => {
           userImage={user ? `${URL}${user.image}` : ""}
           userRole={userInfo ? userInfo.role : "reader"}
           data={video.data}
-          date={video.date.substring(0, 10)}
+          date={formatDate(video.date)}
           onDelete={() => handleDelete(video.id)}
         />
       );

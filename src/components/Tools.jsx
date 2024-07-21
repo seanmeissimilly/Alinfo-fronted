@@ -13,6 +13,7 @@ import Tool from "./Tool.jsx";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
+import moment from "moment/moment.js";
 
 const Tools = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -60,6 +61,7 @@ const Tools = () => {
       dispatch(appDelete({ id, token: userInfo.token }));
     }
   };
+  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
 
   const fadeIn = useSpring({
     from: { opacity: 0 },
@@ -98,7 +100,7 @@ const Tools = () => {
           userImage={user ? `${URL}${user.image}` : ""}
           userRole={userInfo ? userInfo.role : "reader"}
           data={app.data}
-          date={app.date.substring(0, 10)}
+          date={formatDate(app.date)}
           onDelete={() => handleDelete(app.id)}
         />
       );

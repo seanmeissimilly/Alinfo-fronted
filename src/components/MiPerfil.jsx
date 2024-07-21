@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { blogDelete, blogList } from "../redux/blogSlice";
+import moment from "moment/moment.js";
 
 export default function MiPerfil() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -25,6 +26,8 @@ export default function MiPerfil() {
     }
   };
 
+  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg">
@@ -43,7 +46,7 @@ export default function MiPerfil() {
                 href={"/editProfile"}
                 className=" bg-indigo-600 py-1 px-5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Editar Perfil
+                <span className="">Editar Perfil</span>
               </a>
             </h3>
           </center>
@@ -123,7 +126,7 @@ export default function MiPerfil() {
                           </div>
                         </div>
                       </div>
-                      <div></div>
+
                       <img
                         src={`${URL}${blog_element.image}`}
                         className="w-full object-cover rounded-md"
@@ -136,22 +139,32 @@ export default function MiPerfil() {
                       <div className="p-4 flex justify-between items-center">
                         <p>{blog_element.body}</p>
                       </div>
-                      <div className="p-4 flex justify-end items-center">
+                      <div className="p-4 flex justify-between items-center">
+                        <div className="flex flex-row">
+                          <p className="mb-2 pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                            {formatDate(blog_element.date)}
+                          </p>
+                        </div>
+
                         <div className="flex flex-row items-center">
                           <a
                             href={`/editBlog/${blog_element.id}`}
-                            className="group mx-6 relative flex  justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="group mx-4 relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
-                            {" "}
                             <AiFillEdit size={20} />
+                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                              Editar
+                            </span>
                           </a>
 
                           <button
                             onClick={() => deleteHandler(blog_element.id)}
-                            className="group relative flex  justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
-                            {" "}
                             <BsFillTrashFill size={20} />
+                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                              Borrar
+                            </span>
                           </button>
                         </div>
                       </div>

@@ -14,6 +14,7 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
+import moment from "moment/moment.js";
 
 const Documents = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -72,6 +73,8 @@ const Documents = () => {
     }
   };
 
+  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+
   const fadeIn = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
@@ -112,7 +115,7 @@ const Documents = () => {
           userImage={user ? `${URL}${user.image}` : ""}
           userRole={userInfo ? userInfo.role : "reader"}
           data={doc.data}
-          date={doc.date.substring(0, 10)}
+          date={formatDate(doc.date)}
           onDelete={() => handleDelete(doc.id)}
         />
       );

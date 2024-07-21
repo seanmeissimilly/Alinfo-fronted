@@ -11,6 +11,7 @@ import {
 } from "../redux/blogSlice";
 import { userList } from "../redux/userSlice.js";
 import { BsFillTrashFill } from "react-icons/bs";
+import moment from "moment/moment.js";
 
 export default function SoloBlog() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -40,6 +41,8 @@ export default function SoloBlog() {
     dispatch(createComment({ id, text, token: userInfo.token }));
   };
 
+  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+
   const deleteHandlerComment = (comment_id) => {
     if (window.confirm("¿Seguro que deseas eliminar esta comentario?")) {
       dispatch(deleteComment({ comment_id, token: userInfo.token }));
@@ -57,7 +60,7 @@ export default function SoloBlog() {
           <div>
             <div className="py-10 bg-gray-200">
               <div className="py-8">
-                <div className="max-w-md mx-auto  bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
+                <div className="max-w-md mx-auto  bg-white shadow-lg rounded-md overflow-hidden md:max-w-lg">
                   <div className="md:flex">
                     <div className="w-full">
                       <div className="flex justify-between items-center m-8">
@@ -107,7 +110,7 @@ export default function SoloBlog() {
                       <div className="p-4 flex justify-between items-center">
                         <div className="flex flex-row items-center ">
                           <p className="mb-2 pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
-                            {blogInfo.date?.substring(0, 10)}
+                            {formatDate(blogInfo.date)}
                           </p>
                         </div>
                       </div>
@@ -167,7 +170,7 @@ export default function SoloBlog() {
                                       {comment.user}
                                     </p>
                                     <p className="mb-4 text-xs text-gray-800">
-                                      {comment.date.substring(0, 10)}
+                                      {formatDate(comment.date)}
                                     </p>
                                     <p className="text-sm tracking-wide text-gray-800">
                                       {comment.text}

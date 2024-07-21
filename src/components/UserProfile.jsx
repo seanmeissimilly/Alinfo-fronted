@@ -5,11 +5,11 @@ import { userSolo } from "../redux/userSlice.js";
 import { blogList } from "../redux/blogSlice";
 import Messages from "./Messages";
 import Loader from "./Loader";
+import moment from "moment/moment.js";
 
 export default function UserProfile() {
-  const { id } = useParams();
-
   const URL = import.meta.env.VITE_BACKEND_URL;
+  const { id } = useParams();
 
   const dispatch = useDispatch();
 
@@ -23,6 +23,8 @@ export default function UserProfile() {
     dispatch(userSolo({ id, token: userInfo.token }));
     dispatch(blogList({ token: userInfo.token }));
   }, [dispatch, id, userInfo]);
+
+  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
 
   return (
     <>
@@ -102,7 +104,7 @@ export default function UserProfile() {
               {userOnly.user_name === blog.user && (
                 <div className="py-20 bg-gray-200">
                   <div className=" px-10">
-                    <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-md">
+                    <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-lg">
                       <div className="md:flex">
                         <div className="w-full">
                           <div
@@ -122,11 +124,29 @@ export default function UserProfile() {
                               </div>
                             </div>
                           </div>
-                          <div></div>
-                          <div className="p-4 flex justify-between items-center">
-                            <p>{blog.body}</p>
+
+                          <div className="">
+                            <img
+                              src={`${URL}${blog.image}`}
+                              className="w-full object-cover rounded-md"
+                            />
+
+                            <div className="p-4 flex justify-start items-center text-xl">
+                              <p className="font-bold text-start">
+                                {blog.title}
+                              </p>
+                            </div>
+
+                            <div className="p-4 flex justify-between items-center">
+                              <p>{blog.body}</p>
+                            </div>
                           </div>
                           <div className="p-4 flex justify-between items-center">
+                            <div className="flex flex-row">
+                              <p className="mb-2 pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                                {formatDate(blog.date)}
+                              </p>
+                            </div>
                             <div className="flex flex-row items-center">
                               <a
                                 href={`/soloBlog/${blog.id}`}
