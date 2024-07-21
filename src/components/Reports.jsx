@@ -151,6 +151,38 @@ function Reports() {
           tool.user,
         ]),
     },
+    {
+      id: 5,
+      name: "Listado de Tipos de Documentos",
+      columns: [["id", "Description"]],
+      data: [...documenttypes]
+        .sort((a, b) => a.id - b.id)
+        .map((document) => [document.id, document.description]),
+    },
+    {
+      id: 6,
+      name: "Listado de Clasificaciones de Documentos",
+      columns: [["id", "Description"]],
+      data: [...documentclassification]
+        .sort((a, b) => a.id - b.id)
+        .map((document) => [document.id, document.description]),
+    },
+    {
+      id: 7,
+      name: "Listado de Clasificaciones de Videos",
+      columns: [["id", "Description"]],
+      data: [...multimediaclassification]
+        .sort((a, b) => a.id - b.id)
+        .map((video) => [video.id, video.description]),
+    },
+    {
+      id: 8,
+      name: "Listado de Clasificaciones de Herramientas",
+      columns: [["id", "Description"]],
+      data: [...appclassification]
+        .sort((a, b) => a.id - b.id)
+        .map((tool) => [tool.id, tool.description]),
+    },
   ];
 
   const renderReports = () => {
