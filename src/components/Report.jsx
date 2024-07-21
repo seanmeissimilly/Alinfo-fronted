@@ -34,7 +34,7 @@ const Report = ({ name, columns, data, date }) => {
   };
 
   return (
-    <div className="max-w-xs mx-auto bg-white rounded-lg shadow-md overflow-hidden mb-2 flex flex-col justify-between">
+    <div className="flex items-stretch mx-4 max-w-xs bg-white rounded-lg shadow-md overflow-hidden mb-2 flex-col justify-between">
       <div className="p-4 flex-grow">
         <h2 className="mt-1 text-md font-semibold text-gray-900">{name}</h2>
 
