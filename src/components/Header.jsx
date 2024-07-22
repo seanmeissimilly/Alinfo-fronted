@@ -19,6 +19,7 @@ import { IoDocumentSharp } from "react-icons/io5";
 import { MdVideoLibrary } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
 import { userLogout } from "../redux/userSlice";
+import { Avatar } from "@material-tailwind/react";
 
 export default function Header() {
   function classNames(...classes) {
@@ -102,8 +103,8 @@ export default function Header() {
                   <div>
                     <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Abrir Menú de Usuario</span>
-                      <img
-                        className="h-10 w-10 rounded-full"
+                      <Avatar
+                        className="border-2 border-white hover:z-10 focus:z-10"
                         src={`${URL}${userInfo.image}`}
                         alt=""
                       />
@@ -259,8 +260,8 @@ export default function Header() {
                           title="Perfil de Usuario"
                         >
                           <span className="sr-only">Abrir Menú de Usuario</span>
-                          <img
-                            className="h-10 w-10 rounded-full"
+                          <Avatar
+                            className="border-2 border-white hover:z-10 focus:z-10"
                             src={`${URL}${userInfo.image}`}
                             alt=""
                           />

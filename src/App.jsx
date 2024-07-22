@@ -25,6 +25,7 @@ import DocumentForm from "./components/DocumentForm";
 import VideoForm from "./components/VideoForm";
 import ToolForm from "./components/ToolForm";
 import SuggestionForm from "./components/SuggestionForm";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
         <Route path="/register" element={<Register />} />
       </Routes>
       <Toaster />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
