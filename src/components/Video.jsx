@@ -40,7 +40,7 @@ const Video = ({
         )}
         <div className="mt-3">
           <div className="mt-1">
-            <video className="w-full h-48 object-cover" controls>
+            <video className="h-full w-full rounded-lg" controls>
               <source src={data} type="video/mp4" />
               Tu navegador no soporta la etiqueta de video.
             </video>

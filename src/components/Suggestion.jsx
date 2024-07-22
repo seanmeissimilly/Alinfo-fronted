@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { Switch } from "@material-tailwind/react";
+import { Checkbox } from "@material-tailwind/react";
 
 const Suggestion = ({
   id,
@@ -42,19 +42,13 @@ const Suggestion = ({
         )}
         <div className="mt-3">
           <div className="mt-1">
-            <Switch
-              readOnly
+            <Checkbox
               id="resolved"
-              label="Estado"
-              checked={resolved}
+              color="green"
+              label={resolved ? "Resuelto" : "No Resuelto"}
               ripple={true}
-              className="h-full w-full checked:bg-[#3ea54d]"
-              containerProps={{
-                className: "w-11 h-6",
-              }}
-              circleProps={{
-                className: "before:hidden left-0.5 border-none",
-              }}
+              readOnly
+              checked={resolved}
             />
           </div>
           <div className="mt-1">

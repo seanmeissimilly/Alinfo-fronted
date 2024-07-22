@@ -121,7 +121,7 @@ export default function Forum() {
                                     <div className="mt-4">
                                       <img
                                         src={`${URL}${blog.image}`}
-                                        className="w-full object-cover rounded-md"
+                                        className="w-full object-cover rounded-md object-center"
                                       />
                                     </div>
                                     <div className="p-4 flex justify-center items-center text-xl">

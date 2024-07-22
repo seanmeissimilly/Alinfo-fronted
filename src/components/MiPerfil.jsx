@@ -129,7 +129,7 @@ export default function MiPerfil() {
 
                       <img
                         src={`${URL}${blog_element.image}`}
-                        className="w-full object-cover rounded-md"
+                        className="w-full object-cover rounded-md object-center"
                       />
                       <div className="p-4 flex justify-start items-center text-xl">
                         <p className="font-bold text-start">

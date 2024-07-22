@@ -128,7 +128,7 @@ export default function UserProfile() {
                           <div className="">
                             <img
                               src={`${URL}${blog.image}`}
-                              className="w-full object-cover rounded-md"
+                              className="w-full object-cover rounded-md object-center"
                             />
 
                             <div className="p-4 flex justify-start items-center text-xl">
