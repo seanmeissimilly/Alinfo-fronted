@@ -7,6 +7,10 @@ module.exports = withMT({
   darkMode: "class",
   theme: {
     extend: {},
+
+    fontFamily: {
+      sans: ["Open Sans", "sans-serif"],
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 });
