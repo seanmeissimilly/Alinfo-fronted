@@ -93,7 +93,7 @@ export default function DocumentForm() {
     <>
       {loading && <Loader />}
       {error && <Messages>{error}</Messages>}
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center">
         <form
           onSubmit={handleSubmit}
           className="shadow sm:overflow-hidden sm:rounded-md"
@@ -101,7 +101,7 @@ export default function DocumentForm() {
           <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
             {id ? "Editar Documento" : "Crear Documento"}
           </h2>
-          <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+          <div className="space-y-6 px-4 py-5 sm:p-6">
             <div>
               <label
                 className="block text-sm font-medium text-gray-700"

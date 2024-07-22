@@ -81,7 +81,7 @@ export default function AppForm() {
     <>
       {loading && <Loader />}
       {error && <Messages>{error}</Messages>}
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center">
         <form
           onSubmit={handleSubmit}
           className="shadow sm:overflow-hidden sm:rounded-md"

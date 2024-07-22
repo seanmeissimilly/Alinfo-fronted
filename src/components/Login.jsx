@@ -8,6 +8,7 @@ import user_icon from "../media/user.png";
 import { toast } from "react-hot-toast";
 import { userLogin } from "../redux/userSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { Input } from "@material-tailwind/react";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -72,12 +73,13 @@ export default function Login() {
               method="POST"
             >
               <input type="hidden" name="remember" defaultValue="true" />
-              <div className="-space-y-px rounded-md shadow-sm">
+              <div className="space-y-px rounded-md shadow-sm">
                 <div className="my-8">
                   <label htmlFor="email-address" className="sr-only">
                     Dirección de correo electrónico
                   </label>
-                  <input
+                  <Input
+                    label="Correo Electrónico"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     id="email"
@@ -94,7 +96,8 @@ export default function Login() {
                     <label htmlFor="password" className="sr-only">
                       Contraseña
                     </label>
-                    <input
+                    <Input
+                      label="Contraseña"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       id="password"

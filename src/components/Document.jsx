@@ -117,7 +117,7 @@ Document.propTypes = {
   classification: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
   userImage: PropTypes.string.isRequired,
-  data: PropTypes.string.isRequired,
+  data: PropTypes.string,
   userRole: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   date: PropTypes.string.isRequired,

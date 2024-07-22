@@ -9,7 +9,7 @@ import {
   suggestionCreate,
 } from "../redux/suggestionSlice.js";
 import { toast } from "react-hot-toast";
-import { Switch } from "@material-tailwind/react";
+import { Switch, Input } from "@material-tailwind/react";
 
 export default function SuggestionForm() {
   const [title, setTitle] = useState("");
@@ -93,7 +93,8 @@ export default function SuggestionForm() {
               >
                 Título:
               </label>
-              <input
+              <Input
+                variant="static"
                 type="text"
                 name="title"
                 onChange={(e) => setTitle(e.target.value)}

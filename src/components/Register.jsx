@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import { userRegister } from "../redux/userSlice.js";
 import PasswordChecklist from "react-password-checklist";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { Input } from "@material-tailwind/react";
 
 export default function Register() {
   const [user_name, setUser_name] = useState("");
@@ -85,14 +86,15 @@ export default function Register() {
               action="#"
               method="POST"
             >
-              <input type="hidden" name="remember" defaultValue="true" />
+              <Input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md shadow-sm">
                 <div className="my-8">
                   <div className="my-8">
                     <label htmlFor="user-name" className="sr-only">
                       Nombre de usuario
                     </label>
-                    <input
+                    <Input
+                      label="Nombre de Usuario"
                       value={user_name}
                       onChange={(e) => setUser_name(e.target.value)}
                       id="username"
@@ -109,7 +111,8 @@ export default function Register() {
                     <label htmlFor="email-address" className="sr-only">
                       Dirección de correo electrónico
                     </label>
-                    <input
+                    <Input
+                      label="Correo Electrónico"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       id="email-address"
@@ -127,7 +130,8 @@ export default function Register() {
                       <label htmlFor="password" className="sr-only">
                         Contraseña
                       </label>
-                      <input
+                      <Input
+                        label="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         id="password"
@@ -153,7 +157,8 @@ export default function Register() {
                       <label htmlFor="confirmpassword" className="sr-only">
                         Confirmar Contraseña
                       </label>
-                      <input
+                      <Input
+                        label="Confirmar Contraseña"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         id="confirmpassword"
