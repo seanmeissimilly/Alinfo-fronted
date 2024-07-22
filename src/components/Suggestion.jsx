@@ -13,6 +13,7 @@ const Suggestion = ({
   userImage,
   userRole,
   onDelete,
+  email,
 }) => {
   const [showFullDescription, setShowFullBody] = useState(false);
 
@@ -61,8 +62,8 @@ const Suggestion = ({
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between p-4">
-        {(userRole === "admin" || user === userInfo) && (
+      <div className="flex items-center justify-end p-4">
+        {(userRole === "admin" || email === userInfo.email) && (
           <div className="flex space-x-2">
             <a
               href={`/editSuggestion/${id}`}
@@ -92,9 +93,10 @@ const Suggestion = ({
 Suggestion.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   user: PropTypes.string.isRequired,
-  userInfo: PropTypes.string.isRequired,
+  userInfo: PropTypes.object.isRequired,
   resolved: PropTypes.bool.isRequired,
   date: PropTypes.string.isRequired,
   userImage: PropTypes.string.isRequired,
