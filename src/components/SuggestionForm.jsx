@@ -115,18 +115,18 @@ export default function SuggestionForm() {
                 placeholder="Escribe una resumen"
               />
             </div>
-            <div>
+            <div className="flex items-center">
               <label
                 className="block text-sm font-medium text-gray-700"
-                htmlFor="author"
+                htmlFor="resolved"
               >
                 Estado:
               </label>
               <input
                 type="checkbox"
                 onChange={(e) => setResolved(e.target.value)}
-                value={resolved}
-                className=""
+                checked={resolved}
+                className="ml-2"
               />
             </div>
           </div>
