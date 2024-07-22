@@ -100,6 +100,8 @@ const Videos = () => {
               : String(video.multimediaclassification)
           }
           user={video.user}
+          email={user ? user.email : ""}
+          userInfo={userInfo}
           userImage={user ? `${URL}${user.image}` : ""}
           userRole={userInfo ? userInfo.role : "reader"}
           data={video.data}

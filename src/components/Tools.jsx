@@ -97,6 +97,8 @@ const Tools = () => {
               : String(app.applicationclassification)
           }
           user={app.user}
+          email={user ? user.email : ""}
+          userInfo={userInfo}
           userImage={user ? `${URL}${user.image}` : ""}
           userRole={userInfo ? userInfo.role : "reader"}
           data={app.data}

@@ -112,6 +112,8 @@ const Documents = () => {
               : String(doc.documentclassification)
           }
           user={doc.user}
+          email={user ? user.email : ""}
+          userInfo={userInfo}
           userImage={user ? `${URL}${user.image}` : ""}
           userRole={userInfo ? userInfo.role : "reader"}
           data={doc.data}

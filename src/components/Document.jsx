@@ -10,11 +10,13 @@ const Document = ({
   type,
   classification,
   user,
+  userInfo,
   userImage,
   data,
   userRole,
   onDelete,
   date,
+  email,
 }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -81,7 +83,8 @@ const Document = ({
           <FaDownload />
           <span className="hidden group-hover:inline">Descargar</span>
         </a>
-        {(userRole === "admin" || userRole === "editor") && (
+        {(userRole === "admin" ||
+          (userRole === "editor" && email === userInfo.email)) && (
           <div className="flex space-x-2">
             <a
               href={`/editDocument/${id}`}
@@ -121,6 +124,8 @@ Document.propTypes = {
   userRole: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   date: PropTypes.string.isRequired,
+  userInfo: PropTypes.object.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 export default Document;
