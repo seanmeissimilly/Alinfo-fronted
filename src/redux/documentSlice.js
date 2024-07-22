@@ -344,7 +344,4 @@ export const documentSlice = createSlice({
   },
 });
 
-// export const {
-
-// } = documentSlice.actions;
 export default documentSlice.reducer;

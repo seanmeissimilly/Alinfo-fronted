@@ -95,9 +95,9 @@ export default function UserProfile() {
               </dl>
             </div>
           </div>
-          <h2 className="mt-6 mb-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+          <h3 className="mt-6 mb-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             -- Publicaciones --
-          </h2>
+          </h3>
 
           {blogs.map((blog) => (
             <>

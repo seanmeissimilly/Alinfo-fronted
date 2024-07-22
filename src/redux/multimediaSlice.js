@@ -284,7 +284,4 @@ export const multimediaSlice = createSlice({
   },
 });
 
-// export const {
-
-// } = multimediaSlice.actions;
 export default multimediaSlice.reducer;

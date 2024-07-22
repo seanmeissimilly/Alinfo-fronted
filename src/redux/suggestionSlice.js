@@ -7,7 +7,7 @@ const suggestionsApi = axios.create({
   baseURL: `${URL}/suggestions`,
 });
 
-//todo:  Lógica para listar los suggestionss existentes.
+//todo:  Lógica para listar las sugerencias existentes.
 export const suggestionList = createAsyncThunk(
   "suggestionsList",
   async ({ token }, { rejectWithValue }) => {
@@ -31,7 +31,7 @@ export const suggestionList = createAsyncThunk(
   }
 );
 
-//todo: Lógica para listar un solo suggestionss.
+//todo: Lógica para listar uns sola sugerencia.
 export const suggestionDetails = createAsyncThunk(
   "suggestionsDetails",
   async ({ id, token }, { rejectWithValue }) => {
@@ -55,10 +55,10 @@ export const suggestionDetails = createAsyncThunk(
   }
 );
 
-//todo: Lógica  para actualizar un suggestions.
+//todo: Lógica  para actualizar una sugerencia.
 export const suggestionUpdate = createAsyncThunk(
   "suggestionsUpdate",
-  async ({ id, body, resolved, token }, { rejectWithValue }) => {
+  async ({ id, title, body, resolved, token }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -69,7 +69,7 @@ export const suggestionUpdate = createAsyncThunk(
 
       const { data } = await suggestionsApi.put(
         `/${id}/`,
-        { body, resolved },
+        { title, body, resolved },
         config
       );
 
@@ -83,7 +83,7 @@ export const suggestionUpdate = createAsyncThunk(
     }
   }
 );
-//todo: Lógica para eliminar un suggestions.
+//todo: Lógica para eliminar una sugerencia.
 export const suggestionDelete = createAsyncThunk(
   "suggestionsDelete",
   async ({ id, token }, { rejectWithValue }) => {
@@ -107,10 +107,10 @@ export const suggestionDelete = createAsyncThunk(
   }
 );
 
-//todo: Lógica para añadir un suggestions.
+//todo: Lógica para añadir una sugerencia.
 export const suggestionCreate = createAsyncThunk(
   "suggestionsCreate",
-  async ({ body, resolved, token }, { rejectWithValue }) => {
+  async ({ title, body, resolved, token }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -121,7 +121,7 @@ export const suggestionCreate = createAsyncThunk(
 
       const { data } = await suggestionsApi.post(
         `/`,
-        { body, resolved },
+        { title, body, resolved },
         config
       );
 
@@ -196,12 +196,7 @@ export const suggestionSlice = createSlice({
     builder.addCase(suggestionDelete.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      const { id } = action.payload;
-      if (id) {
-        state.suggestions = state.suggestions.filter(
-          (suggestion) => suggestion.id !== id
-        );
-      }
+      state.suggestionInfo = {};
     });
     builder.addCase(suggestionDelete.rejected, (state, action) => {
       state.loading = false;
@@ -222,7 +217,4 @@ export const suggestionSlice = createSlice({
   },
 });
 
-// export const {
-
-// } = suggestionsSlice.actions;
 export default suggestionSlice.reducer;

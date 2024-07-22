@@ -24,6 +24,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import DocumentForm from "./components/DocumentForm";
 import VideoForm from "./components/VideoForm";
 import ToolForm from "./components/ToolForm";
+import SuggestionForm from "./components/SuggestionForm";
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
           <Route path="/videos" element={<Videos />} />
           <Route path="/suggestions" element={<Suggestions />} />
           <Route path="/soloBlog/:id" element={<SoloBlog />} />
+          <Route path="/createSuggestion" element={<SuggestionForm />} />
+          <Route path="/editSuggestion/:id" element={<SuggestionForm />} />
           <Route
             element={<ProtectedRoute allowedRoles={["admin", "editor"]} />}
           >
