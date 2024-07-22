@@ -75,7 +75,7 @@ const Suggestions = () => {
           title={suggestion.title}
           body={suggestion.body}
           user={suggestion.user}
-          email={user.email}
+          email={user ? user.email : ""}
           userInfo={userInfo}
           userImage={user ? `${URL}${user.image}` : ""}
           userRole={userInfo ? userInfo.role : "reader"}

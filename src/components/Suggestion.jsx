@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { Switch } from "@material-tailwind/react";
 
 const Suggestion = ({
   id,
@@ -41,10 +42,20 @@ const Suggestion = ({
         )}
         <div className="mt-3">
           <div className="mt-1">
-            <span className="text-gray-700">Estado: </span>
-            <span className="text-gray-900 font-bold">
-              {resolved ? "Resuelta" : "No resulta"}
-            </span>
+            <Switch
+              readOnly
+              id="resolved"
+              label="Estado"
+              checked={resolved}
+              ripple={true}
+              className="h-full w-full checked:bg-[#3ea54d]"
+              containerProps={{
+                className: "w-11 h-6",
+              }}
+              circleProps={{
+                className: "before:hidden left-0.5 border-none",
+              }}
+            />
           </div>
           <div className="mt-1">
             <span className="text-gray-700">Fecha de subida: </span>

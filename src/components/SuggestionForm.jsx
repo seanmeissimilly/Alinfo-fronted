@@ -9,6 +9,7 @@ import {
   suggestionCreate,
 } from "../redux/suggestionSlice.js";
 import { toast } from "react-hot-toast";
+import { Switch } from "@material-tailwind/react";
 
 export default function SuggestionForm() {
   const [title, setTitle] = useState("");
@@ -68,6 +69,10 @@ export default function SuggestionForm() {
     }
   }, [dispatch, id, userInfo, suggestionInfo]);
 
+  const handleSwitchChange = () => {
+    setResolved(!resolved);
+  };
+
   return (
     <>
       {loading && <Loader />}
@@ -80,7 +85,7 @@ export default function SuggestionForm() {
           <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
             {id ? "Editar Queja o Sugerencia" : "Crear Queja o Sugerencia"}
           </h2>
-          <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+          <div className="space-y-6 px-4 py-5 sm:p-6">
             <div>
               <label
                 className="block text-sm font-medium text-gray-700"
@@ -116,17 +121,19 @@ export default function SuggestionForm() {
               />
             </div>
             <div className="flex items-center">
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="resolved"
-              >
-                Estado:
-              </label>
-              <input
-                type="checkbox"
-                onChange={(e) => setResolved(e.target.value)}
+              <Switch
+                id="resolved"
+                label="Estado"
                 checked={resolved}
-                className="ml-2"
+                onChange={handleSwitchChange}
+                ripple={true}
+                className="h-full w-full checked:bg-[#3ea54d]"
+                containerProps={{
+                  className: "w-11 h-6",
+                }}
+                circleProps={{
+                  className: "before:hidden left-0.5 border-none",
+                }}
               />
             </div>
           </div>
