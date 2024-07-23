@@ -56,13 +56,13 @@ export default function Header() {
           {!isEmpty(userInfo) ? ( //!Reviso si userInfo está vacio.
             <>
               <PopoverGroup as="nav" className="hidden space-x-10 md:flex">
-                <a
+                {/* <a
                   href="/"
                   className="text-base font-medium text-green-800 hover:text-gray-900"
                   title="Inicio"
                 >
                   <AiFillHome size={30} />
-                </a>
+                </a> */}
                 <a
                   href="/forum"
                   className="text-base font-medium text-green-800 hover:text-gray-900"
@@ -210,13 +210,13 @@ export default function Header() {
               {!isEmpty(userInfo) ? (
                 <>
                   <div className="grid grid-cols-3 gap-y-4 gap-x-8">
-                    <a
+                    {/* <a
                       href="/"
                       className="text-base font-medium text-green-800 hover:text-gray-900"
                       title="Inicio"
                     >
                       <AiFillHome size={30} />
-                    </a>
+                    </a> */}
                     <a
                       href="/forum"
                       className="text-base font-medium text-green-800 hover:text-gray-900"

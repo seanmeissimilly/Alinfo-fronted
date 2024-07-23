@@ -25,6 +25,7 @@ import DocumentForm from "./components/DocumentForm";
 import VideoForm from "./components/VideoForm";
 import ToolForm from "./components/ToolForm";
 import SuggestionForm from "./components/SuggestionForm";
+import Contact from "./components/Contact";
 import { Footer } from "./components/Footer";
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
       <Header />
       <Routes>
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<HomePage />} />
+          {/* <Route path="/" element={<HomePage />} /> */}
           <Route path="/forum" element={<Forum />} />
           <Route path="/miPerfil" element={<MiPerfil />} />
           <Route path="/editProfile" element={<EditProfile />} />
@@ -62,9 +63,11 @@ function App() {
         <Route path="/landing" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<Contact />} />
       </Routes>
       <Toaster />
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }

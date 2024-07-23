@@ -25,7 +25,7 @@ export default function Login() {
   const { userInfo, loading, error } = user;
 
   const navigate = useNavigate();
-  const path = "/";
+  const path = "/forum";
 
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
 
