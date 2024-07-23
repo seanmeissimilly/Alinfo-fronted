@@ -92,7 +92,14 @@ function Reports() {
       id: 1,
       name: "Listado de Usuarios",
       columns: [
-        ["id", "Nombre de Usuario", "Correo", "Rol", "Fecha de Inicio"],
+        [
+          "ID",
+          "Nombre de Usuario",
+          "Correo",
+          "Rol",
+          "Fecha de Inicio",
+          "Última Entrada",
+        ],
       ],
       data: [...users]
         .sort((a, b) => a.id - b.id)
@@ -106,12 +113,13 @@ function Reports() {
             ? "Editor"
             : "Administrador",
           formatDate(user.start_date),
+          formatDate(user.last_login),
         ]),
     },
     {
       id: 2,
       name: "Listado de Documentos",
-      columns: [["id", "Título", "Fecha", "Tipo", "Clasificación", "Usuario"]],
+      columns: [["ID", "Título", "Fecha", "Tipo", "Clasificación", "Usuario"]],
       data: documentsWithAll
         .sort((a, b) => a.id - b.id)
         .map((document) => [
@@ -126,7 +134,7 @@ function Reports() {
     {
       id: 3,
       name: "Listado de Videos",
-      columns: [["id", "Título", "Fecha", "Clasificación", "Usuario"]],
+      columns: [["ID", "Título", "Fecha", "Clasificación", "Usuario"]],
       data: videosWithAll
         .sort((a, b) => a.id - b.id)
         .map((video) => [
@@ -140,7 +148,7 @@ function Reports() {
     {
       id: 4,
       name: "Listado de Herramientas",
-      columns: [["id", "Título", "Fecha", "Clasificación", "Usuario"]],
+      columns: [["ID", "Título", "Fecha", "Clasificación", "Usuario"]],
       data: toolsWithAll
         .sort((a, b) => a.id - b.id)
         .map((tool) => [
@@ -154,7 +162,7 @@ function Reports() {
     {
       id: 5,
       name: "Listado de Tipos de Documentos",
-      columns: [["id", "Description"]],
+      columns: [["ID", "Description"]],
       data: [...documenttypes]
         .sort((a, b) => a.id - b.id)
         .map((document) => [document.id, document.description]),
@@ -162,7 +170,7 @@ function Reports() {
     {
       id: 6,
       name: "Listado de Clasificaciones de Documentos",
-      columns: [["id", "Description"]],
+      columns: [["ID", "Description"]],
       data: [...documentclassification]
         .sort((a, b) => a.id - b.id)
         .map((document) => [document.id, document.description]),
@@ -170,7 +178,7 @@ function Reports() {
     {
       id: 7,
       name: "Listado de Clasificaciones de Videos",
-      columns: [["id", "Description"]],
+      columns: [["ID", "Description"]],
       data: [...multimediaclassification]
         .sort((a, b) => a.id - b.id)
         .map((video) => [video.id, video.description]),
@@ -178,7 +186,7 @@ function Reports() {
     {
       id: 8,
       name: "Listado de Clasificaciones de Herramientas",
-      columns: [["id", "Description"]],
+      columns: [["ID", "Description"]],
       data: [...appclassification]
         .sort((a, b) => a.id - b.id)
         .map((tool) => [tool.id, tool.description]),
