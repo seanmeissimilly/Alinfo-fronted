@@ -35,6 +35,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoute />}>
           {/* <Route path="/" element={<HomePage />} /> */}
+          <Route path="/" element={<Landing />} />
           <Route path="/forum" element={<Forum />} />
           <Route path="/miPerfil" element={<MiPerfil />} />
           <Route path="/editProfile" element={<EditProfile />} />
@@ -67,7 +68,7 @@ function App() {
         <Route path="/about" element={<Contact />} />
       </Routes>
       <Toaster />
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
