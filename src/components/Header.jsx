@@ -11,7 +11,7 @@ import {
   Menu,
   PopoverButton,
 } from "@headlessui/react";
-import { AiFillHome, AiFillProduct } from "react-icons/ai";
+import { AiFillProduct } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import logo_cujae from "../media/logo_cujae.png";
 import { MdForum } from "react-icons/md";
@@ -42,7 +42,7 @@ export default function Header() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="/landing" title="Página Inicial">
+            <a href="/" title="Página Inicial">
               <img className="h-12 w-auto sm:h-12" src={logo_cujae} alt="" />
             </a>
           </div>
@@ -56,13 +56,6 @@ export default function Header() {
           {!isEmpty(userInfo) ? ( //!Reviso si userInfo está vacio.
             <>
               <PopoverGroup as="nav" className="hidden space-x-10 md:flex">
-                {/* <a
-                  href="/"
-                  className="text-base font-medium text-green-800 hover:text-gray-900"
-                  title="Inicio"
-                >
-                  <AiFillHome size={30} />
-                </a> */}
                 <a
                   href="/forum"
                   className="text-base font-medium text-green-800 hover:text-gray-900"
@@ -210,13 +203,6 @@ export default function Header() {
               {!isEmpty(userInfo) ? (
                 <>
                   <div className="grid grid-cols-3 gap-y-4 gap-x-8">
-                    {/* <a
-                      href="/"
-                      className="text-base font-medium text-green-800 hover:text-gray-900"
-                      title="Inicio"
-                    >
-                      <AiFillHome size={30} />
-                    </a> */}
                     <a
                       href="/forum"
                       className="text-base font-medium text-green-800 hover:text-gray-900"
