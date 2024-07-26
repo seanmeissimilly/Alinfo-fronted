@@ -59,7 +59,7 @@ const AboutUs = () => {
             ))}
         </div>
       )}
-      <p className="fixed bottom-20 text-black text-xl text-center mx-auto bg-white p-4 w-full">
+      <p className="fixed bottom-28 text-black text-xl text-center mx-auto bg-white p-4 w-full">
         Alinfo es un repositorio virtual creado para la difusión de la
         información científica y los aportes del grupo de Ingeniería Alimentaria
         de la Facultad de Ingeniería Química (Cujae). Queda totalmente prohibida
