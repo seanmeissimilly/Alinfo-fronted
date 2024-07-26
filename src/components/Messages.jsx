@@ -1,5 +1,6 @@
 import { MegaphoneIcon } from "@heroicons/react/24/outline";
 import PropTypes from "prop-types";
+import { Alert } from "@material-tailwind/react";
 
 export default function Messages({ children }) {
   return (
@@ -13,9 +14,9 @@ export default function Messages({ children }) {
                 aria-hidden="true"
               />
             </span>
-            <p className="ml-3 truncate font-medium text-white">
+            <Alert className="ml-3 truncate font-medium text-white">
               <span className="hidden md:inline">{children}</span>
-            </p>
+            </Alert>
           </div>
         </div>
       </div>
