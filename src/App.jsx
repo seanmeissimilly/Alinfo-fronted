@@ -26,6 +26,7 @@ import ToolForm from "./components/ToolForm";
 import SuggestionForm from "./components/SuggestionForm";
 import AboutUs from "./components/AboutUs";
 import { Footer } from "./components/Footer";
+import Error404 from "./components/Error404";
 
 function App() {
   return (
@@ -71,9 +72,11 @@ function App() {
             <Route path="/tools/editTool/:id" element={<ToolForm />} />
           </Route>
         </Route>
+
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
       <Toaster />
       {/* <Footer /> */}
