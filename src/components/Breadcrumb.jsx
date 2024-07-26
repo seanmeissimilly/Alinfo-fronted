@@ -5,9 +5,14 @@ import { AiFillHome } from "react-icons/ai";
 export default function Breadcrumb() {
   const location = useLocation();
 
-  const crumbs = location.pathname
-    .split("/")
-    .filter((crumb) => crumb !== "" && isNaN(Number(crumb)));
+  let id;
+
+  const crumbs = location.pathname.split("/").filter((crumb) => {
+    if (!isNaN(Number(crumb))) {
+      id = crumb;
+    }
+    return crumb !== "" && isNaN(Number(crumb));
+  });
 
   const textCrumb = {
     forum: "Foro",
@@ -22,7 +27,7 @@ export default function Breadcrumb() {
     about: "Acerca de",
     editProfile: "Editar Perfil",
     userProfile: "Perfil de Usuario",
-    soloBlog: "Perfil de Usuario",
+    soloBlog: "Ver Publicación",
     createSuggestion: "Añadir Queja o Sugerencia",
     editSuggestion: "Editar Queja o Sugerencia",
     addBlog: "Añadir Publicación",
@@ -35,17 +40,27 @@ export default function Breadcrumb() {
     editTool: "Editar Herramienta",
   };
 
+  let currentLink = "";
+
   return (
     <>
       <Breadcrumbs>
         <a href="/" className="opacity-60">
           <AiFillHome />
         </a>
-        {crumbs?.map((crumb) => {
-          const currentLink = `/${crumb}`;
+        {crumbs.map((crumb) => {
+          currentLink += `/${crumb}`;
+          const displayText = textCrumb[crumb] || crumb;
+          const link =
+            (id && crumb.includes("edit")) ||
+            crumb.includes("userProfile") ||
+            crumb.includes("soloBlog")
+              ? `${currentLink}/${id}`
+              : currentLink;
+
           return (
-            <a key={currentLink} href={currentLink}>
-              {textCrumb[crumb] || crumb}
+            <a key={currentLink} href={link}>
+              {displayText}
             </a>
           );
         })}

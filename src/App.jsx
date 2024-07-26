@@ -76,7 +76,7 @@ function App() {
         <Route path="/register" element={<Register />} />
       </Routes>
       <Toaster />
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
