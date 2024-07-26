@@ -69,7 +69,16 @@ export default function UserProfile() {
                     Correo Electrónico
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    {userOnly.email}
+                    <a
+                      href={`mailto:${userOnly.email}`}
+                      style={{
+                        color: "blue",
+                        textDecoration: "none",
+                        borderBottom: "1px dotted blue",
+                      }}
+                    >
+                      {userOnly.email}
+                    </a>
                   </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

@@ -14,7 +14,6 @@ import AddBlog from "./components/AddBlog";
 import SoloBlog from "./components/SoloBlog";
 import EditBlog from "./components/EditBlog";
 import EditProfile from "./components/EditProfile";
-import HomePage from "./components/HomePage";
 import Reports from "./components/Reports";
 import Documents from "./components/Documents";
 import Tools from "./components/Tools";
@@ -25,7 +24,7 @@ import DocumentForm from "./components/DocumentForm";
 import VideoForm from "./components/VideoForm";
 import ToolForm from "./components/ToolForm";
 import SuggestionForm from "./components/SuggestionForm";
-import Contact from "./components/Contact";
+import AboutUs from "./components/AboutUs";
 import { Footer } from "./components/Footer";
 
 function App() {
@@ -45,7 +44,7 @@ function App() {
           <Route path="/soloBlog/:id" element={<SoloBlog />} />
           <Route path="/createSuggestion" element={<SuggestionForm />} />
           <Route path="/editSuggestion/:id" element={<SuggestionForm />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route
             element={<ProtectedRoute allowedRoles={["admin", "editor"]} />}
           >
