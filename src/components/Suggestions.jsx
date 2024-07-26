@@ -109,7 +109,7 @@ const Suggestions = () => {
           <div className="container mx-auto p-4">
             <div className="mb-4 flex justify-start">
               <a
-                href="/createSuggestion"
+                href="/suggestions/createSuggestion"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
                 title="Añadir Queja o Sugerencia"
               >

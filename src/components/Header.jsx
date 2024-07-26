@@ -20,6 +20,7 @@ import { MdVideoLibrary } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
 import { userLogout } from "../redux/userSlice";
 import { Avatar } from "@material-tailwind/react";
+import Breadcrumb from "./Breadcrumb";
 
 export default function Header() {
   function classNames(...classes) {
@@ -45,6 +46,9 @@ export default function Header() {
             <a href="/" title="Página Inicial">
               <img className="h-12 w-auto sm:h-12" src={logo_cujae} alt="" />
             </a>
+          </div>
+          <div className="flex justify-start lg:w-0 lg:flex-1">
+            <Breadcrumb />
           </div>
           <div className="-my-2 -mr-2 md:hidden">
             <PopoverButton className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">

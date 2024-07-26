@@ -82,7 +82,7 @@ const Video = ({
           (userRole === "editor" && email === userInfo.email)) && (
           <div className="flex space-x-2">
             <a
-              href={`/editVideo/${id}`}
+              href={`/videos/editVideo/${id}`}
               className="text-blue-600 hover:text-blue-900 relative group"
             >
               <FaEdit />

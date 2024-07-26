@@ -76,7 +76,7 @@ const Tool = ({
           (userRole === "editor" && email === userInfo.email)) && (
           <div className="flex space-x-2">
             <a
-              href={`/editTool/${id}`}
+              href={`/tools/editTool/${id}`}
               className="text-blue-600 hover:text-blue-900 relative group"
             >
               <FaEdit />

@@ -71,7 +71,7 @@ const Suggestion = ({
         {(userRole === "admin" || email === userInfo.email) && (
           <div className="flex space-x-2">
             <a
-              href={`/editSuggestion/${id}`}
+              href={`/suggestions/editSuggestion/${id}`}
               className="text-blue-600 hover:text-blue-900 relative group"
             >
               <FaEdit />

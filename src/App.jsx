@@ -35,28 +35,40 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/forum" element={<Forum />} />
           <Route path="/miPerfil" element={<MiPerfil />} />
-          <Route path="/editProfile" element={<EditProfile />} />
+          <Route path="/miPerfil/editProfile" element={<EditProfile />} />
           <Route path="/userProfile/:id" element={<UserProfile />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/suggestions" element={<Suggestions />} />
           <Route path="/soloBlog/:id" element={<SoloBlog />} />
-          <Route path="/createSuggestion" element={<SuggestionForm />} />
-          <Route path="/editSuggestion/:id" element={<SuggestionForm />} />
+          <Route
+            path="/suggestions/createSuggestion"
+            element={<SuggestionForm />}
+          />
+          <Route
+            path="/suggestions/editSuggestion/:id"
+            element={<SuggestionForm />}
+          />
           <Route path="/about" element={<AboutUs />} />
           <Route
             element={<ProtectedRoute allowedRoles={["admin", "editor"]} />}
           >
             <Route path="/reports" element={<Reports />} />
-            <Route path="/addBlog" element={<AddBlog />} />
-            <Route path="/editBlog/:id" element={<EditBlog />} />
-            <Route path="/createDocument" element={<DocumentForm />} />
-            <Route path="/editDocument/:id" element={<DocumentForm />} />
-            <Route path="/createVideo" element={<VideoForm />} />
-            <Route path="/editVideo/:id" element={<VideoForm />} />
-            <Route path="/createTool" element={<ToolForm />} />
-            <Route path="/editTool/:id" element={<ToolForm />} />
+            <Route path="/forum/addBlog" element={<AddBlog />} />
+            <Route path="/forum/editBlog/:id" element={<EditBlog />} />
+            <Route
+              path="/documents/createDocument"
+              element={<DocumentForm />}
+            />
+            <Route
+              path="/documents/editDocument/:id"
+              element={<DocumentForm />}
+            />
+            <Route path="/videos/createVideo" element={<VideoForm />} />
+            <Route path="/videos/editVideo/:id" element={<VideoForm />} />
+            <Route path="/tools/createTool" element={<ToolForm />} />
+            <Route path="/tools/editTool/:id" element={<ToolForm />} />
           </Route>
         </Route>
         <Route path="/" element={<Landing />} />

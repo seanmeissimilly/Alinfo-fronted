@@ -1,15 +1,55 @@
 import { Breadcrumbs } from "@material-tailwind/react";
+import { useLocation } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 
-export function Breadcrumb() {
+export default function Breadcrumb() {
+  const location = useLocation();
+
+  const crumbs = location.pathname
+    .split("/")
+    .filter((crumb) => crumb !== "" && isNaN(Number(crumb)));
+
+  const textCrumb = {
+    forum: "Foro",
+    documents: "Documentos",
+    videos: "Videos",
+    tools: "Herramientas",
+    suggestions: "Quejas y Sugerencias",
+    miPerfil: "Mi Perfil",
+    reports: "Reportes",
+    login: "Entrada",
+    register: "Registro",
+    about: "Acerca de",
+    editProfile: "Editar Perfil",
+    userProfile: "Perfil de Usuario",
+    soloBlog: "Perfil de Usuario",
+    createSuggestion: "Añadir Queja o Sugerencia",
+    editSuggestion: "Editar Queja o Sugerencia",
+    addBlog: "Añadir Publicación",
+    editBlog: "Editar Publicación",
+    createDocument: "Añadir Documento",
+    editDocument: "Editar Documento",
+    createVideo: "Añadir Video",
+    editVideo: "Editar Video",
+    createTool: "Añadir Herramienta",
+    editTool: "Editar Herramienta",
+  };
+
   return (
-    <Breadcrumbs>
-      <a href="#" className="opacity-60">
-        Docs
-      </a>
-      <a href="#" className="opacity-60">
-        Components
-      </a>
-      <a href="#">Breadcrumbs</a>
-    </Breadcrumbs>
+    <>
+      <Breadcrumbs>
+        <a href="/" className="opacity-60">
+          <AiFillHome />
+        </a>
+        {crumbs?.map((crumb) => {
+          const currentLink = `/${crumb}`;
+          return (
+            <a key={currentLink} href={currentLink}>
+              {textCrumb[crumb] || crumb}
+            </a>
+          );
+        })}
+      </Breadcrumbs>
+    </>
   );
 }

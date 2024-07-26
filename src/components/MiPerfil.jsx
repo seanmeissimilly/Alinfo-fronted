@@ -43,7 +43,7 @@ export default function MiPerfil() {
               {userInfo.user_name} &nbsp;&nbsp;&nbsp;&nbsp;
               <a
                 style={{ textDecoration: "none" }}
-                href={"/editProfile"}
+                href={"/miPerfil/editProfile"}
                 className=" bg-indigo-600 py-1 px-5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 <span className="">Editar Perfil</span>

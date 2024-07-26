@@ -150,7 +150,7 @@ const Videos = () => {
             {["admin", "editor"].includes(userInfo.role) && (
               <div className="mb-4 flex justify-start">
                 <a
-                  href="/createVideo"
+                  href="/videos/createVideo"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"
                   title="Añadir Video"
                 >

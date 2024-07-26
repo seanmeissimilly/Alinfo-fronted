@@ -178,7 +178,7 @@ const Documents = () => {
             {["admin", "editor"].includes(userInfo.role) && (
               <div className="mb-4 flex justify-start">
                 <a
-                  href="/createDocument"
+                  href="/documents/createDocument"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"
                   title="Añadir Documento"
                 >

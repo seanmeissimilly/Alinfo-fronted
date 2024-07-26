@@ -75,7 +75,7 @@ export default function Forum() {
           <div className="py-10 bg-gray-200">
             {["admin", "editor"].includes(userInfo.role) && (
               <a
-                href="/addBlog"
+                href="/forum/addBlog"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
                 title="Añadir Publicación"
               >
@@ -149,7 +149,7 @@ export default function Forum() {
                                       userInfo.email === user.email)) && (
                                     <div className="p-4 flex justify-end items-center space-x-6">
                                       <a
-                                        href={`/editBlog/${blog.id}`}
+                                        href={`/forum/editBlog/${blog.id}`}
                                         className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                       >
                                         <AiFillEdit size={20} />
