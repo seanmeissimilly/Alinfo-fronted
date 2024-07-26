@@ -12,8 +12,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Provider>
   </React.StrictMode>
 );
-
-//Para que se borre todo el localStorage cuando cierren la pestaña del navegador.
-// window.onbeforeunload = () => {
-//   localStorage.clear();
-// };

@@ -15,7 +15,7 @@ export function Footer() {
               color="blue-gray"
               className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500"
             >
-              Acerca de Nosotros
+              Acerca de
             </Typography>
           </li>
         </ul>

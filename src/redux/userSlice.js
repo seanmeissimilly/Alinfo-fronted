@@ -253,7 +253,7 @@ export const userSlice = createSlice({
       state.error = false;
       state.success = false;
       //Borro los datos del usuario del almacenamiento local.
-      localStorage.removeItem("userInfo");
+      localStorage.clear();
     },
   },
   extraReducers: (builder) => {
