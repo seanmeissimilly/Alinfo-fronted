@@ -106,7 +106,7 @@ const Suggestions = () => {
               style={{ ...fadeIn, ...scale }}
             />
           </div>
-          <div className="container mx-auto p-4">
+          <div className="container mx-auto p-4 mb-16">
             <div className="mb-4 flex justify-start">
               <a
                 href="/suggestions/createSuggestion"

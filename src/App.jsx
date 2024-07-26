@@ -79,7 +79,7 @@ function App() {
         <Route path="*" element={<Error404 />} />
       </Routes>
       <Toaster />
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }

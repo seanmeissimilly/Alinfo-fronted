@@ -146,7 +146,7 @@ const Videos = () => {
               />
             </div>
           </div>
-          <div className="container mx-auto p-4">
+          <div className="container mx-auto p-4 mb-16">
             {["admin", "editor"].includes(userInfo.role) && (
               <div className="mb-4 flex justify-start">
                 <a

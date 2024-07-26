@@ -2,8 +2,8 @@ import { Typography } from "@material-tailwind/react";
 
 export function Footer() {
   return (
-    <footer className="fixed bottom-0 w-full bg-gray-200 p-4">
-      <div className="flex justify-between">
+    <div className="fixed inset-x-0 bottom-0 w-full bg-gray-400 p-3">
+      <footer className="flex justify-between">
         <Typography color="blue-gray" className="text-left font-normal">
           © 2024 Alinfo
         </Typography>
@@ -19,7 +19,7 @@ export function Footer() {
             </Typography>
           </li>
         </ul>
-      </div>
-    </footer>
+      </footer>
+    </div>
   );
 }
