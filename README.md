@@ -1,4 +1,4 @@
-# Alinfo - Biblioteca Digital de Ingeniería Alimentaria
+# Alinfo - Repositorio Virtual de Ingeniería Alimentaria
 
 ## Este proyecto se creo con las siguientes tecnologías
 
