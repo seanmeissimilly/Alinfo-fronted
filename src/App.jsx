@@ -7,11 +7,11 @@ import Header from "./components/Header";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import PrivateRoute from "./components/PrivateRoute";
-import MiPerfil from "./components/MiPerfil";
+import UserProfileOwn from "./components/UserProfileOwn";
 import Forum from "./components/Forum";
 import UserProfile from "./components/UserProfile";
-import SoloBlog from "./components/SoloBlog";
-import EditProfile from "./components/EditProfile";
+import BlogSolo from "./components/BlogSolo";
+import UserEditProfile from "./components/UserEditProfile";
 import Reports from "./components/Reports";
 import Documents from "./components/Documents";
 import Tools from "./components/Tools";
@@ -34,14 +34,14 @@ function App() {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route path="/forum" element={<Forum />} />
-          <Route path="/miPerfil" element={<MiPerfil />} />
-          <Route path="/miPerfil/editProfile" element={<EditProfile />} />
+          <Route path="/miPerfil" element={<UserProfileOwn />} />
+          <Route path="/miPerfil/editProfile" element={<UserEditProfile />} />
           <Route path="/userProfile/:id" element={<UserProfile />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/suggestions" element={<Suggestions />} />
-          <Route path="/soloBlog/:id" element={<SoloBlog />} />
+          <Route path="/soloBlog/:id" element={<BlogSolo />} />
           <Route
             path="/suggestions/createSuggestion"
             element={<SuggestionForm />}
