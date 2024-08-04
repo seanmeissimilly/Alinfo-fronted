@@ -16,7 +16,6 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [message, setMessage] = useState("");
   const [isValid, setIsValid] = useState(false); // Estado inicial: no válido
   const [openpassword, setOpenPassword] = useState(false);
   const [openconfirmpassword, setOpenConfirmPassword] = useState(false); //Para controlar cuando se vea la contraseña.
@@ -62,7 +61,6 @@ export default function Register() {
 
   return (
     <>
-      {message && <Messages>{message}</Messages>}
       {error && <Messages>{error}</Messages>}
       {loading ? (
         <Loader />

@@ -18,7 +18,6 @@ export default function UserEditProfile() {
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [image, setImage] = useState("");
-  const [message, setMessage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isValid, setIsValid] = useState(false); // Estado inicial: no válido
@@ -97,13 +96,12 @@ export default function UserEditProfile() {
 
   return (
     <>
-      {loading ? (
+      {loading || uploading ? (
         <Loader />
       ) : error ? (
         <Messages>{error}</Messages>
       ) : (
         <div>
-          {message && <Messages>{message}</Messages>}
           {error && <Messages>{error}</Messages>}
 
           <div className="md:grid md:grid-cols-4 md:gap-6 mb-20">

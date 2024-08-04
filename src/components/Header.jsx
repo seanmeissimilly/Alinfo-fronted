@@ -56,6 +56,7 @@ export default function Header() {
             <a href="/" title="Página Inicial">
               <img className="h-12 w-auto sm:h-12" src={logo_cujae} alt="" />
             </a>
+            {/* <span className="sr-only ml-1 my-auto">Alinfo</span> */}
           </div>
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Breadcrumb />
