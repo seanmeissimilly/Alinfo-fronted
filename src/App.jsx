@@ -10,9 +10,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import MiPerfil from "./components/MiPerfil";
 import Forum from "./components/Forum";
 import UserProfile from "./components/UserProfile";
-import AddBlog from "./components/AddBlog";
 import SoloBlog from "./components/SoloBlog";
-import EditBlog from "./components/EditBlog";
 import EditProfile from "./components/EditProfile";
 import Reports from "./components/Reports";
 import Documents from "./components/Documents";
@@ -57,8 +55,8 @@ function App() {
             element={<ProtectedRoute allowedRoles={["admin", "editor"]} />}
           >
             <Route path="/reports" element={<Reports />} />
-            <Route path="/forum/addBlog" element={<AddBlog />} />
-            <Route path="/forum/editBlog/:id" element={<EditBlog />} />
+            <Route path="/forum/addBlog" element={<BlogForm />} />
+            <Route path="/forum/editBlog/:id" element={<BlogForm />} />
             <Route
               path="/documents/createDocument"
               element={<DocumentForm />}
