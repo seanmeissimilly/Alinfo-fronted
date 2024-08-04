@@ -148,7 +148,7 @@ const Videos = () => {
           </div>
           <div className="container mx-auto p-4 mb-16">
             {["admin", "editor"].includes(userInfo.role) && (
-              <div className="mb-4 flex justify-start">
+              <div className="mb-8 flex justify-start">
                 <a
                   href="/videos/createVideo"
                   className="text-base font-medium text-gray-500 hover:text-gray-900"

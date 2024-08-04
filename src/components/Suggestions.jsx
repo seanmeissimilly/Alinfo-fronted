@@ -107,7 +107,7 @@ const Suggestions = () => {
             />
           </div>
           <div className="container mx-auto p-4 mb-16">
-            <div className="mb-4 flex justify-start">
+            <div className="mb-8 flex justify-start">
               <a
                 href="/suggestions/createSuggestion"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
