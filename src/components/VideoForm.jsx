@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
@@ -27,6 +27,7 @@ export default function VideoForm() {
   const { userInfo } = useSelector((state) => state.user);
 
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
+  const path = "/videos";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,16 +50,14 @@ export default function VideoForm() {
       dispatch(multimediaCreate(payload));
     }
 
-    navigate(
-      "/videos",
-      toast.success(`Bienvenido a Videos`, {
+    navigate(path),
+      toast.success(id ? "Video Editado" : "Video Añadido", {
         position: "bottom-right",
         style: {
           background: "#101010",
           color: "#fff",
         },
-      })
-    );
+      });
   };
 
   useEffect(() => {

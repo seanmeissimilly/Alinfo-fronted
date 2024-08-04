@@ -35,6 +35,7 @@ export default function DocumentForm() {
   const { userInfo } = useSelector((state) => state.user);
 
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
+  const path = "/documents";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,16 +60,14 @@ export default function DocumentForm() {
       dispatch(documentCreate(payload));
     }
 
-    navigate(
-      "/documents",
-      toast.success(`Bienvenido a Documentos`, {
+    navigate(path),
+      toast.success(id ? "Documento Editado" : "Documento Añadido", {
         position: "bottom-right",
         style: {
           background: "#101010",
           color: "#fff",
         },
-      })
-    );
+      });
   };
 
   useEffect(() => {

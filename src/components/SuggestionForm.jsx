@@ -28,6 +28,8 @@ export default function SuggestionForm() {
 
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
 
+  const path = "/suggestions";
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,16 +47,17 @@ export default function SuggestionForm() {
       dispatch(suggestionCreate(payload));
     }
 
-    navigate(
-      "/suggestions",
-      toast.success(`Bienvenido a Quejas o Sugerencias`, {
-        position: "bottom-right",
-        style: {
-          background: "#101010",
-          color: "#fff",
-        },
-      })
-    );
+    navigate(path),
+      toast.success(
+        id ? "Queja o Sugerencia Editada" : "Queja o Sugerencia Añadida",
+        {
+          position: "bottom-right",
+          style: {
+            background: "#101010",
+            color: "#fff",
+          },
+        }
+      );
   };
 
   useEffect(() => {

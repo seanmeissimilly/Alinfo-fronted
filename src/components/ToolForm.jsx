@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
@@ -28,6 +28,7 @@ export default function AppForm() {
   const { userInfo } = useSelector((state) => state.user);
 
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
+  const path = "/tools";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,16 +51,14 @@ export default function AppForm() {
       dispatch(appCreate(payload));
     }
 
-    navigate(
-      "/tools",
-      toast.success(`Bienvenido a Herramientas`, {
+    navigate(path),
+      toast.success(id ? "Herramienta Editada" : "Herramienta Añadida", {
         position: "bottom-right",
         style: {
           background: "#101010",
           color: "#fff",
         },
-      })
-    );
+      });
   };
 
   useEffect(() => {
