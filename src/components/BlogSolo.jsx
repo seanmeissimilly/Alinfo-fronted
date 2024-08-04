@@ -56,7 +56,7 @@ export default function BlogSolo() {
       ) : error ? (
         <Messages>{error}</Messages>
       ) : (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6 mb-14">
           <div>
             <div className="py-10 bg-gray-200">
               <div className="py-8">

@@ -21,6 +21,7 @@ import { RiMessage2Fill } from "react-icons/ri";
 import { userLogout } from "../redux/userSlice";
 import { Avatar } from "@material-tailwind/react";
 import Breadcrumb from "./Breadcrumb";
+import { toast } from "react-hot-toast";
 
 export default function Header() {
   function classNames(...classes) {
@@ -34,7 +35,16 @@ export default function Header() {
 
   const dispatch = useDispatch();
 
-  const logoutHandler = () => dispatch(userLogout());
+  const logoutHandler = () => {
+    dispatch(userLogout());
+    toast.error("Sección Cerrada", {
+      position: "bottom-right",
+      style: {
+        background: "#101010",
+        color: "#fff",
+      },
+    });
+  };
 
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
 

@@ -113,7 +113,7 @@ export default function UserProfileOwn() {
       {blogs.map((blog_element) => (
         <>
           {userInfo.user_name === blog_element.user && (
-            <div className="py-20 bg-gray-200">
+            <div className="py-16 bg-gray-200">
               <div className=" px-10">
                 <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-lg">
                   <div className="md:flex">
@@ -157,7 +157,7 @@ export default function UserProfileOwn() {
 
                         <div className="flex flex-row items-center">
                           <a
-                            href={`/editBlog/${blog_element.id}`}
+                            href={`/forum/editBlog/${blog_element.id}`}
                             className="group mx-4 relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             <AiFillEdit size={20} />
