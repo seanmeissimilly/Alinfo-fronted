@@ -24,8 +24,9 @@ import DocumentForm from "./components/DocumentForm";
 import VideoForm from "./components/VideoForm";
 import ToolForm from "./components/ToolForm";
 import SuggestionForm from "./components/SuggestionForm";
+import BlogForm from "./components/BlogForm";
 import AboutUs from "./components/AboutUs";
-import { Footer } from "./components/Footer";
+import Footer from "./components/Footer";
 import Error404 from "./components/Error404";
 
 function App() {

@@ -1,6 +1,6 @@
 import { Typography } from "@material-tailwind/react";
 
-export function Footer() {
+export default function Footer() {
   return (
     <div className="fixed inset-x-0 bottom-0 w-full bg-gray-400 p-3">
       <footer className="flex justify-between">

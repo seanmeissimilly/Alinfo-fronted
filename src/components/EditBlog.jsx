@@ -75,7 +75,7 @@ export default function EditBlog() {
             </h2>
 
             <form onSubmit={submitHandler}>
-              <div className="shadow sm:overflow-hidden sm:rounded-md">
+              <div className="shadow sm:overflow-hidden sm:rounded-md mb-20 mt-4">
                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                   <div>
                     <label

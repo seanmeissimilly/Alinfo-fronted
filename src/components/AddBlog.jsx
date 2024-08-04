@@ -63,7 +63,7 @@ export default function AddBlog() {
                 Crear una Publicación
               </h2>
               <form onSubmit={handleSubmit}>
-                <div className="shadow sm:overflow-hidden sm:rounded-md">
+                <div className="shadow sm:overflow-hidden sm:rounded-md mb-20 mt-4">
                   <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                     <div className="grid grid-cols-3 gap-6">
                       <div className="col-span-3 sm:col-span-2"></div>
