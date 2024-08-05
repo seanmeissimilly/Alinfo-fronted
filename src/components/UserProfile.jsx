@@ -170,12 +170,16 @@ export default function UserProfile() {
                               </p>
                             </div>
                             <div className="flex flex-row items-center">
-                              <a
-                                href={`/soloBlog/${blog.id}`}
-                                className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                              <Button
+                                variant="filled"
+                                color="indigo"
+                                className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                onClick={() =>
+                                  (window.location.href = `/forum/soloBlog/${blog.id}`)
+                                }
                               >
                                 Ver más
-                              </a>
+                              </Button>
                             </div>
                           </div>
                         </div>

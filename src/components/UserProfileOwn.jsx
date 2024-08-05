@@ -160,25 +160,31 @@ export default function UserProfileOwn() {
                         </div>
 
                         <div className="flex flex-row items-center">
-                          <a
-                            href={`/forum/editBlog/${blog_element.id}`}
-                            className="group mx-4 relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                          <Button
+                            variant="filled"
+                            color="indigo"
+                            className="group mx-4 relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            onClick={() =>
+                              (window.location.href = `/forum/editBlog/${blog_element.id}`)
+                            }
                           >
                             <AiFillEdit size={20} />
-                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
                               Editar
                             </span>
-                          </a>
+                          </Button>
 
-                          <button
+                          <Button
+                            variant="filled"
+                            color="indigo"
+                            className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
                             onClick={() => deleteHandler(blog_element.id)}
-                            className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
                             <BsFillTrashFill size={20} />
-                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
                               Borrar
                             </span>
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     </div>
