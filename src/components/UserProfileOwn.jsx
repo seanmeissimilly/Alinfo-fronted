@@ -177,11 +177,11 @@ export default function UserProfileOwn() {
                           <Button
                             variant="filled"
                             color="indigo"
-                            className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 "
+                            className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
                             onClick={() => deleteHandler(blog_element.id)}
                           >
                             <BsFillTrashFill size={20} />
-                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                            <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
                               Borrar
                             </span>
                           </Button>
