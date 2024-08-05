@@ -114,7 +114,7 @@ export const userUpdateSolo = createAsyncThunk(
         { user_name, email, role, password, bio },
         config
       );
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      localStorage.setItem("userSolo", JSON.stringify(data));
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -264,9 +264,9 @@ const userOnlyStorage = localStorage.getItem("userSolo")
   : null; // Cambio esto a null para que no almacene nada si no hay datos en localStorage
 
 const initialState = {
-  userInfo: userInfoStorage ? userInfoStorage : {}, // Solo almacena userInfo si userInfoStorage no es null,
+  userInfo: userInfoStorage || {},
   users: [],
-  userOnly: userOnlyStorage ? userOnlyStorage : {},
+  userOnly: userOnlyStorage || {},
   loading: false,
   error: false,
   success: false,
@@ -276,7 +276,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    userLogout: (state, action) => {
+    userLogout: (state) => {
       // Lógica para desloguear un usuario.
       state.userInfo = {};
       state.userOnly = {};
@@ -289,7 +289,7 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(userLogin.pending, (state, action) => {
+    builder.addCase(userLogin.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(userLogin.fulfilled, (state, action) => {
@@ -302,7 +302,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userRegister.pending, (state, action) => {
+    builder.addCase(userRegister.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(userRegister.fulfilled, (state, action) => {
@@ -315,7 +315,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userUpdate.pending, (state, action) => {
+    builder.addCase(userUpdate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(userUpdate.fulfilled, (state, action) => {
@@ -338,7 +338,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userList.pending, (state, action) => {
+    builder.addCase(userList.pending, (state) => {
       state.loading = true;
       state.users = [];
     });
@@ -352,7 +352,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userSolo.pending, (state, action) => {
+    builder.addCase(userSolo.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(userSolo.fulfilled, (state, action) => {
@@ -365,10 +365,10 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userDelete.pending, (state, action) => {
+    builder.addCase(userDelete.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(userDelete.fulfilled, (state, action) => {
+    builder.addCase(userDelete.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
     });
@@ -377,10 +377,10 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userUploadImage.pending, (state, action) => {
+    builder.addCase(userUploadImage.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(userUploadImage.fulfilled, (state, action) => {
+    builder.addCase(userUploadImage.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
     });
@@ -389,7 +389,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userRefresh.pending, (state, action) => {
+    builder.addCase(userRefresh.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(userRefresh.fulfilled, (state, action) => {
@@ -412,7 +412,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
-    builder.addCase(userUpdateSolo.pending, (state, action) => {
+    builder.addCase(userUpdateSolo.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(userUpdateSolo.fulfilled, (state, action) => {
