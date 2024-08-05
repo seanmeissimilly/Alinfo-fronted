@@ -250,16 +250,15 @@ export default function Header() {
                   >
                     Registrarse
                   </Button>
-                  <p className="mt-6 text-center text-base font-medium text-gray-500">
-                    <Button
-                      variant="text"
-                      color="indigo"
-                      className="text-indigo-600 hover:text-indigo-500"
-                      onClick={() => (window.location.href = "/login")}
-                    >
-                      Entrar
-                    </Button>
-                  </p>
+
+                  <Button
+                    variant="filled"
+                    color="indigo"
+                    className="mt-1 flex w-full items-center justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-gray-600 hover:text-gray-900 bg-gray-200 normal-case"
+                    onClick={() => (window.location.href = "/login")}
+                  >
+                    Entrar
+                  </Button>
                 </div>
               )}
             </div>

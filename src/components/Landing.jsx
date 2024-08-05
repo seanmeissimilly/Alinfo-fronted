@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 export default function Landing() {
   return (
-    <div className="relative overflow-hidden bg-white">
+    <div className="relative bg-white">
       <div className="container mx-auto">
         <main className="mt-10 px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
           <div className="sm:text-center lg:text-left">
