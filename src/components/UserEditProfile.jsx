@@ -22,9 +22,9 @@ export default function UserEditProfile() {
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isValid, setIsValid] = useState(false); // Estado inicial: no válido
+  const [isValid, setIsValid] = useState(false);
   const [openpassword, setOpenPassword] = useState(false);
-  const [openconfirmpassword, setOpenConfirmPassword] = useState(false); //
+  const [openconfirmpassword, setOpenConfirmPassword] = useState(false);
   const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
@@ -45,21 +45,21 @@ export default function UserEditProfile() {
   const isEmpty = (obj) => JSON.stringify(obj) === "{}";
 
   useEffect(() => {
-    if (id && Number(id) !== userOnly.id) {
-      //todo: Para traer las propiedades del usuario que deseo editar.
-      dispatch(userSolo({ id, token: userInfo.token }));
-    }
-    //todo: Reviso que hay id y que userOnly no está vacío.
-    if (id && !isEmpty(userOnly)) {
-      setUserName(userOnly.user_name);
-      setEmail(userOnly.email);
-      setBio(userOnly.bio);
-      setImage(userOnly.image);
+    const updateUserFields = (userData) => {
+      setUserName(userData.user_name);
+      setEmail(userData.email);
+      setBio(userData.bio);
+      setImage(userData.image);
+    };
+
+    if (id) {
+      if (Number(id) !== userOnly.id) {
+        dispatch(userSolo({ id, token: userInfo.token }));
+      } else if (!isEmpty(userOnly)) {
+        updateUserFields(userOnly);
+      }
     } else {
-      setUserName(userInfo.user_name);
-      setEmail(userInfo.email);
-      setBio(userInfo.bio);
-      setImage(userInfo.image);
+      updateUserFields(userInfo);
     }
   }, [dispatch, userInfo, success, error, id, userOnly]);
 
@@ -68,20 +68,17 @@ export default function UserEditProfile() {
 
     if (isValid) {
       const payload = {
-        user_name: user_name,
-        email: email,
-        bio: bio,
-        password: password,
+        user_name,
+        email,
+        bio,
+        password,
         token: userInfo.token,
+        role: id ? userOnly.role : userInfo.role,
+        id: id ? userOnly.id : undefined,
       };
-      payload.role = id ? userOnly.role : userInfo.role;
 
-      if (id) {
-        payload.id = userOnly.id;
-        dispatch(userUpdateSolo(payload));
-      } else {
-        dispatch(userUpdate(payload));
-      }
+      const action = id ? userUpdateSolo : userUpdate;
+      dispatch(action(payload));
 
       navigate(path);
     }
@@ -94,8 +91,6 @@ export default function UserEditProfile() {
     formData.append("image", file);
     formData.append("user_id", id ? userOnly.id : userInfo.id);
 
-    setUploading(true);
-
     try {
       const config = {
         headers: {
@@ -107,8 +102,9 @@ export default function UserEditProfile() {
       const { data } = await api.post("/users/image/", formData, config);
 
       setImage(data);
-      setUploading(false);
     } catch (error) {
+      console.error("Error subiendo imagen:", error);
+    } finally {
       setUploading(false);
     }
   };
