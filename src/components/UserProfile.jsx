@@ -6,6 +6,7 @@ import { blogList } from "../redux/blogSlice";
 import Messages from "./Messages";
 import Loader from "./Loader";
 import moment from "moment/moment.js";
+import { Button } from "@material-tailwind/react";
 
 export default function UserProfile() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -48,13 +49,16 @@ export default function UserProfile() {
                 <h3 className="text-lg font-medium leading-6 text-gray-900 mt-3">
                   {userOnly.user_name}
                   {userInfo.role === "admin" && (
-                    <a
-                      style={{ textDecoration: "none" }}
-                      href={`/userProfile/editProfile/${id}`}
-                      className=" bg-indigo-600 py-1 px-5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ml-4"
+                    <Button
+                      color="indigo"
+                      size="sm"
+                      className="ml-4"
+                      onClick={() =>
+                        (window.location.href = `/userProfile/editProfile/${id}`)
+                      }
                     >
-                      <span className="">Editar Perfil</span>
-                    </a>
+                      Editar Perfil
+                    </Button>
                   )}
                 </h3>
               </center>

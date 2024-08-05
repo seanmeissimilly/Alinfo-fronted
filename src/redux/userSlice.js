@@ -34,6 +34,7 @@ export const userLogin = createAsyncThunk(
     }
   }
 );
+
 //Todo: Lógica hacer el registro de un usuario.
 export const userRegister = createAsyncThunk(
   "userRegister",
@@ -61,6 +62,7 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
+
 //Todo: Lógica hacer el update del usuario logueado.
 export const userUpdate = createAsyncThunk(
   "userUpdate",
@@ -277,14 +279,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     userLogout: (state) => {
-      // Lógica para desloguear un usuario.
       state.userInfo = {};
       state.userOnly = {};
       state.loading = false;
       state.users = [];
       state.error = false;
       state.success = false;
-      //Borro los datos del usuario del almacenamiento local.
       localStorage.clear();
     },
   },

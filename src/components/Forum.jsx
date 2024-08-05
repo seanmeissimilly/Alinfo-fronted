@@ -8,6 +8,7 @@ import { AiFillPlusSquare, AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useSpring, animated } from "react-spring";
 import moment from "moment/moment.js";
+import { Button } from "@material-tailwind/react";
 
 export default function Forum() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -133,13 +134,15 @@ export default function Forum() {
 
                                 <div className="p-4 flex justify-between items-center">
                                   <div className="flex flex-row  space-x-6">
-                                    <a
-                                      style={{ textDecoration: "none" }}
-                                      href={`/soloBlog/${blog.id}`}
-                                      className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    <Button
+                                      color="indigo"
+                                      className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                      onClick={() =>
+                                        (window.location.href = `/forum/soloBlog/${blog.id}`)
+                                      }
                                     >
                                       Ver más
-                                    </a>
+                                    </Button>
                                     <p className="mb-2 mt-auto pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
                                       {formatDate(blog.date)}
                                     </p>
@@ -148,24 +151,28 @@ export default function Forum() {
                                     (userInfo.role === "editor" &&
                                       userInfo.email === user.email)) && (
                                     <div className="p-4 flex justify-end items-center space-x-6">
-                                      <a
-                                        href={`/forum/editBlog/${blog.id}`}
-                                        className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                      <Button
+                                        color="indigo"
+                                        className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                        onClick={() =>
+                                          (window.location.href = `/forum/editBlog/${blog.id}`)
+                                        }
                                       >
                                         <AiFillEdit size={20} />
                                         <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
                                           Editar
                                         </span>
-                                      </a>
-                                      <button
+                                      </Button>
+                                      <Button
+                                        color="indigo"
+                                        className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
                                         onClick={() => deleteHandler(blog.id)}
-                                        className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                       >
                                         <BsFillTrashFill size={20} />
                                         <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
                                           Borrar
                                         </span>
-                                      </button>
+                                      </Button>
                                     </div>
                                   )}
                                 </div>

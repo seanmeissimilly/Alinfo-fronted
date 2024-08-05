@@ -35,7 +35,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/forum" element={<Forum />} />
           <Route path="/miPerfil" element={<UserProfileOwn />} />
-          <Route path="/miPerfil/editProfile" element={<UserEditProfile />} />
+          <Route path="/miPerfil/editProfile/" element={<UserEditProfile />} />
           <Route
             path="/userProfile/editProfile/:id"
             element={<UserEditProfile />}
@@ -45,7 +45,7 @@ function App() {
           <Route path="/tools" element={<Tools />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/suggestions" element={<Suggestions />} />
-          <Route path="/soloBlog/:id" element={<BlogSolo />} />
+          <Route path="/forum/soloBlog/:id" element={<BlogSolo />} />
           <Route
             path="/suggestions/createSuggestion"
             element={<SuggestionForm />}

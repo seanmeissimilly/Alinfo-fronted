@@ -4,6 +4,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { blogDelete, blogList } from "../redux/blogSlice";
 import moment from "moment/moment.js";
+import { Button } from "@material-tailwind/react";
 
 export default function UserProfileOwn() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -41,13 +42,16 @@ export default function UserProfileOwn() {
 
             <h3 className="text-lg font-medium leading-6 text-gray-900 mt-3">
               {userInfo.user_name}
-              <a
-                style={{ textDecoration: "none" }}
-                href={"/miPerfil/editProfile"}
-                className=" bg-indigo-600 py-1 px-5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ml-4"
+              <Button
+                color="indigo"
+                size="sm"
+                className="ml-4"
+                onClick={() =>
+                  (window.location.href = "/miPerfil/editProfile/")
+                }
               >
-                <span className="">Editar Perfil</span>
-              </a>
+                Editar Perfil
+              </Button>
             </h3>
           </center>
           <p className="mt-1 max-w-2xl text-sm text-gray-500">
