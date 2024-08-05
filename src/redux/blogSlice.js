@@ -228,13 +228,13 @@ export const blogSlice = createSlice({
   name: "blog",
   initialState,
   reducers: {
-    createCommentReset: (state, action) => {
+    createCommentReset: (state) => {
       state.blogInfo = {};
       state.success_comment = false;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(blogDetails.pending, (state, action) => {
+    builder.addCase(blogDetails.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(blogDetails.fulfilled, (state, action) => {
@@ -246,7 +246,7 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(blogList.pending, (state, action) => {
+    builder.addCase(blogList.pending, (state) => {
       state.loading = true;
       state.blogs = [];
     });
@@ -259,7 +259,7 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(blogUpdate.pending, (state, action) => {
+    builder.addCase(blogUpdate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(blogUpdate.fulfilled, (state, action) => {
@@ -271,7 +271,7 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(blogDelete.pending, (state, action) => {
+    builder.addCase(blogDelete.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(blogDelete.fulfilled, (state, action) => {
@@ -287,10 +287,10 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(createComment.pending, (state, action) => {
+    builder.addCase(createComment.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(createComment.fulfilled, (state, action) => {
+    builder.addCase(createComment.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
       state.success_comment = true;
@@ -299,7 +299,7 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(blogCreate.pending, (state, action) => {
+    builder.addCase(blogCreate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(blogCreate.fulfilled, (state, action) => {
@@ -311,10 +311,10 @@ export const blogSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(deleteComment.pending, (state, action) => {
+    builder.addCase(deleteComment.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(deleteComment.fulfilled, (state, action) => {
+    builder.addCase(deleteComment.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
       state.success_comment = true;

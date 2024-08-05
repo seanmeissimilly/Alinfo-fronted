@@ -207,7 +207,7 @@ export const multimediaSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(multimediaDetails.pending, (state, action) => {
+    builder.addCase(multimediaDetails.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(multimediaDetails.fulfilled, (state, action) => {
@@ -219,7 +219,7 @@ export const multimediaSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(multimediaList.pending, (state, action) => {
+    builder.addCase(multimediaList.pending, (state) => {
       state.loading = true;
       state.multimedias = [];
     });
@@ -232,7 +232,7 @@ export const multimediaSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(multimediaUpdate.pending, (state, action) => {
+    builder.addCase(multimediaUpdate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(multimediaUpdate.fulfilled, (state, action) => {
@@ -244,10 +244,10 @@ export const multimediaSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(multimediaDelete.pending, (state, action) => {
+    builder.addCase(multimediaDelete.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(multimediaDelete.fulfilled, (state, action) => {
+    builder.addCase(multimediaDelete.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
       state.multimediaInfo = {};
@@ -256,7 +256,7 @@ export const multimediaSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(multimediaCreate.pending, (state, action) => {
+    builder.addCase(multimediaCreate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(multimediaCreate.fulfilled, (state, action) => {
@@ -268,7 +268,7 @@ export const multimediaSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(multimediaclassificationList.pending, (state, action) => {
+    builder.addCase(multimediaclassificationList.pending, (state) => {
       state.loading = true;
       state.multimediaclassification = [];
     });

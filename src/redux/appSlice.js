@@ -208,7 +208,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(appDetails.pending, (state, action) => {
+    builder.addCase(appDetails.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(appDetails.fulfilled, (state, action) => {
@@ -220,7 +220,7 @@ export const appSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appList.pending, (state, action) => {
+    builder.addCase(appList.pending, (state) => {
       state.loading = true;
       state.apps = [];
     });
@@ -233,7 +233,7 @@ export const appSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appUpdate.pending, (state, action) => {
+    builder.addCase(appUpdate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(appUpdate.fulfilled, (state, action) => {
@@ -245,10 +245,10 @@ export const appSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appDelete.pending, (state, action) => {
+    builder.addCase(appDelete.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(appDelete.fulfilled, (state, action) => {
+    builder.addCase(appDelete.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
       state.appInfo = {};
@@ -257,7 +257,7 @@ export const appSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appCreate.pending, (state, action) => {
+    builder.addCase(appCreate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(appCreate.fulfilled, (state, action) => {
@@ -269,7 +269,7 @@ export const appSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(appClassificationList.pending, (state, action) => {
+    builder.addCase(appClassificationList.pending, (state) => {
       state.loading = true;
       state.appclassification = [];
     });

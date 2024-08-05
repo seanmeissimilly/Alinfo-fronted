@@ -153,7 +153,7 @@ export const suggestionSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(suggestionDetails.pending, (state, action) => {
+    builder.addCase(suggestionDetails.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(suggestionDetails.fulfilled, (state, action) => {
@@ -165,7 +165,7 @@ export const suggestionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(suggestionList.pending, (state, action) => {
+    builder.addCase(suggestionList.pending, (state) => {
       state.loading = true;
       state.suggestions = [];
     });
@@ -178,7 +178,7 @@ export const suggestionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(suggestionUpdate.pending, (state, action) => {
+    builder.addCase(suggestionUpdate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(suggestionUpdate.fulfilled, (state, action) => {
@@ -190,10 +190,10 @@ export const suggestionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(suggestionDelete.pending, (state, action) => {
+    builder.addCase(suggestionDelete.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(suggestionDelete.fulfilled, (state, action) => {
+    builder.addCase(suggestionDelete.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
       state.suggestionInfo = {};
@@ -202,7 +202,7 @@ export const suggestionSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(suggestionCreate.pending, (state, action) => {
+    builder.addCase(suggestionCreate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(suggestionCreate.fulfilled, (state, action) => {

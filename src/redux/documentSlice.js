@@ -254,7 +254,7 @@ export const documentSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(documentDetails.pending, (state, action) => {
+    builder.addCase(documentDetails.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(documentDetails.fulfilled, (state, action) => {
@@ -266,7 +266,7 @@ export const documentSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(documentList.pending, (state, action) => {
+    builder.addCase(documentList.pending, (state) => {
       state.loading = true;
       state.documents = [];
     });
@@ -279,7 +279,7 @@ export const documentSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(documentUpdate.pending, (state, action) => {
+    builder.addCase(documentUpdate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(documentUpdate.fulfilled, (state, action) => {
@@ -291,10 +291,10 @@ export const documentSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(documentDelete.pending, (state, action) => {
+    builder.addCase(documentDelete.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(documentDelete.fulfilled, (state, action) => {
+    builder.addCase(documentDelete.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
       state.documentInfo = {};
@@ -303,7 +303,7 @@ export const documentSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(documentCreate.pending, (state, action) => {
+    builder.addCase(documentCreate.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(documentCreate.fulfilled, (state, action) => {
@@ -315,7 +315,7 @@ export const documentSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(documenttypesList.pending, (state, action) => {
+    builder.addCase(documenttypesList.pending, (state) => {
       state.loading = true;
       state.documenttypes = [];
     });
@@ -328,7 +328,7 @@ export const documentSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     });
-    builder.addCase(documentclassificationList.pending, (state, action) => {
+    builder.addCase(documentclassificationList.pending, (state) => {
       state.loading = true;
       state.documentclassification = [];
     });
