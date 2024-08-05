@@ -38,13 +38,13 @@ export default function UserProfileOwn() {
               src={`${URL}${userInfo.image}`}
               alt=""
             />
-            <br></br>
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              {userInfo.user_name} &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <h3 className="text-lg font-medium leading-6 text-gray-900 mt-3">
+              {userInfo.user_name}
               <a
                 style={{ textDecoration: "none" }}
                 href={"/miPerfil/editProfile"}
-                className=" bg-indigo-600 py-1 px-5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className=" bg-indigo-600 py-1 px-5 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ml-4"
               >
                 <span className="">Editar Perfil</span>
               </a>

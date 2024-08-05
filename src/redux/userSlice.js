@@ -61,11 +61,11 @@ export const userRegister = createAsyncThunk(
     }
   }
 );
-//Todo: Lógica hacer el update de un usuario.
+//Todo: Lógica hacer el update del usuario logueado.
 export const userUpdate = createAsyncThunk(
   "userUpdate",
   async (
-    { user_name, email, password, bio, image, role, token, id },
+    { user_name, email, password, bio, role, token },
     { rejectWithValue }
   ) => {
     try {
@@ -79,7 +79,39 @@ export const userUpdate = createAsyncThunk(
       const { data } = await userApi.put(
         "/put/",
 
-        { user_name, email, role, password, bio, image, id },
+        { user_name, email, role, password, bio },
+        config
+      );
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+//Todo: Lógica hacer el update de un usuario.
+export const userUpdateSolo = createAsyncThunk(
+  "userUpdateSolo",
+  async (
+    { user_name, email, password, bio, role, token, id },
+    { rejectWithValue }
+  ) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await userApi.put(
+        `/put/${id}/`,
+
+        { user_name, email, role, password, bio },
         config
       );
       localStorage.setItem("userInfo", JSON.stringify(data));
@@ -376,6 +408,19 @@ export const userSlice = createSlice({
       state.success = true;
     });
     builder.addCase(userRefresh.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    });
+    builder.addCase(userUpdateSolo.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(userUpdateSolo.fulfilled, (state, action) => {
+      state.loading = false;
+      state.userOnly = action.payload;
+      state.success = true;
+    });
+    builder.addCase(userUpdateSolo.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
       state.success = false;

@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { userUpdate } from "../redux/userSlice.js";
+import { userUpdate, userSolo, userUpdateSolo } from "../redux/userSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import PasswordChecklist from "react-password-checklist";
 
 export default function UserEditProfile() {
   const URL = import.meta.env.VITE_BACKEND_URL;
+
+  const { id } = useParams();
 
   const api = axios.create({
     baseURL: `${URL}`,
@@ -26,7 +28,7 @@ export default function UserEditProfile() {
   const [uploading, setUploading] = useState(false);
 
   const navigate = useNavigate();
-  const path = "/miPerfil";
+  const path = id ? `/userProfile/${id}` : "/miPerfil";
 
   const handleshowpassword = () => {
     setOpenPassword(!openpassword);
@@ -38,31 +40,48 @@ export default function UserEditProfile() {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
-  const { error, loading, userInfo, success } = user;
+  const { error, loading, userInfo, success, userOnly } = user;
+
+  const isEmpty = (obj) => JSON.stringify(obj) === "{}";
 
   useEffect(() => {
-    setUserName(userInfo.user_name);
-    setEmail(userInfo.email);
-    setBio(userInfo.bio);
-    setImage(userInfo.image);
-  }, [userInfo, success, error]);
+    if (id && Number(id) !== userOnly.id) {
+      //todo: Para traer las propiedades del usuario que deseo editar.
+      dispatch(userSolo({ id, token: userInfo.token }));
+    }
+    //todo: Reviso que hay id y que userOnly no está vacío.
+    if (id && !isEmpty(userOnly)) {
+      setUserName(userOnly.user_name);
+      setEmail(userOnly.email);
+      setBio(userOnly.bio);
+      setImage(userOnly.image);
+    } else {
+      setUserName(userInfo.user_name);
+      setEmail(userInfo.email);
+      setBio(userInfo.bio);
+      setImage(userInfo.image);
+    }
+  }, [dispatch, userInfo, success, error, id, userOnly]);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     if (isValid) {
-      dispatch(
-        userUpdate({
-          user_name: user_name,
-          email: email,
-          bio: bio,
-          image: image,
-          password: password,
-          role: userInfo.role,
-          token: userInfo.token,
-          id: userInfo.id,
-        })
-      );
+      const payload = {
+        user_name: user_name,
+        email: email,
+        bio: bio,
+        password: password,
+        token: userInfo.token,
+      };
+      payload.role = id ? userOnly.role : userInfo.role;
+
+      if (id) {
+        payload.id = userOnly.id;
+        dispatch(userUpdateSolo(payload));
+      } else {
+        dispatch(userUpdate(payload));
+      }
 
       navigate(path);
     }
@@ -73,7 +92,7 @@ export default function UserEditProfile() {
     const formData = new FormData();
 
     formData.append("image", file);
-    formData.append("user_id", userInfo.id);
+    formData.append("user_id", id ? userOnly.id : userInfo.id);
 
     setUploading(true);
 

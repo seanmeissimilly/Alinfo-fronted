@@ -36,6 +36,10 @@ function App() {
           <Route path="/forum" element={<Forum />} />
           <Route path="/miPerfil" element={<UserProfileOwn />} />
           <Route path="/miPerfil/editProfile" element={<UserEditProfile />} />
+          <Route
+            path="/userProfile/editProfile/:id"
+            element={<UserEditProfile />}
+          />
           <Route path="/userProfile/:id" element={<UserProfile />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/tools" element={<Tools />} />
