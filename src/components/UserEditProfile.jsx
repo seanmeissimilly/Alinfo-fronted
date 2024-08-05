@@ -7,6 +7,7 @@ import Loader from "./Loader.jsx";
 import { userUpdate, userSolo, userUpdateSolo } from "../redux/userSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import PasswordChecklist from "react-password-checklist";
+import { Select, Option } from "@material-tailwind/react";
 
 export default function UserEditProfile() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -18,6 +19,7 @@ export default function UserEditProfile() {
   });
   const [user_name, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [bio, setBio] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
@@ -50,6 +52,7 @@ export default function UserEditProfile() {
       setEmail(userData.email);
       setBio(userData.bio);
       setImage(userData.image);
+      setRole(userData.role);
     };
 
     if (id) {
@@ -73,7 +76,7 @@ export default function UserEditProfile() {
         bio,
         password,
         token: userInfo.token,
-        role: id ? userOnly.role : userInfo.role,
+        role,
         id: id ? userOnly.id : undefined,
       };
 
@@ -169,7 +172,28 @@ export default function UserEditProfile() {
                           </div>
                         </div>
 
-                        <br></br>
+                        {userInfo.role === "admin" && (
+                          <div className="mt-4">
+                            <label
+                              htmlFor="role"
+                              className="block text-sm font-medium text-gray-700"
+                            >
+                              Rol de Usuario
+                            </label>
+                            <div className="mt-1 flex rounded-md shadow-sm">
+                              <Select
+                                value={role}
+                                onChange={(e) => setRole(e)}
+                                label="Rol"
+                                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                              >
+                                <Option value="admin">Administrador</Option>
+                                <Option value="editor">Editor</Option>
+                                <Option value="reader">Lector</Option>
+                              </Select>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
 
