@@ -55,8 +55,8 @@ export const userRegister = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }
@@ -88,8 +88,8 @@ export const userUpdate = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }
@@ -120,8 +120,8 @@ export const userUpdateSolo = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }
@@ -144,8 +144,8 @@ export const userDelete = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }
@@ -192,8 +192,8 @@ export const userSolo = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }

@@ -49,8 +49,8 @@ export const blogDetails = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }
@@ -84,8 +84,8 @@ export const blogUpdate = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }
@@ -109,8 +109,8 @@ export const blogDelete = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.detail
-          ? error.response.data.detail
+        error.response && error.response.data.error
+          ? error.response.data.error
           : error.message
       );
     }
