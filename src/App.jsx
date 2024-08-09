@@ -24,6 +24,7 @@ import ToolForm from "./components/ToolForm";
 import SuggestionForm from "./components/SuggestionForm";
 import BlogForm from "./components/BlogForm";
 import AboutUs from "./components/AboutUs";
+import Ayuda from "./components/Ayuda";
 import Footer from "./components/Footer";
 import Error404 from "./components/Error404";
 
@@ -55,6 +56,7 @@ function App() {
             element={<SuggestionForm />}
           />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/help" element={<Ayuda />} />
           <Route
             element={<ProtectedRoute allowedRoles={["admin", "editor"]} />}
           >

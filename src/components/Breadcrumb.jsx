@@ -38,6 +38,7 @@ export default function Breadcrumb() {
     editVideo: "Editar Video",
     createTool: "Añadir Herramienta",
     editTool: "Editar Herramienta",
+    help: "Ayuda",
   };
 
   let currentLink = "";
