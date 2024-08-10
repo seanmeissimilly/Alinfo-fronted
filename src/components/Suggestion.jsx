@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { Checkbox } from "@material-tailwind/react";
+import { Checkbox, Button } from "@material-tailwind/react";
 
 const Suggestion = ({
   id,
@@ -21,6 +21,7 @@ const Suggestion = ({
   const toggleBody = () => {
     setShowFullBody(!showFullDescription);
   };
+
   return (
     <div className="max-w-xs mx-auto bg-white rounded-lg shadow-md overflow-hidden mb-2 flex flex-col justify-between transition-transform transform hover:scale-105">
       <div className="p-4 flex-grow">
@@ -70,24 +71,30 @@ const Suggestion = ({
       <div className="flex items-center justify-end p-4">
         {(userRole === "admin" || email === userInfo.email) && (
           <div className="flex space-x-2">
-            <a
-              href={`/suggestions/editSuggestion/${id}`}
-              className="text-blue-600 hover:text-blue-900 relative group"
+            <Button
+              color="blue"
+              variant="text"
+              className="relative group"
+              onClick={() =>
+                (window.location.href = `/suggestions/editSuggestion/${id}`)
+              }
             >
-              <FaEdit />
-              <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+              <FaEdit size={15} />
+              <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
                 Editar
               </span>
-            </a>
-            <button
+            </Button>
+            <Button
+              color="red"
+              variant="text"
+              className="relative group"
               onClick={onDelete}
-              className="text-red-600 hover:text-red-900 relative group"
             >
-              <FaTrash />
-              <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+              <FaTrash size={15} />
+              <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
                 Borrar
               </span>
-            </button>
+            </Button>
           </div>
         )}
       </div>
