@@ -14,6 +14,8 @@ export default function Messages({ children }) {
         return "No se ha encontrado ninguna cuenta activa con las credenciales ingresadas. Por favor, verifica tu información e inténtalo de nuevo.";
       case "You do not have permission to perform this action.":
         return "No tienes permiso para realizar esta acción.";
+      case "Request failed with status code 500":
+        return "La solicitud ha fallado. Por favor, inténtelo de nuevo más tarde o contacte con el soporte técnico.";
       default:
         return message;
     }
