@@ -87,9 +87,7 @@ const Videos = () => {
   });
 
   const renderMultimedias = () => {
-    // Ordeno los documentos por ID antes de renderizarlos
-    const sortedMultimedias = results.sort((a, b) => b.id - a.id);
-    return sortedMultimedias.map((video) => {
+    return results.map((video) => {
       const user = users.find((user) => user.user_name === video.user);
 
       const classification = multimediaclassification.find(

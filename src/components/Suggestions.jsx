@@ -67,9 +67,7 @@ const Suggestions = () => {
   });
 
   const renderSuggestions = () => {
-    // Ordeno las sugerencias por ID antes de renderizarlos
-    const sortedSuggestions = results.sort((a, b) => b.id - a.id);
-    return sortedSuggestions.map((suggestion) => {
+    return results.map((suggestion) => {
       const user = users.find((user) => user.user_name === suggestion.user);
 
       return (

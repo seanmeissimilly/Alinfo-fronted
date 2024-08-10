@@ -96,9 +96,7 @@ const Documents = () => {
   });
 
   const renderDocuments = () => {
-    // Ordeno los documentos por ID antes de renderizarlos
-    const sortedDocuments = results.sort((a, b) => b.id - a.id);
-    return sortedDocuments.map((doc) => {
+    return results.map((doc) => {
       const user = users.find((user) => user.user_name === doc.user);
       const type = documenttypes.find((type) => type.id === doc.documenttypes);
 
