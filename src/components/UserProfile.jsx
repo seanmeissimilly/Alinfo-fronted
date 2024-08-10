@@ -30,39 +30,38 @@ export default function UserProfile() {
   return (
     <>
       {blogLoading && <Loader />}
-      {errorBlog && <Messages variant="danger">{errorBlog}</Messages>}
+      {errorBlog && <Messages>{errorBlog}</Messages>}
       {loading ? (
         <Loader />
       ) : error ? (
-        <Messages variant="danger">{error}</Messages>
+        <Messages>{error}</Messages>
       ) : (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
-          <div className="overflow-hidden bg-white shadow sm:rounded-lg">
-            <div className="px-4 py-5 sm:px-6">
-              <center>
-                <img
-                  className="h-40 w-55 rounded-full"
-                  src={`${URL}${userOnly.image}`}
-                  alt=""
-                />
+          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+            <div className="p-6 text-center">
+              <img
+                className="h-40 w-40 rounded-full mx-auto"
+                src={`${URL}${userOnly.image}`}
+                alt=""
+              />
 
-                <h3 className="text-lg font-medium leading-6 text-gray-900 mt-3">
-                  {userOnly.user_name}
-                  {userInfo.role === "admin" && (
-                    <Button
-                      color="indigo"
-                      size="sm"
-                      className="ml-4"
-                      onClick={() =>
-                        (window.location.href = `/userProfile/editProfile/${id}`)
-                      }
-                    >
-                      Editar Perfil
-                    </Button>
-                  )}
-                </h3>
-              </center>
-              <p className="mt-1 max-w-2xl text-sm text-gray-500">
+              <h3 className="text-lg font-medium leading-6 text-gray-900 mt-3">
+                {userOnly.user_name}
+                {userInfo.role === "admin" && (
+                  <Button
+                    color="indigo"
+                    size="sm"
+                    className="ml-4"
+                    onClick={() =>
+                      (window.location.href = `/userProfile/editProfile/${id}`)
+                    }
+                  >
+                    Editar Perfil
+                  </Button>
+                )}
+              </h3>
+
+              <p className="mt-1 text-sm text-gray-500 text-left">
                 Información de Usuario
               </p>
             </div>
@@ -84,11 +83,7 @@ export default function UserProfile() {
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                     <a
                       href={`mailto:${userOnly.email}`}
-                      style={{
-                        color: "blue",
-                        textDecoration: "none",
-                        borderBottom: "1px dotted blue",
-                      }}
+                      className="text-blue-500 underline"
                     >
                       {userOnly.email}
                     </a>
@@ -133,36 +128,31 @@ export default function UserProfile() {
                             key={blog.id}
                             className="flex justify-between items-center m-8"
                           >
-                            <div className="flex flex-row items-center">
+                            <div className="flex items-center">
                               <img
                                 src={`${URL}${userOnly.image}`}
-                                className="rounded-full"
-                                width="40"
+                                className="rounded-full w-12 h-12"
+                                alt=""
                               />
-                              <div className="flex flex-row items-center ml-2">
-                                <span className="font-bold mr-1">
-                                  {blog.user}
-                                </span>
+                              <div className="ml-3">
+                                <span className="font-bold">{blog.user}</span>
                               </div>
                             </div>
                           </div>
 
-                          <div className="">
-                            <img
-                              src={`${URL}${blog.image}`}
-                              className="w-full object-cover rounded-md object-center"
-                            />
+                          <img
+                            src={`${URL}${blog.image}`}
+                            className="w-full object-cover rounded-md object-center"
+                          />
 
-                            <div className="p-4 flex justify-start items-center text-xl">
-                              <p className="font-bold text-start">
-                                {blog.title}
-                              </p>
-                            </div>
-
-                            <div className="p-4 flex justify-between items-center">
-                              <p>{blog.body}</p>
-                            </div>
+                          <div className="p-4 flex justify-start items-center text-xl">
+                            <p className="font-bold text-start">{blog.title}</p>
                           </div>
+
+                          <div className="p-4 flex justify-between items-center">
+                            <p>{blog.body}</p>
+                          </div>
+
                           <div className="p-4 flex justify-between items-center">
                             <div className="flex flex-row">
                               <p className="mb-2 pl-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
