@@ -14,6 +14,7 @@ import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
 import moment from "moment/moment.js";
+import Modal from "./Modal";
 
 const Videos = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -58,14 +59,17 @@ const Videos = () => {
     );
   }
 
+  const [showModal, setShowModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
   const handleDelete = (id) => {
-    if (
-      window.confirm(
-        "⚠️ Atención ⚠️\n\n¿Estás seguro de que deseas borrar este video?\nEsta acción no se puede deshacer."
-      )
-    ) {
-      dispatch(multimediaDelete({ id, token: userInfo.token }));
-    }
+    setShowModal(true);
+    setDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    dispatch(multimediaDelete({ id: deleteId, token: userInfo.token }));
+    setShowModal(false);
   };
 
   const formatDate = (date) => moment(date).format("DD-MM-YYYY");
@@ -118,6 +122,13 @@ const Videos = () => {
 
   return (
     <>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)} onConfirm={confirmDelete}>
+          <p className="text-red-600">⚠️ Atención ⚠️</p>
+          <p>¿Estás seguro de que deseas borrar este video?</p>
+          <p>Esta acción no se puede deshacer.</p>
+        </Modal>
+      )}
       {loading ? (
         <Loader />
       ) : error ? (

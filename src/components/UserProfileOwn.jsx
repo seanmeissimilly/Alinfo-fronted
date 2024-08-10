@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
@@ -7,6 +7,7 @@ import moment from "moment/moment.js";
 import { Button } from "@material-tailwind/react";
 import Messages from "./Messages";
 import Loader from "./Loader";
+import Modal from "./Modal";
 
 export default function UserProfileOwn() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -29,20 +30,30 @@ export default function UserProfileOwn() {
     dispatch(blogList(userInfo));
   }, [dispatch, success, userInfo, blogInfo]);
 
-  const deleteHandler = (id) => {
-    if (
-      window.confirm(
-        "⚠️ Atención ⚠️\n\n¿Seguro que deseas eliminar esta publicación?\nEsta acción no se puede deshacer."
-      )
-    ) {
-      dispatch(blogDelete({ id, token: userInfo.token }));
-    }
+  const [showModal, setShowModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+
+  const handleDelete = (id) => {
+    setShowModal(true);
+    setDeleteId(id);
+  };
+
+  const confirmDelete = () => {
+    dispatch(blogDelete({ id: deleteId, token: userInfo.token }));
+    setShowModal(false);
   };
 
   const formatDate = (date) => moment(date).format("DD-MM-YYYY");
 
   return (
     <>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)} onConfirm={confirmDelete}>
+          <p className="text-red-600">⚠️ Atención ⚠️</p>
+          <p>¿Estás seguro de que deseas borrar esta publicación?</p>
+          <p>Esta acción no se puede deshacer.</p>
+        </Modal>
+      )}
       {blogLoading && <Loader />}
       {errorBlog && <Messages>{errorBlog}</Messages>}
       {loading ? (
@@ -191,7 +202,7 @@ export default function UserProfileOwn() {
                                 variant="filled"
                                 color="indigo"
                                 className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
-                                onClick={() => deleteHandler(blog_element.id)}
+                                onClick={() => handleDelete(blog_element.id)}
                               >
                                 <BsFillTrashFill size={20} />
                                 <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
