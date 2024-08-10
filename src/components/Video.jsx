@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { FaEdit, FaTrash, FaDownload } from "react-icons/fa";
 import { Button } from "@material-tailwind/react";
@@ -19,9 +19,21 @@ const Video = ({
 }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
+  const videoRef = useRef(null);
+
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
+
+  const handleDelete = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.src = null;
+    }
+
+    onDelete();
+  };
+
   return (
     <div className="max-w-xs mx-auto bg-white rounded-lg shadow-md overflow-hidden mb-2 flex flex-col justify-between transition-transform transform hover:scale-105">
       <div className="p-4 flex-grow">
@@ -43,7 +55,7 @@ const Video = ({
         )}
         <div className="mt-3">
           <div className="mt-1">
-            <video className="h-full w-full rounded-lg" controls>
+            <video ref={videoRef} className="h-full w-full rounded-lg" controls>
               <source src={data} type="video/mp4" />
               Tu navegador no soporta la etiqueta de video.
             </video>
@@ -99,7 +111,7 @@ const Video = ({
               color="red"
               variant="text"
               className="relative group"
-              onClick={onDelete}
+              onClick={handleDelete}
             >
               <FaTrash size={15} />
               <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
