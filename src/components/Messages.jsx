@@ -16,6 +16,8 @@ export default function Messages({ children }) {
         return "No tienes permiso para realizar esta acción.";
       case "Request failed with status code 500":
         return "La solicitud ha fallado. Por favor, inténtelo de nuevo más tarde o contacte con el soporte técnico.";
+      case "Request failed with status code 400":
+        return "La solicitud ha fallado con el código de estado 400. Por favor, verifica los datos ingresados y vuelve a intentarlo.";
       default:
         return message;
     }
