@@ -72,14 +72,15 @@ const Video = ({
         <Button
           color="indigo"
           variant="text"
-          className="text-indigo-600 hover:text-indigo-900 bg-indigo-100 hover:bg-indigo-200 px-2 py-1 rounded flex items-center"
+          className="relative group"
           onClick={() => window.open(data, "_blank")}
         >
           <FaDownload size={15} />
-          <span className="hidden group-hover:inline absolute bottom-full mb-1 normal-case">
+          <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
             Descargar
           </span>
         </Button>
+
         {(userRole === "admin" ||
           (userRole === "editor" && email === userInfo.email)) && (
           <div className="flex space-x-2">
