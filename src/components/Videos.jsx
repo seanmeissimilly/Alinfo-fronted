@@ -59,7 +59,11 @@ const Videos = () => {
   }
 
   const handleDelete = (id) => {
-    if (window.confirm("¿Estás seguro de que deseas borrar este video?")) {
+    if (
+      window.confirm(
+        "⚠️ Atención ⚠️\n\n¿Estás seguro de que deseas borrar este video?\nEsta acción no se puede deshacer."
+      )
+    ) {
       dispatch(multimediaDelete({ id, token: userInfo.token }));
     }
   };

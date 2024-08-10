@@ -27,7 +27,11 @@ export default function Forum() {
   }, [dispatch, userInfo, blogInfo]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("¿Seguro que deseas eliminar esta publicación?")) {
+    if (
+      window.confirm(
+        "⚠️ Atención ⚠️\n\n¿Seguro que deseas eliminar esta publicación?\nEsta acción no se puede deshacer."
+      )
+    ) {
       dispatch(blogDelete({ id, token: userInfo.token }));
     }
   };

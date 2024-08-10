@@ -68,7 +68,11 @@ const Documents = () => {
   }
 
   const handleDelete = (id) => {
-    if (window.confirm("¿Estás seguro de que deseas borrar este documento?")) {
+    if (
+      window.confirm(
+        "⚠️ Atención ⚠️\n\n¿Estás seguro de que deseas borrar este documento?\nEsta acción no se puede deshacer."
+      )
+    ) {
       dispatch(documentDelete({ id, token: userInfo.token }));
     }
   };

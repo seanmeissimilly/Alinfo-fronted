@@ -41,7 +41,7 @@ const Suggestions = () => {
   const handleDelete = (id) => {
     if (
       window.confirm(
-        "¿Estás seguro de que deseas borrar esta Queja o Sugerencia?"
+        "⚠️ Atención ⚠️\n\n¿Estás seguro de que deseas borrar esta Queja o Sugerencia?\nEsta acción no se puede deshacer."
       )
     ) {
       dispatch(suggestionDelete({ id, token: userInfo.token }));

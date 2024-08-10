@@ -56,7 +56,9 @@ const Tools = () => {
 
   const handleDelete = (id) => {
     if (
-      window.confirm("¿Estás seguro de que deseas borrar esta herramienta?")
+      window.confirm(
+        "⚠️ Atención ⚠️\n\n¿Estás seguro de que deseas borrar esta herramienta?\nEsta acción no se puede deshacer."
+      )
     ) {
       dispatch(appDelete({ id, token: userInfo.token }));
     }
