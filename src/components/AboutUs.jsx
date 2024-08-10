@@ -7,16 +7,18 @@ import Loader from "./Loader";
 import { Avatar } from "@material-tailwind/react";
 
 const About = ({ username, email, userImage }) => (
-  <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-    <h2 className="text-xl font-semibold mb-2">Contacto del Administrador:</h2>
+  <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
+    <h2 className="text-lg font-semibold mb-2 text-gray-800">
+      Contacto del Administrador:
+    </h2>
     <div className="mt-3 flex items-center">
-      <span className="text-black">Nombre de usuario: </span>
+      <span className="text-gray-600">Nombre de usuario: </span>
       <Avatar src={userImage} className="rounded-full mx-2" alt="" />
-      <span className="font-bold">{username}</span>
+      <span className="font-bold text-gray-800">{username}</span>
     </div>
     <div className="mt-3 flex items-center">
-      <a href={`mailto:${email}`} className="text-blue-500">
-        <span className="text-black"> Correo: </span>
+      <a href={`mailto:${email}`} className="text-blue-500 hover:underline">
+        <span className="text-gray-600">Correo: </span>
         {email}
       </a>
     </div>
@@ -46,7 +48,7 @@ const AboutUs = () => {
       ) : error ? (
         <Messages>{error}</Messages>
       ) : (
-        <div className="container mx-auto p-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mb-16">
+        <div className="container mx-auto p-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">
           {users
             ?.filter((user) => user.role === "admin")
             .map((user) => (
@@ -59,12 +61,9 @@ const AboutUs = () => {
             ))}
         </div>
       )}
-      <p className="fixed bottom-28 text-black text-xl text-center mx-auto bg-white p-4 w-full">
-        Alinfo es un repositorio virtual creado para la difusión de la
-        información científica y los aportes del grupo de Ingeniería Alimentaria
-        de la Facultad de Ingeniería Química (Cujae). Queda totalmente prohibida
-        la reproducción parcial o total de los documentos que aquí se
-        encuentran.
+      <p className="fixed bottom-28 text-gray-600 text-center mx-auto bg-white p-4 w-full">
+        Queda totalmente prohibida la reproducción parcial o total de los
+        documentos que aquí se encuentran.
       </p>
     </>
   );

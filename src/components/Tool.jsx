@@ -22,7 +22,7 @@ const Tool = ({
     setShowFullDescription(!showFullDescription);
   };
   return (
-    <div className="max-w-xs mx-auto bg-white rounded-lg shadow-md overflow-hidden mb-2 flex flex-col justify-between">
+    <div className="max-w-xs mx-auto bg-white rounded-lg shadow-md overflow-hidden mb-2 flex flex-col justify-between transition-transform transform hover:scale-105">
       <div className="p-4 flex-grow">
         <h2 className="mt-1 text-md font-semibold text-gray-900">{title}</h2>
         <div
