@@ -83,7 +83,8 @@ const Tools = () => {
   });
 
   const renderApps = () => {
-    return results.map((app) => {
+    const sortedTools = results.sort((a, b) => b.id - a.id);
+    return sortedTools.map((app) => {
       const user = users.find((user) => user.user_name === app.user);
 
       const classification = appclassification.find(

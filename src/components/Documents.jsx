@@ -96,7 +96,8 @@ const Documents = () => {
   });
 
   const renderDocuments = () => {
-    return results.map((doc) => {
+    const sortedDocuments = results.sort((a, b) => b.id - a.id);
+    return sortedDocuments.map((doc) => {
       const user = users.find((user) => user.user_name === doc.user);
       const type = documenttypes.find((type) => type.id === doc.documenttypes);
 

@@ -67,7 +67,8 @@ const Suggestions = () => {
   });
 
   const renderSuggestions = () => {
-    return results.map((suggestion) => {
+    const sortedSuggestions = results.sort((a, b) => b.id - a.id);
+    return sortedSuggestions.map((suggestion) => {
       const user = users.find((user) => user.user_name === suggestion.user);
 
       return (

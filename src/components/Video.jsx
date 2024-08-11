@@ -20,24 +20,23 @@ const Video = ({
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const videoRef = useRef(null);
-  const sourceRef = useRef(null);
 
   const toggleDescription = () => {
     setShowFullDescription(!showFullDescription);
   };
 
   const handleDelete = () => {
-    if (videoRef.current && sourceRef.current) {
-      videoRef.current.pause();
-      //! Modifico la fuente para asegurarme de que el video no esté abierto al momento de eliminarlo.
-      sourceRef.current.src = null;
-
-      onDelete();
+    if (videoRef.current) {
+      videoRef.current.pause = true;
+      videoRef.current.src = "";
+      videoRef.current.preload = "none";
     }
+
+    onDelete();
   };
 
   return (
-    <div className="max-w-xs mx-auto bg-white rounded-lg shadow-md overflow-hidden mb-2 flex flex-col justify-between transition-transform transform hover:scale-105">
+    <div className="max-w-xs bg-white rounded-lg shadow-md overflow-hidden mb-2 flex flex-col justify-between transition-transform transform hover:scale-105 mx-1">
       <div className="p-4 flex-grow">
         <h2 className="mt-1 text-md font-semibold text-gray-900">{title}</h2>
         <div
@@ -57,8 +56,13 @@ const Video = ({
         )}
         <div className="mt-3">
           <div className="mt-1">
-            <video ref={videoRef} className="h-full w-full rounded-lg" controls>
-              <source ref={sourceRef} src={data} type="video/mp4" />
+            <video
+              ref={videoRef}
+              className="h-full w-full rounded-lg"
+              controls
+              src={data}
+              preload="none"
+            >
               Tu navegador no soporta la etiqueta de video.
             </video>
           </div>
