@@ -9,7 +9,7 @@ import {
   suggestionCreate,
 } from "../redux/suggestionSlice.js";
 import { toast } from "react-hot-toast";
-import { Switch, Input } from "@material-tailwind/react";
+import { Switch, Input, Textarea } from "@material-tailwind/react";
 
 export default function SuggestionForm() {
   const [title, setTitle] = useState("");
@@ -76,6 +76,9 @@ export default function SuggestionForm() {
     setResolved(!resolved);
   };
 
+  const maxTitleLength = 150;
+  const maxBodyLength = 500;
+
   return (
     <>
       {loading && <Loader />}
@@ -105,7 +108,17 @@ export default function SuggestionForm() {
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
                 placeholder="Escribe un título"
                 autoFocus
+                required
               />
+              <p
+                className={`text-sm ${
+                  title.length > maxTitleLength
+                    ? "text-red-500"
+                    : "text-gray-500"
+                }`}
+              >
+                {title.length}/{maxTitleLength}
+              </p>
             </div>
 
             <div>
@@ -115,14 +128,22 @@ export default function SuggestionForm() {
               >
                 Resumen:
               </label>
-              <textarea
+              <Textarea
                 type="text"
                 name="body"
                 onChange={(e) => setBody(e.target.value)}
                 value={body}
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
                 placeholder="Escribe una resumen"
+                required
               />
+              <p
+                className={`text-sm ${
+                  body.length > maxBodyLength ? "text-red-500" : "text-gray-500"
+                }`}
+              >
+                {body.length}/{maxBodyLength}
+              </p>
             </div>
             <div className="flex items-center">
               <Switch

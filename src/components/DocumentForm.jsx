@@ -11,6 +11,7 @@ import {
   documenttypesList,
 } from "../redux/documentSlice";
 import { toast } from "react-hot-toast";
+import { Input, Textarea, Button } from "@material-tailwind/react";
 
 export default function DocumentForm() {
   const [title, setTitle] = useState("");
@@ -88,6 +89,9 @@ export default function DocumentForm() {
     }
   }, [dispatch, id, userInfo, documentInfo]);
 
+  const maxTitleLength = 150;
+  const maxDescriptionLength = 500;
+
   return (
     <>
       {loading && <Loader />}
@@ -108,15 +112,27 @@ export default function DocumentForm() {
               >
                 Título:
               </label>
-              <input
+              <Input
                 type="text"
                 name="title"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
-                className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+                className={`w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500 ${
+                  title.length > maxTitleLength ? "border-red-500" : ""
+                }`}
                 placeholder="Escribe un título"
                 autoFocus
+                required
               />
+              <p
+                className={`text-sm ${
+                  title.length > maxTitleLength
+                    ? "text-red-500"
+                    : "text-gray-500"
+                }`}
+              >
+                {title.length}/{maxTitleLength}
+              </p>
             </div>
             <div>
               <label
@@ -125,7 +141,7 @@ export default function DocumentForm() {
               >
                 Autor(es):
               </label>
-              <textarea
+              <Textarea
                 type="text"
                 name="author"
                 onChange={(e) => setAuthor(e.target.value)}
@@ -142,14 +158,28 @@ export default function DocumentForm() {
               >
                 Resumen:
               </label>
-              <textarea
+              <Textarea
                 type="text"
                 name="description"
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
-                className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+                required
+                className={`w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500 ${
+                  description.length > maxDescriptionLength
+                    ? "border-red-500"
+                    : ""
+                }`}
                 placeholder="Escribe una resumen"
               />
+              <p
+                className={`text-sm ${
+                  description.length > maxDescriptionLength
+                    ? "text-red-500"
+                    : "text-gray-500"
+                }`}
+              >
+                {description.length}/{maxDescriptionLength}
+              </p>
             </div>
             <div>
               <label
@@ -158,11 +188,12 @@ export default function DocumentForm() {
               >
                 Archivo
               </label>
-              <input
+              <Input
                 type="file"
                 name="file"
                 onChange={(e) => setData(e.target.files[0])}
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+                required
               />
             </div>
             <div>
@@ -207,12 +238,12 @@ export default function DocumentForm() {
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-            <button
+            <Button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
             >
               Enviar
-            </button>
+            </Button>
           </div>
         </form>
       </div>

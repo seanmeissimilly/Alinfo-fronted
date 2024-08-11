@@ -10,6 +10,7 @@ import {
   multimediaclassificationList,
 } from "../redux/multimediaSlice";
 import { toast } from "react-hot-toast";
+import { Input, Textarea, Button } from "@material-tailwind/react";
 
 export default function VideoForm() {
   const [title, setTitle] = useState("");
@@ -75,6 +76,9 @@ export default function VideoForm() {
     }
   }, [dispatch, id, userInfo, multimediaInfo]);
 
+  const maxTitleLength = 150;
+  const maxDescriptionLength = 500;
+
   return (
     <>
       {loading && <Loader />}
@@ -95,7 +99,7 @@ export default function VideoForm() {
               >
                 Título:
               </label>
-              <input
+              <Input
                 type="text"
                 name="title"
                 onChange={(e) => setTitle(e.target.value)}
@@ -103,7 +107,17 @@ export default function VideoForm() {
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
                 placeholder="Escribe un título"
                 autoFocus
+                required
               />
+              <p
+                className={`text-sm ${
+                  title.length > maxTitleLength
+                    ? "text-red-500"
+                    : "text-gray-500"
+                }`}
+              >
+                {title.length}/{maxTitleLength}
+              </p>
             </div>
             <div>
               <label
@@ -112,14 +126,24 @@ export default function VideoForm() {
               >
                 Descripción:
               </label>
-              <textarea
+              <Textarea
                 type="text"
                 name="description"
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
                 placeholder="Escribe una descripción"
+                required
               />
+              <p
+                className={`text-sm ${
+                  description.length > maxDescriptionLength
+                    ? "text-red-500"
+                    : "text-gray-500"
+                }`}
+              >
+                {description.length}/{maxDescriptionLength}
+              </p>
             </div>
             <div>
               <label
@@ -128,7 +152,8 @@ export default function VideoForm() {
               >
                 Archivo
               </label>
-              <input
+              <Input
+                required
                 type="file"
                 name="file"
                 onChange={(e) => setData(e.target.files[0])}
@@ -158,12 +183,12 @@ export default function VideoForm() {
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-            <button
+            <Button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
             >
               Enviar
-            </button>
+            </Button>
           </div>
         </form>
       </div>

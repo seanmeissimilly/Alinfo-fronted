@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { blogUpdate, blogDetails } from "../redux/blogSlice";
 import { useParams } from "react-router-dom";
+import { Input, Textarea, Button } from "@material-tailwind/react";
 
 export default function BlogForm() {
   const URL_API = import.meta.env.VITE_BACKEND_URL;
@@ -16,7 +17,9 @@ export default function BlogForm() {
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState(
+    `${URL_API}/media/blog_picture/noticia.jpg`
+  );
 
   const navigate = useNavigate();
   const path = "/forum";
@@ -28,11 +31,13 @@ export default function BlogForm() {
 
   const { userInfo } = user;
 
+  const isEmpty = (obj) => JSON.stringify(obj) === "{}";
+
   useEffect(() => {
     if (id && blogInfo.id !== Number(id)) {
       dispatch(blogDetails({ id, token: userInfo.token }));
     } else {
-      if (!image) {
+      if (!image && !isEmpty(blogInfo)) {
         setBody(blogInfo.body);
         setTitle(blogInfo.title);
         setImage(blogInfo.image);
@@ -99,7 +104,7 @@ export default function BlogForm() {
                         Título
                       </label>
                       <div className="mt-1">
-                        <input
+                        <Input
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
                           name="title"
@@ -120,7 +125,7 @@ export default function BlogForm() {
                         Temática
                       </label>
                       <div className="mt-1">
-                        <textarea
+                        <Textarea
                           value={body}
                           onChange={(e) => setBody(e.target.value)}
                           type="text"
@@ -128,6 +133,7 @@ export default function BlogForm() {
                           rows={3}
                           className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                           placeholder="Escribe aquí la publicación"
+                          required
                         />
                       </div>
                     </div>
@@ -140,7 +146,7 @@ export default function BlogForm() {
                         Imagen
                       </label>
                       <div className="mt-1">
-                        <input
+                        <Input
                           onChange={handleImageChange}
                           name="image"
                           type="file"
@@ -162,12 +168,12 @@ export default function BlogForm() {
                   </div>
 
                   <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                    <button
+                    <Button
                       type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
                     >
                       Enviar
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </form>
