@@ -91,7 +91,7 @@ const Videos = () => {
   };
 
   const renderMultimedias = () => {
-    const results = filterResults().sort((a, b) => b.id - a.id);
+    const results = filterResults().sort((a, b) => a.id - b.id);
     return results.map((video) => {
       const user = users.find((user) => user.user_name === video.user);
       const classification = multimediaclassification.find(
