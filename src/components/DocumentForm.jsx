@@ -106,70 +106,53 @@ export default function DocumentForm() {
           </h2>
           <div className="space-y-6 px-4 py-5 sm:p-6">
             <div>
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="title"
-              >
-                Título:
-              </label>
               <Input
+                label="Título"
                 type="text"
                 name="title"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
-                className={`w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500 ${
-                  title.length > maxTitleLength ? "border-red-500" : ""
-                }`}
+                className={
+                  "w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500 "
+                }
                 placeholder="Escribe un título"
                 autoFocus
                 required
+                error={title.length > maxTitleLength}
               />
               <p
                 className={`text-sm ${
                   title.length > maxTitleLength
                     ? "text-red-500"
                     : "text-gray-500"
-                }`}
+                } mt-2`}
               >
                 {title.length}/{maxTitleLength}
               </p>
             </div>
+
+            <Textarea
+              label="Autor(es)"
+              type="text"
+              name="author"
+              onChange={(e) => setAuthor(e.target.value)}
+              value={author}
+              className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+              autoFocus
+            />
+
             <div>
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="author"
-              >
-                Autor(es):
-              </label>
               <Textarea
-                type="text"
-                name="author"
-                onChange={(e) => setAuthor(e.target.value)}
-                value={author}
-                className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
-                placeholder="Escribe el/los autor(es)"
-                autoFocus
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Resumen:
-              </label>
-              <Textarea
+                label="Resumen"
                 type="text"
                 name="description"
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
                 required
-                className={`w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500 ${
-                  description.length > maxDescriptionLength
-                    ? "border-red-500"
-                    : ""
-                }`}
-                placeholder="Escribe una resumen"
+                className={
+                  "w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500 "
+                }
+                error={description.length > maxDescriptionLength}
               />
               <p
                 className={`text-sm ${
@@ -182,13 +165,8 @@ export default function DocumentForm() {
               </p>
             </div>
             <div>
-              <label
-                htmlFor="file"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Archivo
-              </label>
               <Input
+                label="Archivo"
                 type="file"
                 name="file"
                 onChange={(e) => setData(e.target.files[0])}

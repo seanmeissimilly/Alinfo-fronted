@@ -7,21 +7,33 @@ import Loader from "./Loader.jsx";
 import { userUpdate, userSolo, userUpdateSolo } from "../redux/userSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import PasswordChecklist from "react-password-checklist";
-import { Select, Option } from "@material-tailwind/react";
+import {
+  Input,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Button,
+  Typography,
+  Select,
+  Option,
+  Textarea,
+  Avatar,
+} from "@material-tailwind/react";
 
 export default function UserEditProfile() {
-  const URL = import.meta.env.VITE_BACKEND_URL;
+  const URL_API = import.meta.env.VITE_BACKEND_URL;
 
   const { id } = useParams();
 
   const api = axios.create({
-    baseURL: `${URL}`,
+    baseURL: `${URL_API}`,
   });
   const [user_name, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [bio, setBio] = useState("");
-  const [image, setImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -51,7 +63,7 @@ export default function UserEditProfile() {
       setUserName(userData.user_name);
       setEmail(userData.email);
       setBio(userData.bio);
-      setImage(userData.image);
+      setImageUrl(`${URL_API}${userData.image}`);
       setRole(userData.role);
     };
 
@@ -64,7 +76,7 @@ export default function UserEditProfile() {
     } else {
       updateUserFields(userInfo);
     }
-  }, [dispatch, userInfo, success, error, id, userOnly]);
+  }, [dispatch, userInfo, success, error, id, userOnly, URL_API]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -102,11 +114,11 @@ export default function UserEditProfile() {
         },
       };
 
-      const { data } = await api.post("/users/image/", formData, config);
+      await api.post("/users/image/", formData, config);
 
-      setImage(data);
+      setImageUrl(URL.createObjectURL(file));
     } catch (error) {
-      console.error("Error subiendo imagen:", error);
+      console.error("Error subiendo imagen de perfil:", error);
     } finally {
       setUploading(false);
     }
@@ -122,217 +134,185 @@ export default function UserEditProfile() {
         <div>
           {error && <Messages>{error}</Messages>}
 
-          <div className="md:grid md:grid-cols-4 md:gap-6 mb-20">
-            <div className="md:col-span-1"></div>
-            <div className="mt-5 md:col-span-2 md:mt-0">
-              <h2 className="mt-6 text-left ml-5 text-2xl font-bold tracking-tight text-gray-900">
-                Editar Perfil
-              </h2>
-              <form action="#" method="POST" onSubmit={submitHandler}>
-                <div className="shadow sm:overflow-hidden sm:rounded-md">
-                  <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                    <div className="grid grid-cols-3 gap-6">
-                      <div className="col-span-3 sm:col-span-2">
-                        <div>
-                          <label
-                            htmlFor="user_name"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Nombre de Usuario
-                          </label>
-                          <div className="mt-1 flex rounded-md shadow-sm">
-                            <input
-                              value={user_name}
-                              onChange={(e) => setUserName(e.target.value)}
-                              type="text"
-                              id="user_name"
-                              className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                              placeholder="Nombre de Usuario"
-                            />
-                          </div>
-                        </div>
-                        <br></br>
-                        <div>
-                          <label
-                            htmlFor="email"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Correo Electrónico
-                          </label>
-                          <div className="mt-1 flex rounded-md shadow-sm">
-                            <input
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              type="email"
-                              name="email"
-                              id="email"
-                              className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                              placeholder="Correo Electrónico"
-                            />
-                          </div>
-                        </div>
+          <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-10">
+            <Card className="w-full max-w-md">
+              <CardHeader
+                variant="gradient"
+                color="white"
+                className="mb-4 grid h-28 place-items-center"
+              >
+                <Typography variant="h4" color="black">
+                  Editar Perfil
+                </Typography>
+              </CardHeader>
 
-                        {userInfo.role === "admin" && (
-                          <div className="mt-4">
-                            <label
-                              htmlFor="role"
-                              className="block text-sm font-medium text-gray-700"
-                            >
-                              Rol de Usuario
-                            </label>
-                            <div className="mt-1 flex rounded-md shadow-sm">
-                              <Select
-                                value={role}
-                                onChange={(e) => setRole(e)}
-                                label="Rol"
-                                className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                              >
-                                <Option value="admin">Administrador</Option>
-                                <Option value="editor">Editor</Option>
-                                <Option value="reader">Lector</Option>
-                              </Select>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+              <form onSubmit={submitHandler} action="#" method="POST">
+                <CardBody className="flex flex-col gap-4">
+                  <Input
+                    label="Nombre de Usuario"
+                    value={user_name}
+                    onChange={(e) => setUserName(e.target.value)}
+                    id="user_name"
+                    name="user_name"
+                    type="text"
+                    autoComplete="username"
+                    required
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Nombre de Usuario"
+                    size="lg"
+                  />
 
-                    <div>
-                      <label
-                        htmlFor="about"
-                        className="block text-sm font-medium text-gray-700"
+                  <Input
+                    label="Correo Electrónico"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Correo Electrónico"
+                    size="lg"
+                  />
+
+                  {userInfo.role === "admin" && (
+                    <div className="mt-4">
+                      <Select
+                        value={role}
+                        onChange={(e) => setRole(e)}
+                        label="Rol"
+                        className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       >
-                        Acerca de ti
-                      </label>
-                      <div className="mt-1">
-                        <textarea
-                          type="text"
-                          value={bio}
-                          onChange={(e) => setBio(e.target.value)}
-                          id="bio"
-                          name="bio"
-                          rows={3}
-                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                          placeholder="Escribe acerca de ti"
-                          defaultValue={""}
-                        />
-                      </div>
+                        <Option value="admin">Administrador</Option>
+                        <Option value="editor">Editor</Option>
+                        <Option value="reader">Lector</Option>
+                      </Select>
                     </div>
-                    <br></br>
-                    <label
-                      htmlFor="about"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Actualiza tu contraseña
-                    </label>
-                    <div className=" mx-auto relative  items-center">
-                      <div className="mt-1 flex rounded-md shadow-sm">
-                        <input
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          type={openpassword ? "text" : "password"}
-                          id="password"
-                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                          placeholder="Contraseña"
-                        />
-                      </div>
-                      <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl">
-                        {!openpassword ? (
-                          <AiFillEye onClick={handleshowpassword} />
-                        ) : (
-                          <AiFillEyeInvisible onClick={handleshowpassword} />
-                        )}
-                      </div>
+                  )}
+
+                  <Textarea
+                    label={id ? "Acerca de" : "Acerca de ti"}
+                    type="text"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    id="bio"
+                    name="bio"
+                    rows={3}
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    placeholder="Escribe acerca de ti"
+                  />
+
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {id ? "Actualizar contraseña" : "Actualiza tu contraseña"}
+                  </label>
+                  <div className="relative">
+                    <Input
+                      label="Contraseña"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      id="password"
+                      name="password"
+                      type={openpassword ? "text" : "password"}
+                      autoComplete="current-password"
+                      required
+                      className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      placeholder="Contraseña"
+                      size="lg"
+                    />
+                    <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl">
+                      {!openpassword ? (
+                        <AiFillEye onClick={handleshowpassword} />
+                      ) : (
+                        <AiFillEyeInvisible onClick={handleshowpassword} />
+                      )}
                     </div>
+                  </div>
 
-                    <div className="">
-                      <div className=" mx-auto relative  items-center">
-                        <div className="mt-1 flex rounded-md shadow-sm">
-                          <input
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            type={openconfirmpassword ? "text" : "password"}
-                            id="confirmpassword"
-                            className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                            placeholder="Confirmar Contraseña"
-                          />
-                        </div>
-                        <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl">
-                          {!openconfirmpassword ? (
-                            <AiFillEye onClick={handleshowconfirmpassword} />
-                          ) : (
-                            <AiFillEyeInvisible
-                              onClick={handleshowconfirmpassword}
-                            />
-                          )}
-                        </div>
-                      </div>
-                      <div className="my-8">
-                        <PasswordChecklist
-                          className=""
-                          rules={[
-                            "minLength",
-                            "specialChar",
-                            "number",
-                            "capital",
-                            "match",
-                            "lowercase",
-                            "notEmpty",
-                          ]}
-                          minLength={8}
-                          value={password}
-                          valueAgain={confirmPassword}
-                          messages={{
-                            minLength:
-                              "La contraseña tiene más de 8 caracteres.",
-                            specialChar:
-                              "La contraseña tiene caracteres especiales.",
-                            number: "La contraseña tiene un número.",
-                            capital: "La contraseña tiene una letra mayúscula.",
-                            match: "Las contraseñas coinciden.",
-                            lowercase:
-                              "La contraseña tiene una letra minúscula.",
-                            notEmpty: "La contraseña no está en blanco.",
-                          }}
-                          onChange={(e) => setIsValid(e)}
+                  <div className="relative">
+                    <Input
+                      label="Confirmar Contraseña"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      id="confirmpassword"
+                      name="confirmpassword"
+                      type={openconfirmpassword ? "text" : "password"}
+                      autoComplete="current-password"
+                      required
+                      className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      placeholder="Confirmar Contraseña"
+                      size="lg"
+                    />
+                    <div className="absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl">
+                      {!openconfirmpassword ? (
+                        <AiFillEye onClick={handleshowconfirmpassword} />
+                      ) : (
+                        <AiFillEyeInvisible
+                          onClick={handleshowconfirmpassword}
                         />
-                      </div>
+                      )}
                     </div>
+                  </div>
 
-                    <form>
-                      <label
-                        htmlFor="about"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Imagen
-                      </label>
-
-                      <input
-                        type="text"
-                        placeholder="Image"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                      ></input>
-
-                      <input
-                        label="Choose file"
+                  <div className="my-8">
+                    <PasswordChecklist
+                      className=""
+                      rules={[
+                        "minLength",
+                        "specialChar",
+                        "number",
+                        "capital",
+                        "match",
+                        "lowercase",
+                        "notEmpty",
+                      ]}
+                      minLength={8}
+                      value={password}
+                      valueAgain={confirmPassword}
+                      messages={{
+                        minLength: "La contraseña tiene más de 8 caracteres.",
+                        specialChar:
+                          "La contraseña tiene caracteres especiales.",
+                        number: "La contraseña tiene un número.",
+                        capital: "La contraseña tiene una letra mayúscula.",
+                        match: "Las contraseñas coinciden.",
+                        lowercase: "La contraseña tiene una letra minúscula.",
+                        notEmpty: "La contraseña no está en blanco.",
+                      }}
+                      onChange={(e) => setIsValid(e)}
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {imageUrl && (
+                      <div className="mt-4">
+                        <Avatar src={imageUrl} alt="avatar" size="xxl" />
+                      </div>
+                    )}
+                    <div className="w-2/3 mx-4">
+                      <Input
+                        variant="static"
+                        label="Escoger imagen de perfil"
                         type="file"
                         accept="image/*"
                         onChange={uploadFileHandler}
-                      ></input>
-                    </form>
+                        className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      />
+                    </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-                    <button
-                      type="submit"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      Guardar
-                    </button>
-                  </div>
-                </div>
+                </CardBody>
+                <CardFooter className="pt-0">
+                  <Button
+                    type="submit"
+                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                  >
+                    Guardar Cambios
+                  </Button>
+                </CardFooter>
               </form>
-            </div>
+            </Card>
           </div>
         </div>
       )}

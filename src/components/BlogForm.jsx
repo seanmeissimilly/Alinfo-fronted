@@ -75,6 +75,9 @@ export default function BlogForm() {
       });
   };
 
+  const maxTitleLength = 150;
+  const maxBodyLength = 500;
+
   return (
     <>
       {loading ? (
@@ -96,65 +99,65 @@ export default function BlogForm() {
                       <div className="col-span-3 sm:col-span-2"></div>
                     </div>
 
-                    <div>
-                      <label
-                        htmlFor="about"
-                        className="block text-sm font-medium text-gray-700"
+                    <div className="mt-1">
+                      <Input
+                        label="Título"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        name="title"
+                        required
+                        type="text"
+                        id="title"
+                        className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        placeholder="Título de la publicación"
+                        error={title.length > maxTitleLength}
+                      />
+                      <p
+                        className={`text-sm ${
+                          title.length > maxTitleLength
+                            ? "text-red-500"
+                            : "text-gray-500"
+                        } mt-2`}
                       >
-                        Título
-                      </label>
-                      <div className="mt-1">
-                        <Input
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
-                          name="title"
-                          required
-                          type="text"
-                          id="title"
-                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                          placeholder="Título de la publicación"
-                        />
-                      </div>
+                        {title.length}/{maxTitleLength}
+                      </p>
                     </div>
 
-                    <div>
-                      <label
-                        htmlFor="about"
-                        className="block text-sm font-medium text-gray-700"
+                    <div className="mt-1">
+                      <Textarea
+                        label="Descripción"
+                        value={body}
+                        onChange={(e) => setBody(e.target.value)}
+                        type="text"
+                        name="body"
+                        id="body"
+                        rows={3}
+                        className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        required
+                        error={body.length > maxBodyLength}
+                      />
+                      <p
+                        className={`text-sm ${
+                          body.length > maxBodyLength
+                            ? "text-red-500"
+                            : "text-gray-500"
+                        }`}
                       >
-                        Temática
-                      </label>
-                      <div className="mt-1">
-                        <Textarea
-                          value={body}
-                          onChange={(e) => setBody(e.target.value)}
-                          type="text"
-                          id="body"
-                          rows={3}
-                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                          placeholder="Escribe aquí la publicación"
-                          required
-                        />
-                      </div>
+                        {body.length}/{maxBodyLength}
+                      </p>
                     </div>
 
-                    <div>
-                      <label
-                        htmlFor="image"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Imagen
-                      </label>
-                      <div className="mt-1">
-                        <Input
-                          onChange={handleImageChange}
-                          name="image"
-                          type="file"
-                          id="image"
-                          accept="image/*"
-                          className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                        />
-                      </div>
+                    <div className="mt-1">
+                      <Input
+                        label="Imagen"
+                        onChange={handleImageChange}
+                        name="image"
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                      />
+
                       {imageUrl && (
                         <div className="mt-4">
                           <img

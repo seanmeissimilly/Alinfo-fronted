@@ -9,7 +9,7 @@ import {
   suggestionCreate,
 } from "../redux/suggestionSlice.js";
 import { toast } from "react-hot-toast";
-import { Switch, Input, Textarea } from "@material-tailwind/react";
+import { Switch, Input, Textarea, Button } from "@material-tailwind/react";
 
 export default function SuggestionForm() {
   const [title, setTitle] = useState("");
@@ -89,53 +89,43 @@ export default function SuggestionForm() {
           className="shadow sm:overflow-hidden sm:rounded-md mb-20 mt-6"
         >
           <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
-            {id ? "Editar Queja o Sugerencia" : "Crear Queja o Sugerencia"}
+            {id ? "Editar Queja y Sugerencia" : "Crear Queja y Sugerencia"}
           </h2>
           <div className="space-y-6 px-4 py-5 sm:p-6">
             <div>
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="title"
-              >
-                Título:
-              </label>
               <Input
-                variant="static"
+                label="Título"
                 type="text"
                 name="title"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
-                className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+                className="w-full p-2 mt-1 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
                 placeholder="Escribe un título"
                 autoFocus
                 required
+                error={title.length > maxTitleLength}
               />
               <p
                 className={`text-sm ${
                   title.length > maxTitleLength
                     ? "text-red-500"
                     : "text-gray-500"
-                }`}
+                } mt-2`}
               >
                 {title.length}/{maxTitleLength}
               </p>
             </div>
 
             <div>
-              <label
-                htmlFor="body"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Resumen:
-              </label>
               <Textarea
+                label="Resumen"
                 type="text"
                 name="body"
                 onChange={(e) => setBody(e.target.value)}
                 value={body}
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
-                placeholder="Escribe una resumen"
                 required
+                error={body.length > maxBodyLength}
               />
               <p
                 className={`text-sm ${
@@ -163,12 +153,12 @@ export default function SuggestionForm() {
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
-            <button
+            <Button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
             >
               Enviar
-            </button>
+            </Button>
           </div>
         </form>
       </div>

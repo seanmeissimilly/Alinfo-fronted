@@ -94,13 +94,8 @@ export default function AppForm() {
           </h2>
           <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
             <div>
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="title"
-              >
-                Título:
-              </label>
               <Input
+                label="Título"
                 type="text"
                 name="title"
                 onChange={(e) => setTitle(e.target.value)}
@@ -109,32 +104,28 @@ export default function AppForm() {
                 placeholder="Escribe un título"
                 autoFocus
                 required
+                error={title.length > maxTitleLength}
               />
               <p
                 className={`text-sm ${
                   title.length > maxTitleLength
                     ? "text-red-500"
                     : "text-gray-500"
-                }`}
+                } mt-2`}
               >
                 {title.length}/{maxTitleLength}
               </p>
             </div>
             <div>
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Descripción:
-              </label>
               <Textarea
+                label="Descripción"
                 type="text"
                 name="description"
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
-                placeholder="Escribe una descripción"
                 required
+                error={description.length > maxDescriptionLength}
               />
               <p
                 className={`text-sm ${
@@ -146,21 +137,15 @@ export default function AppForm() {
                 {description.length}/{maxDescriptionLength}
               </p>
             </div>
-            <div>
-              <label
-                htmlFor="file"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Archivo
-              </label>
-              <Input
-                required
-                type="file"
-                name="file"
-                onChange={(e) => setData(e.target.files[0])}
-                className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
-              />
-            </div>
+
+            <Input
+              label="Archivo"
+              required
+              type="file"
+              name="file"
+              onChange={(e) => setData(e.target.files[0])}
+              className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+            />
 
             <div>
               <label

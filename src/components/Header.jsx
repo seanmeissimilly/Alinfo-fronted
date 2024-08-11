@@ -83,7 +83,7 @@ export default function Header() {
         />
         <NavigationButton
           href="/suggestions"
-          title="Quejas o Sugerencias"
+          title="Quejas y Sugerencias"
           icon={RiMessage2Fill}
         />
       </>
