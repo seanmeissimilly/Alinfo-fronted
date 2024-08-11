@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Video from "./Video.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import {
   multimediaList,
@@ -7,6 +6,7 @@ import {
   multimediaclassificationList,
 } from "../redux/multimediaSlice.js";
 import { userList } from "../redux/userSlice.js";
+import Video from "./Video.jsx";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
@@ -18,12 +18,13 @@ import Modal from "./Modal";
 
 const Videos = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
-
   const dispatch = useDispatch();
-
   const [search, setSearch] = useState("");
   const [classificationSelected, setClassificationSelected] = useState([]);
-  const animatedComponets = makeAnaimated();
+  const animatedComponents = makeAnaimated();
+  const [showModal, setShowModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [render, setRender] = useState(false);
 
   const {
     multimedias,
@@ -32,7 +33,6 @@ const Videos = () => {
     error,
     loading,
   } = useSelector((state) => state.multimedia);
-
   const { users, userInfo } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -41,26 +41,7 @@ const Videos = () => {
       dispatch(multimediaclassificationList({ token: userInfo.token }));
       dispatch(userList({ token: userInfo.token }));
     }
-  }, [dispatch, userInfo, multimediaInfo, error]);
-
-  //metodo de filtrado
-  let results = [...multimedias];
-
-  if (classificationSelected.length !== 0) {
-    results = results.filter((video) => {
-      return classificationSelected.some(
-        (selected) => selected.value === video.multimediaclassification
-      );
-    });
-  }
-  if (search !== "") {
-    results = results.filter((video) =>
-      video.title.toLowerCase().includes(search.toLocaleLowerCase())
-    );
-  }
-
-  const [showModal, setShowModal] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
+  }, [dispatch, userInfo, multimediaInfo, error, render]);
 
   const handleDelete = (id) => {
     setShowModal(true);
@@ -70,6 +51,12 @@ const Videos = () => {
   const confirmDelete = () => {
     dispatch(multimediaDelete({ id: deleteId, token: userInfo.token }));
     setShowModal(false);
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
+    setDeleteId(null);
+    setRender(!render);
   };
 
   const formatDate = (date) => moment(date).format("DD-MM-YYYY");
@@ -86,10 +73,27 @@ const Videos = () => {
     delay: 500,
   });
 
+  const filterResults = () => {
+    let results = [...multimedias];
+    if (classificationSelected.length !== 0) {
+      results = results.filter((video) => {
+        return classificationSelected.some(
+          (selected) => selected.value === video.multimediaclassification
+        );
+      });
+    }
+    if (search !== "") {
+      results = results.filter((video) =>
+        video.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    return results;
+  };
+
   const renderMultimedias = () => {
+    const results = filterResults();
     return results.map((video) => {
       const user = users.find((user) => user.user_name === video.user);
-
       const classification = multimediaclassification.find(
         (classification) => classification.id === video.multimediaclassification
       );
@@ -121,7 +125,7 @@ const Videos = () => {
   return (
     <>
       {showModal && (
-        <Modal onClose={() => setShowModal(false)} onConfirm={confirmDelete}>
+        <Modal onClose={cancelDelete} onConfirm={confirmDelete}>
           <p className="text-red-600">⚠️ Atención ⚠️</p>
           <p>¿Estás seguro de que deseas borrar este video?</p>
           <p>Esta acción no se puede deshacer.</p>
@@ -151,10 +155,8 @@ const Videos = () => {
                   value: type.id,
                   label: type.description,
                 }))}
-                onChange={(e) => {
-                  setClassificationSelected(e);
-                }}
-                components={animatedComponets}
+                onChange={(e) => setClassificationSelected(e)}
+                components={animatedComponents}
                 className="w-full rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
               />
             </div>
