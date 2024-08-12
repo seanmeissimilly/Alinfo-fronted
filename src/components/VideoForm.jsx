@@ -139,7 +139,6 @@ export default function VideoForm() {
             <div>
               <Input
                 label="Archivo"
-                required
                 type="file"
                 name="file"
                 onChange={(e) => setData(e.target.files[0])}

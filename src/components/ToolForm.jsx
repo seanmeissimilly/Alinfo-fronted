@@ -140,7 +140,6 @@ export default function AppForm() {
 
             <Input
               label="Archivo"
-              required
               type="file"
               name="file"
               onChange={(e) => setData(e.target.files[0])}
