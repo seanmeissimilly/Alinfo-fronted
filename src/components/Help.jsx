@@ -53,7 +53,7 @@ export default function Help() {
     <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto mb-16 mt-2">
       <div className="flex items-center mb-4">
         <FaQuestionCircle className="w-6 h-6 text-indigo-600 mr-2" />
-        <h1 className="text-2xl font-bold">Página de Ayuda</h1>
+        <h1 className="text-2xl font-bold">Ayuda</h1>
       </div>
       <p className="text-gray-700 mb-2">
         Bienvenido a la página de ayuda. Aquí encontrarás respuestas a las

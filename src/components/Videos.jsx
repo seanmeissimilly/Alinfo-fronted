@@ -126,7 +126,6 @@ const Videos = () => {
     <>
       {showModal && (
         <Modal onClose={cancelDelete} onConfirm={confirmDelete}>
-          <p className="text-red-600">⚠️ Atención ⚠️</p>
           <p>¿Estás seguro de que deseas borrar este video?</p>
           <p>Esta acción no se puede deshacer.</p>
         </Modal>

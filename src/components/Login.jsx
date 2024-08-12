@@ -12,7 +12,6 @@ import {
   Input,
   Card,
   CardHeader,
-  Checkbox,
   CardBody,
   CardFooter,
   Button,
@@ -117,9 +116,6 @@ export default function Login() {
                       <AiFillEyeInvisible onClick={handleshowpassword} />
                     )}
                   </div>
-                </div>
-                <div className="-ml-2.5">
-                  <Checkbox label="Recúerdame" />
                 </div>
               </CardBody>
               <CardFooter className="pt-0">

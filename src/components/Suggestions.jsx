@@ -94,7 +94,6 @@ const Suggestions = () => {
     <>
       {showModal && (
         <Modal onClose={() => setShowModal(false)} onConfirm={confirmDelete}>
-          <p className="text-red-600">⚠️ Atención ⚠️</p>
           <p>¿Estás seguro de que deseas borrar esta queja y sugerencia?</p>
           <p>Esta acción no se puede deshacer.</p>
         </Modal>
