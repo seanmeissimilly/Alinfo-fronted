@@ -5,7 +5,7 @@ import { userSolo } from "../redux/userSlice.js";
 import { blogList } from "../redux/blogSlice";
 import Messages from "./Messages";
 import Loader from "./Loader";
-import moment from "moment/moment.js";
+import { DateTime } from "luxon";
 import { Button } from "@material-tailwind/react";
 
 export default function UserProfile() {
@@ -25,7 +25,7 @@ export default function UserProfile() {
     dispatch(blogList({ token: userInfo.token }));
   }, [dispatch, id, userInfo]);
 
-  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   return (
     <>

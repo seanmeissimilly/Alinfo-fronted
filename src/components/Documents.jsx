@@ -14,7 +14,7 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
-import moment from "moment/moment.js";
+import { DateTime } from "luxon";
 import Modal from "./Modal";
 
 const Documents = () => {
@@ -81,7 +81,7 @@ const Documents = () => {
     setShowModal(false);
   };
 
-  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const fadeIn = useSpring({
     from: { opacity: 0 },

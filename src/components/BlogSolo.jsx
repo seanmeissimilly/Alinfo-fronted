@@ -11,7 +11,7 @@ import {
 } from "../redux/blogSlice.js";
 import { userList } from "../redux/userSlice.js";
 import { BsFillTrashFill } from "react-icons/bs";
-import moment from "moment/moment.js";
+import { DateTime } from "luxon";
 
 export default function BlogSolo() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -41,7 +41,7 @@ export default function BlogSolo() {
     dispatch(createComment({ id, text, token: userInfo.token }));
   };
 
-  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const deleteHandlerComment = (comment_id) => {
     if (window.confirm("¿Seguro que deseas eliminar esta comentario?")) {

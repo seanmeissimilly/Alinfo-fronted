@@ -7,7 +7,7 @@ import { blogList, blogDelete } from "../redux/blogSlice";
 import { AiFillPlusSquare, AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useSpring, animated } from "react-spring";
-import moment from "moment/moment.js";
+import { DateTime } from "luxon";
 import { Button } from "@material-tailwind/react";
 import Modal from "./Modal";
 
@@ -40,7 +40,7 @@ export default function Forum() {
     setShowModal(false);
   };
 
-  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const fadeIn = useSpring({
     from: { opacity: 0 },

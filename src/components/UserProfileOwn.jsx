@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { blogDelete, blogList } from "../redux/blogSlice";
-import moment from "moment/moment.js";
+import { DateTime } from "luxon";
 import { Button } from "@material-tailwind/react";
 import Messages from "./Messages";
 import Loader from "./Loader";
@@ -43,7 +43,7 @@ export default function UserProfileOwn() {
     setShowModal(false);
   };
 
-  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   return (
     <>

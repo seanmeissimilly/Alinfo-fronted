@@ -7,7 +7,7 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { useSpring, animated } from "react-spring";
-import moment from "moment/moment.js";
+import { DateTime } from "luxon";
 import Modal from "./Modal";
 
 const Suggestions = () => {
@@ -52,7 +52,7 @@ const Suggestions = () => {
     setShowModal(false);
   };
 
-  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const fadeIn = useSpring({
     from: { opacity: 0 },

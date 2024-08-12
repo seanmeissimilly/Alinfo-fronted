@@ -14,7 +14,7 @@ import {
   documentclassificationList,
   documenttypesList,
 } from "../redux/documentSlice";
-import moment from "moment/moment.js";
+import { DateTime } from "luxon";
 
 function Reports() {
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ function Reports() {
     }
   }, [dispatch, userInfo]);
 
-  const formatDate = (date) => moment(date).format("DD-MM-YYYY");
+  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const documentsWithAll = [...documents].map((document) => ({
     ...document,
