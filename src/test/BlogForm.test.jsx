@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import BlogForm from "./BlogForm";
+import BlogForm from "../components/BlogForm";
 import { blogCreate, blogUpdate, blogDetails } from "../redux/blogSlice";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 
