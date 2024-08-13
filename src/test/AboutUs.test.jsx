@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import AboutUs from "./AboutUs";
+import AboutUs from "../components/AboutUs";
 import { userList } from "../redux/userSlice";
 
 const mockStore = configureStore([]);

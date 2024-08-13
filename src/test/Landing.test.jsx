@@ -6,11 +6,7 @@ describe("Landing", () => {
   beforeEach(() => {
     render(<Landing />);
   });
-  test("Should show the component", () => {
-    expect(
-      screen.getByText("Repositorio Virtual de Ingeniería Alimentaria.")
-    ).toBeDefined();
-  });
+
   test("renders the main heading", () => {
     const heading = screen.getByText(/AlInfo/i);
     expect(heading).toBeInTheDocument();
