@@ -55,5 +55,5 @@ export default function Messages({ children }) {
 }
 
 Messages.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.string.isRequired,
 };
