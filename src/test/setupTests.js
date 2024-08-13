@@ -1,5 +1,7 @@
 import "@testing-library/jest-dom";
 import { configure } from "@testing-library/react";
-import "@material-tailwind/react/tailwind.css";
+import { expect } from "vitest";
+
+globalThis.expect = expect;
 
 configure({ testIdAttribute: "data-testid" });
