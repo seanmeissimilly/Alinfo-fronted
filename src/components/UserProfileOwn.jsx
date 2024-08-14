@@ -140,15 +140,12 @@ export default function UserProfileOwn() {
           {blogs.map((blog_element) => (
             <>
               {userInfo.user_name === blog_element.user && (
-                <div className="py-16 bg-gray-200">
+                <div key={blog_element.id} className="py-16 bg-gray-200">
                   <div className="px-10">
                     <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-lg">
                       <div className="md:flex">
                         <div className="w-full">
-                          <div
-                            key={blog_element.id}
-                            className="flex justify-between items-center m-8"
-                          >
+                          <div className="flex justify-between items-center m-8">
                             <div className="flex items-center">
                               <img
                                 src={`${URL}${userInfo.image}`}
