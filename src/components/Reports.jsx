@@ -200,7 +200,7 @@ function Reports() {
         name={report.name}
         columns={report.columns}
         data={report.data}
-        date={formatDate(new Date())}
+        date={formatDate(DateTime.now())}
       />
     ));
   };
