@@ -27,6 +27,7 @@ import AboutUs from "./components/AboutUs";
 import Help from "./components/Help";
 import Footer from "./components/Footer";
 import Error404 from "./components/Error404";
+import Chart from "./components/Chart";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
             element={<ProtectedRoute allowedRoles={["admin", "editor"]} />}
           >
             <Route path="/reports" element={<Reports />} />
+            <Route path="/chart" element={<Chart />} />
             <Route path="/forum/addBlog" element={<BlogForm />} />
             <Route path="/forum/editBlog/:id" element={<BlogForm />} />
             <Route

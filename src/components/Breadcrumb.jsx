@@ -39,6 +39,7 @@ export default function Breadcrumb() {
     createTool: "Añadir Herramienta",
     editTool: "Editar Herramienta",
     help: "Ayuda",
+    chart: "Gráfico",
   };
 
   let currentLink = "";

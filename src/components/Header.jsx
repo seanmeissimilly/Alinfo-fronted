@@ -128,21 +128,38 @@ export default function Header() {
             )}
           </MenuItem>
           {(userInfo.role === "editor" || userInfo.role === "admin") && (
-            <MenuItem>
-              {({ isActive }) => (
-                <Button
-                  variant="text"
-                  color="gray"
-                  className={classNames(
-                    isActive ? "bg-gray-100" : "",
-                    "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
-                  )}
-                  onClick={() => (window.location.href = "/reports")}
-                >
-                  Reportes
-                </Button>
-              )}
-            </MenuItem>
+            <>
+              <MenuItem>
+                {({ isActive }) => (
+                  <Button
+                    variant="text"
+                    color="gray"
+                    className={classNames(
+                      isActive ? "bg-gray-100" : "",
+                      "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
+                    )}
+                    onClick={() => (window.location.href = "/reports")}
+                  >
+                    Reportes
+                  </Button>
+                )}
+              </MenuItem>
+              <MenuItem>
+                {({ isActive }) => (
+                  <Button
+                    variant="text"
+                    color="gray"
+                    className={classNames(
+                      isActive ? "bg-gray-100" : "",
+                      "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
+                    )}
+                    onClick={() => (window.location.href = "/chart")}
+                  >
+                    Gráfico
+                  </Button>
+                )}
+              </MenuItem>
+            </>
           )}
           <MenuItem>
             {({ isActive }) => (
