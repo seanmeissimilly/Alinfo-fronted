@@ -14,6 +14,7 @@ const PieChart = ({ data, options }) => {
     radialLabelsLinkColor: { from: "color" },
     sliceLabelsSkipAngle: 10,
     sliceLabelsTextColor: "#000000",
+    activeOuterRadiusOffset: 8,
   };
 
   const mergedOptions = { ...defaultOptions, ...options };
@@ -42,6 +43,7 @@ const PieChart = ({ data, options }) => {
         sliceLabelsSkipAngle={mergedOptions.sliceLabelsSkipAngle}
         sliceLabelsTextColor={mergedOptions.sliceLabelsTextColor}
         sliceLabel={calculateSliceLabel}
+        activeOuterRadiusOffset={mergedOptions.activeOuterRadiusOffset}
       />
     </div>
   );
