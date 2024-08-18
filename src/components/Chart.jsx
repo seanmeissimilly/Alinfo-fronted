@@ -14,6 +14,8 @@ import {
   Card,
   CardBody,
   Typography,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 
 function Chart() {
@@ -81,7 +83,7 @@ function Chart() {
       case "noFilter":
         return data;
       default:
-        startDate = DateTime.fromISO("1970-01-01");
+        startDate = DateTime.fromISO("1995-10-01");
     }
 
     return data.filter((item) => {
@@ -106,13 +108,13 @@ function Chart() {
   ];
 
   const options = {
-    title: "Cantidades",
+    title: "Composición de Alinfo",
     pieHole: 0.4,
     is3D: false,
   };
 
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+  const handleFilterChange = (value) => {
+    setFilter(value);
   };
 
   const handleCustomRangeChange = (e) => {
@@ -137,29 +139,26 @@ function Chart() {
           </div>
           <Card className="w-full lg:w-1/4 h-4/5 p-4 m-2 bg-white rounded-lg shadow-lg flex items-center justify-center my-10">
             <CardBody>
-              <Typography
-                variant="h5"
-                color="blue-gray"
-                className="mb-2 text-center"
-              >
-                Filtro
-              </Typography>
-
-              <select
+              <Select
+                label="Filtro"
                 value={filter}
-                onChange={handleFilterChange}
-                className="p-2 border rounded mb-4"
+                onChange={(e) => handleFilterChange(e)}
+                className="p-2 my-2 border rounded mb-4"
+                animate={{
+                  mount: { y: 0 },
+                  unmount: { y: 25 },
+                }}
               >
-                <option value="noFilter">Sin filtro</option>
-                <option value="lastYear">Último año</option>
-                <option value="lastMonth">Último mes</option>
-                <option value="lastWeek">Última semana</option>
-                <option value="Today">Hoy</option>
-                <option value="customRange">Rango personalizado</option>
-              </select>
+                <Option value="noFilter">Sin filtro</Option>
+                <Option value="lastYear">Último año</Option>
+                <Option value="lastMonth">Último mes</Option>
+                <Option value="lastWeek">Última semana</Option>
+                <Option value="Today">Hoy</Option>
+                <Option value="customRange">Rango personalizado</Option>
+              </Select>
 
               {filter === "customRange" && (
-                <div className="flex flex-col space-y-2 text-xs">
+                <div className="flex flex-col my-3 space-y-2 text-xs">
                   <div className="flex flex-col">
                     <Input
                       type="date"
@@ -167,7 +166,7 @@ function Chart() {
                       label="Fecha Inicial"
                       value={customRange.start}
                       onChange={handleCustomRangeChange}
-                      className="p-1 border rounded"
+                      className="p-1 my-1 border rounded"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -177,7 +176,7 @@ function Chart() {
                       label="Fecha Final"
                       value={customRange.end}
                       onChange={handleCustomRangeChange}
-                      className="p-1 border rounded"
+                      className="p-1 my-1 border rounded"
                     />
                   </div>
                 </div>

@@ -15,7 +15,7 @@ import {
   documenttypesList,
 } from "../redux/documentSlice";
 import { DateTime } from "luxon";
-import { Input } from "@material-tailwind/react";
+import { Input, Option, Select } from "@material-tailwind/react";
 
 function Reports() {
   const dispatch = useDispatch();
@@ -255,13 +255,13 @@ function Reports() {
   };
 
   const handleFilterChange = (e) => {
-    setFilter(e.target.value);
+    setFilter(e);
   };
 
   const handleCustomRangeChange = (e) => {
     setCustomRange({
       ...customRange,
-      [e.target.name]: e.target.value,
+      [e]: e,
     });
   };
 
@@ -273,43 +273,50 @@ function Reports() {
         <Messages>{errorUser}</Messages>
       ) : (
         <div>
-          <div className="mb-3 mt-3 mr-3 flex justify-end">
-            <select
-              value={filter}
-              onChange={handleFilterChange}
-              className="w-72 p-2 border rounded mb-4"
-            >
-              <option value="noFilter">Sin filtro</option>
-              <option value="lastYear">Último año</option>
-              <option value="lastMonth">Último mes</option>
-              <option value="lastWeek">Última semana</option>
-              <option value="Today">Hoy</option>
-              <option value="customRange">Rango personalizado</option>
-            </select>
-            {filter === "customRange" && (
-              <div className="flex flex-col space-y-2 ml-4">
-                <div className="flex flex-col">
-                  <Input
-                    type="date"
-                    name="start"
-                    label="Fecha Inicial"
-                    value={customRange.start}
-                    onChange={handleCustomRangeChange}
-                    className="p-2 border rounded mb-2"
-                  />
+          <div className="flex justify-end mb-3 mt-3 mr-3">
+            <div className="w-72">
+              <Select
+                label="Filtro"
+                value={filter}
+                onChange={(e) => handleFilterChange(e)}
+                className="p-2 border rounded mb-4"
+                animate={{
+                  mount: { y: 0 },
+                  unmount: { y: 25 },
+                }}
+              >
+                <Option value="noFilter">Sin filtro</Option>
+                <Option value="lastYear">Último año</Option>
+                <Option value="lastMonth">Último mes</Option>
+                <Option value="lastWeek">Última semana</Option>
+                <Option value="Today">Hoy</Option>
+                <Option value="customRange">Rango personalizado</Option>
+              </Select>
+              {filter === "customRange" && (
+                <div className="flex flex-col space-y-2 ml-4">
+                  <div className="flex flex-col">
+                    <Input
+                      type="date"
+                      name="start"
+                      label="Fecha Inicial"
+                      value={customRange.start}
+                      onChange={handleCustomRangeChange}
+                      className="p-2 border rounded mb-2"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <Input
+                      type="date"
+                      name="end"
+                      label="Fecha Final"
+                      value={customRange.end}
+                      onChange={handleCustomRangeChange}
+                      className="p-2 border rounded"
+                    />
+                  </div>
                 </div>
-                <div className="flex flex-col">
-                  <Input
-                    type="date"
-                    name="end"
-                    label="Fecha Final"
-                    value={customRange.end}
-                    onChange={handleCustomRangeChange}
-                    className="p-2 border rounded"
-                  />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className="container mx-auto p-4 mb-16">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
