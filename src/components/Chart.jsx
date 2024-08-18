@@ -132,10 +132,10 @@ function Chart() {
         <Messages>{errorUser}</Messages>
       ) : (
         <div className="flex flex-col lg:flex-row justify-center h-screen bg-gray-100">
-          <div className="w-full lg:w-4/5 h-3/4 p-4 bg-white rounded-lg shadow-lg my-10 mx-2">
+          <div className="w-full lg:w-4/5 h-4/5 p-4 bg-white rounded-lg shadow-lg my-10 mx-2">
             <PieChart data={data} options={options} />
           </div>
-          <Card className="w-full lg:w-1/4 h-3/4 p-4 m-2 bg-white rounded-lg shadow-lg flex items-center justify-center my-10">
+          <Card className="w-full lg:w-1/4 h-4/5 p-4 m-2 bg-white rounded-lg shadow-lg flex items-center justify-center my-10">
             <CardBody>
               <Typography
                 variant="h5"
@@ -148,7 +148,7 @@ function Chart() {
               <select
                 value={filter}
                 onChange={handleFilterChange}
-                className="w-72 p-2 border rounded mb-4"
+                className="p-2 border rounded mb-4"
               >
                 <option value="noFilter">Sin filtro</option>
                 <option value="lastYear">Último año</option>
@@ -159,7 +159,7 @@ function Chart() {
               </select>
 
               {filter === "customRange" && (
-                <div className="flex flex-row my-2 space-x-2">
+                <div className="flex flex-col space-y-2 text-xs">
                   <div className="flex flex-col">
                     <Input
                       type="date"
@@ -167,7 +167,7 @@ function Chart() {
                       label="Fecha Inicial"
                       value={customRange.start}
                       onChange={handleCustomRangeChange}
-                      className="p-2 border rounded mb-2"
+                      className="p-1 border rounded"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -177,45 +177,45 @@ function Chart() {
                       label="Fecha Final"
                       value={customRange.end}
                       onChange={handleCustomRangeChange}
-                      className="p-2 border rounded"
+                      className="p-1 border rounded"
                     />
                   </div>
                 </div>
               )}
-              <div className="flex flex-col items-start mt-4">
+              <div className="flex flex-col items-start mt-4 space-y-2">
                 <Checkbox
                   label="Usuarios"
                   checked={showUsers}
                   onChange={() => setShowUsers(!showUsers)}
-                  className="mr-2"
+                  className="mr-1"
                 />
 
                 <Checkbox
                   label="Documentos"
                   checked={showDocuments}
                   onChange={() => setShowDocuments(!showDocuments)}
-                  className="mr-2"
+                  className="mr-1"
                 />
 
                 <Checkbox
                   label="Videos"
                   checked={showVideos}
                   onChange={() => setShowVideos(!showVideos)}
-                  className="mr-2"
+                  className="mr-1"
                 />
 
                 <Checkbox
                   label="Herramientas"
                   checked={showTools}
                   onChange={() => setShowTools(!showTools)}
-                  className="mr-2"
+                  className="mr-1"
                 />
 
                 <Checkbox
                   label="Quejas y Sugerencias"
                   checked={showSuggestions}
                   onChange={() => setShowSuggestions(!showSuggestions)}
-                  className="mr-2"
+                  className="mr-1"
                 />
               </div>
             </CardBody>

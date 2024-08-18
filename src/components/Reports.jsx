@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
@@ -15,9 +15,13 @@ import {
   documenttypesList,
 } from "../redux/documentSlice";
 import { DateTime } from "luxon";
+import { Input } from "@material-tailwind/react";
 
 function Reports() {
   const dispatch = useDispatch();
+  const [filter, setFilter] = useState("noFilter");
+  const [customRange, setCustomRange] = useState({ start: "", end: "" });
+
   const {
     users,
     userInfo,
@@ -63,29 +67,72 @@ function Reports() {
 
   const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
-  const documentsWithAll = [...documents].map((document) => ({
-    ...document,
-    type: documenttypes.find((type) => type.id === document.documenttypes)
-      ?.description,
-    classification: documentclassification.find(
-      (classification) => classification.id === document.documentclassification
-    )?.description,
-  }));
+  const filterData = (data, filter, dateField = "date") => {
+    const now = DateTime.now();
+    let startDate;
+    let endDate = now;
 
-  const videosWithAll = [...videos].map((video) => ({
-    ...video,
+    switch (filter) {
+      case "lastMonth":
+        startDate = now.minus({ months: 1 });
+        break;
+      case "lastYear":
+        startDate = now.minus({ years: 1 });
+        break;
+      case "lastWeek":
+        startDate = now.minus({ weeks: 1 });
+        break;
+      case "Today":
+        startDate = now.startOf("day");
+        break;
+      case "customRange":
+        startDate = DateTime.fromISO(customRange.start);
+        endDate = DateTime.fromISO(customRange.end);
+        break;
+      case "noFilter":
+        return data;
+      default:
+        startDate = DateTime.fromISO("1970-01-01");
+    }
 
-    classification: multimediaclassification.find(
-      (classification) => classification.id === video.multimediaclassification
-    )?.description,
-  }));
+    return data.filter((item) => {
+      const itemDate = DateTime.fromISO(item[dateField]);
+      return itemDate >= startDate && itemDate <= endDate;
+    });
+  };
 
-  const toolsWithAll = [...tools].map((tool) => ({
-    ...tool,
-    classification: appclassification.find(
-      (classification) => classification.id === tool.applicationclassification
-    )?.description,
-  }));
+  const documentsWithAll = filterData(
+    [...documents].map((document) => ({
+      ...document,
+      type: documenttypes.find((type) => type.id === document.documenttypes)
+        ?.description,
+      classification: documentclassification.find(
+        (classification) =>
+          classification.id === document.documentclassification
+      )?.description,
+    })),
+    filter
+  );
+
+  const videosWithAll = filterData(
+    [...videos].map((video) => ({
+      ...video,
+      classification: multimediaclassification.find(
+        (classification) => classification.id === video.multimediaclassification
+      )?.description,
+    })),
+    filter
+  );
+
+  const toolsWithAll = filterData(
+    [...tools].map((tool) => ({
+      ...tool,
+      classification: appclassification.find(
+        (classification) => classification.id === tool.applicationclassification
+      )?.description,
+    })),
+    filter
+  );
 
   const reports = [
     {
@@ -101,20 +148,22 @@ function Reports() {
           "Última Entrada",
         ],
       ],
-      data: [...users]
-        .sort((a, b) => a.id - b.id)
-        .map((user) => [
-          user.id,
-          user.user_name,
-          user.email,
-          user.role === "reader"
-            ? "Lector"
-            : user.role === "editor"
-            ? "Editor"
-            : "Administrador",
-          formatDate(user.start_date),
-          formatDate(user.last_login),
-        ]),
+      data: filterData(
+        [...users].sort((a, b) => a.id - b.id),
+        filter,
+        "start_date"
+      ).map((user) => [
+        user.id,
+        user.user_name,
+        user.email,
+        user.role === "reader"
+          ? "Lector"
+          : user.role === "editor"
+          ? "Editor"
+          : "Administrador",
+        formatDate(user.start_date),
+        formatDate(user.last_login),
+      ]),
     },
     {
       id: 2,
@@ -205,6 +254,17 @@ function Reports() {
     ));
   };
 
+  const handleFilterChange = (e) => {
+    setFilter(e.target.value);
+  };
+
+  const handleCustomRangeChange = (e) => {
+    setCustomRange({
+      ...customRange,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <>
       {loadingUser || loadingVideo || loadingTool || loadingDocument ? (
@@ -212,9 +272,49 @@ function Reports() {
       ) : errorUser || errorVideo || errorTool || errorDocument ? (
         <Messages>{errorUser}</Messages>
       ) : (
-        <div className="container mx-auto p-4 mb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {renderReports()}
+        <div>
+          <div className="mb-3 mt-3 mr-3 flex justify-end">
+            <select
+              value={filter}
+              onChange={handleFilterChange}
+              className="w-72 p-2 border rounded mb-4"
+            >
+              <option value="noFilter">Sin filtro</option>
+              <option value="lastYear">Último año</option>
+              <option value="lastMonth">Último mes</option>
+              <option value="lastWeek">Última semana</option>
+              <option value="Today">Hoy</option>
+              <option value="customRange">Rango personalizado</option>
+            </select>
+            {filter === "customRange" && (
+              <div className="flex flex-col space-y-2 ml-4">
+                <div className="flex flex-col">
+                  <Input
+                    type="date"
+                    name="start"
+                    label="Fecha Inicial"
+                    value={customRange.start}
+                    onChange={handleCustomRangeChange}
+                    className="p-2 border rounded mb-2"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <Input
+                    type="date"
+                    name="end"
+                    label="Fecha Final"
+                    value={customRange.end}
+                    onChange={handleCustomRangeChange}
+                    className="p-2 border rounded"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="container mx-auto p-4 mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {renderReports()}
+            </div>
           </div>
         </div>
       )}
