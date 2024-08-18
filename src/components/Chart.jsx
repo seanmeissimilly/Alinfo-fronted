@@ -13,7 +13,6 @@ import {
   Checkbox,
   Card,
   CardBody,
-  Typography,
   Select,
   Option,
 } from "@material-tailwind/react";
@@ -99,18 +98,45 @@ function Chart() {
   const filteredSuggestions = filterData(suggestions, filter);
 
   const data = [
-    ["Apartado", "Cantidad"],
-    ["Usuarios", showUsers ? filteredUsers?.length : 0],
-    ["Documentos", showDocuments ? filteredDocuments?.length : 0],
-    ["Videos", showVideos ? filteredVideos?.length : 0],
-    ["Herramientas", showTools ? filteredTools?.length : 0],
-    ["Quejas y Sugerencias", showSuggestions ? filteredSuggestions?.length : 0],
+    {
+      id: "Usuarios",
+      label: "Usuarios",
+      value: showUsers ? filteredUsers?.length : 0,
+    },
+    {
+      id: "Documentos",
+      label: "Documentos",
+      value: showDocuments ? filteredDocuments?.length : 0,
+    },
+    {
+      id: "Videos",
+      label: "Videos",
+      value: showVideos ? filteredVideos?.length : 0,
+    },
+    {
+      id: "Herramientas",
+      label: "Herramientas",
+      value: showTools ? filteredTools?.length : 0,
+    },
+    {
+      id: "Quejas y Sugerencias",
+      label: "Quejas y Sugerencias",
+      value: showSuggestions ? filteredSuggestions?.length : 0,
+    },
   ];
 
   const options = {
-    title: "Composición de Alinfo",
-    pieHole: 0.4,
-    is3D: false,
+    innerRadius: 0.4,
+    padAngle: 0.7,
+    cornerRadius: 3,
+    colorScheme: "nivo",
+    borderWidth: 1,
+    radialLabelsSkipAngle: 10,
+    radialLabelsTextXOffset: 6,
+    radialLabelsTextColor: "#333333",
+    radialLabelsLinkColor: { from: "color" },
+    sliceLabelsSkipAngle: 10,
+    sliceLabelsTextColor: "#333333",
   };
 
   const handleFilterChange = (value) => {
