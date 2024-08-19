@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaUnlock } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import Loader from "./Loader";
 import Messages from "./Messages";
@@ -65,6 +65,12 @@ export default function Register() {
     if (isValid) {
       dispatch(userRegister({ user_name, email, password }));
     }
+  };
+
+  //validar el correo electrónico
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
@@ -195,10 +201,20 @@ export default function Register() {
                   className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <FaLock
-                      className="h-5 w-5 text-indigo-400 group-hover:text-gray-600"
-                      aria-hidden="true"
-                    />
+                    {isValid &&
+                    isValidEmail(email) &&
+                    password !== "" &&
+                    user_name !== "" ? (
+                      <FaUnlock
+                        className="h-6 w-6 text-indigo-200 group-hover:text-gray-600"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <FaLock
+                        className="h-6 w-6 text-indigo-200 group-hover:text-gray-600"
+                        aria-hidden="true"
+                      />
+                    )}
                   </span>
                   Registrarse
                 </Button>

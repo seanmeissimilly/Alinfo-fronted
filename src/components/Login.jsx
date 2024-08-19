@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaUnlock } from "react-icons/fa";
 import user_icon from "../media/user.png";
 import { toast } from "react-hot-toast";
 import { userLogin } from "../redux/userSlice.js";
@@ -55,6 +55,12 @@ export default function Login() {
     e.preventDefault();
     disptach(userLogin({ email, password }));
   }
+
+  //validar el correo electrónico
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   return (
     <>
@@ -124,10 +130,17 @@ export default function Login() {
                   className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <FaLock
-                      className="h-5 w-5 text-indigo-400 group-hover:text-gray-600"
-                      aria-hidden="true"
-                    />
+                    {isValidEmail(email) && password !== "" ? (
+                      <FaUnlock
+                        className="h-6 w-6 text-indigo-200 group-hover:text-gray-600"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <FaLock
+                        className="h-6 w-6 text-indigo-200 group-hover:text-gray-600"
+                        aria-hidden="true"
+                      />
+                    )}
                   </span>
                   Entrar
                 </Button>

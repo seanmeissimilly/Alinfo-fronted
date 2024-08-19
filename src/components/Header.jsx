@@ -171,7 +171,7 @@ export default function Header() {
                     isActive ? "bg-gray-100" : "",
                     "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
                   )}
-                  onClick={() => (window.location.href = `${URL}${/admin/}`)}
+                  onClick={() => window.open(`${URL}${/admin/}`, "_blank")}
                 >
                   Administración
                 </Button>
