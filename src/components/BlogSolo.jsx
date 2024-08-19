@@ -12,6 +12,7 @@ import {
 import { userList } from "../redux/userSlice.js";
 import { BsFillTrashFill } from "react-icons/bs";
 import { DateTime } from "luxon";
+import { Textarea } from "@material-tailwind/react";
 
 export default function BlogSolo() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -48,6 +49,8 @@ export default function BlogSolo() {
       dispatch(deleteComment({ comment_id, token: userInfo.token }));
     }
   };
+
+  const maxTextLength = 500;
 
   return (
     <>
@@ -124,24 +127,36 @@ export default function BlogSolo() {
               Comentarios
             </h2>
 
-            <form onSubmit={submitHandler}>
-              <div>
-                <div className="mt-1 p-4">
-                  <textarea
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    type="text"
-                    id="text"
-                    rows={3}
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Escribe Aquí"
-                  />
-                </div>
+            <form
+              onSubmit={submitHandler}
+              className="bg-white shadow-md rounded-lg p-4 max-w-lg mx-auto"
+            >
+              <div className="mb-4">
+                <Textarea
+                  label="Texto del Comentario"
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  type="text"
+                  id="text"
+                  rows={2}
+                  className="relative p-2 block w-full appearance-none rounded-md border border-gray-300 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  autoFocus
+                  error={text.length > maxTextLength}
+                />
+                <p
+                  className={`text-sm ${
+                    text.length > maxTextLength
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  } mt-1`}
+                >
+                  {text.length}/{maxTextLength}
+                </p>
               </div>
-              <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+              <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Enviar
                 </button>
@@ -156,29 +171,31 @@ export default function BlogSolo() {
                     <>
                       {users &&
                         users.map((user) => (
-                          <div key={user.id} className="py-6">
+                          <div key={user.id} className="py-4">
                             {user.user_name === comment.user && (
-                              <div className="py-6">
-                                <div>
-                                  <img
-                                    className="object-cover w-24 h-24 rounded-full shadow"
-                                    src={`${URL}${user.image}`}
-                                    alt="Person"
-                                  />
-                                  <div className="flex flex-col justify-center mt-2">
-                                    <p className="text-lg font-bold">
-                                      {comment.user}
-                                    </p>
-                                    <p className="mb-4 text-xs text-gray-800">
-                                      {formatDate(comment.date)}
-                                    </p>
-                                    <p className="text-sm tracking-wide text-gray-800">
-                                      {comment.text}
-                                    </p>
+                              <div className="py-4">
+                                <div className="border border-gray-300 p-4 rounded-lg max-w-lg w-full bg-white shadow-md">
+                                  <div className="flex items-center mb-4">
+                                    <img
+                                      className="object-cover w-12 h-12 rounded-full shadow"
+                                      src={`${URL}${user.image}`}
+                                      alt="Person"
+                                    />
+                                    <div className="ml-4">
+                                      <p className="text-lg font-bold">
+                                        {comment.user}
+                                      </p>
+                                      <p className="text-xs text-gray-600">
+                                        {formatDate(comment.date)}
+                                      </p>
+                                    </div>
                                   </div>
+                                  <p className="text-sm tracking-wide text-gray-800 mb-4">
+                                    {comment.text}
+                                  </p>
                                   {(userInfo.role === "admin" ||
                                     userInfo.email === user.email) && (
-                                    <div className="flex justify-center mt-2 ml-auto">
+                                    <div className="flex justify-end">
                                       <button
                                         onClick={() =>
                                           deleteHandlerComment(comment.id)
