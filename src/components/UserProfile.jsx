@@ -7,6 +7,7 @@ import Messages from "./Messages";
 import Loader from "./Loader";
 import { DateTime } from "luxon";
 import { Button } from "@material-tailwind/react";
+import { FaUser, FaEnvelope, FaUserTag, FaInfoCircle } from "react-icons/fa";
 
 export default function UserProfile() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -69,16 +70,16 @@ export default function UserProfile() {
             <div className="border-t border-gray-200">
               <dl>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Nombre de Usuario
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <FaUser className="mr-2" /> Nombre de Usuario
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                     {userOnly.user_name}
                   </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Correo Electrónico
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <FaEnvelope className="mr-2" /> Correo Electrónico
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                     <a
@@ -90,8 +91,8 @@ export default function UserProfile() {
                   </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Rol de Usuario
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <FaUserTag className="mr-2" /> Rol de Usuario
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                     {userOnly.role === "reader"
@@ -102,8 +103,8 @@ export default function UserProfile() {
                   </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Acerca de ti
+                  <dt className="text-sm font-medium text-gray-500 flex items-center">
+                    <FaInfoCircle className="mr-2" /> Acerca de ti
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                     {userOnly.bio}

@@ -1,7 +1,6 @@
-import { MegaphoneIcon } from "@heroicons/react/24/outline";
+import { FaBullhorn } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { Alert } from "@material-tailwind/react";
-import { Transition } from "@headlessui/react";
+import { Alert, Collapse } from "@material-tailwind/react";
 
 export default function Messages({ children }) {
   const getMessage = (message) => {
@@ -24,24 +23,13 @@ export default function Messages({ children }) {
   };
 
   return (
-    <Transition
-      show={true}
-      enter="transition ease-out duration-300"
-      enterFrom="opacity-0 translate-y-4"
-      enterTo="opacity-100 translate-y-0"
-      leave="transition ease-in duration-200"
-      leaveFrom="opacity-100 translate-y-0"
-      leaveTo="opacity-0 translate-y-4"
-    >
+    <Collapse open={true} className="transition ease-out duration-300">
       <div className="bg-indigo-600">
         <div className="container mx-auto py-3 px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <span className="flex rounded-lg bg-indigo-800 p-2">
-                <MegaphoneIcon
-                  className="h-6 w-6 text-white"
-                  aria-hidden="true"
-                />
+                <FaBullhorn className="h-6 w-6 text-white" aria-hidden="true" />
               </span>
               <Alert className="ml-3 truncate font-medium text-white">
                 <span className="hidden md:inline">{getMessage(children)}</span>
@@ -50,7 +38,7 @@ export default function Messages({ children }) {
           </div>
         </div>
       </div>
-    </Transition>
+    </Collapse>
   );
 }
 

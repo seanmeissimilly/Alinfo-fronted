@@ -4,18 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { userList } from "../redux/userSlice";
 import Messages from "./Messages";
 import Loader from "./Loader";
-import {
-  Avatar,
-  Drawer,
-  Button,
-  Typography,
-  IconButton,
-} from "@material-tailwind/react";
+import { Avatar, Drawer, Button, Typography } from "@material-tailwind/react";
+import { FaInfoCircle } from "react-icons/fa";
 
 const About = ({ username, email, userImage }) => (
   <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
-    <h2 className="text-lg font-semibold mb-2 text-gray-800">
-      Contacto del Administrador:
+    <h2 className="text-lg font-semibold mb-2 text-gray-800 flex items-center">
+      <FaInfoCircle className="mr-2 inline-block" />
+      <span className="inline-block">Contacto del Administrador:</span>
     </h2>
     <div className="mt-3 flex items-center">
       <span className="text-gray-600">Nombre de usuario: </span>

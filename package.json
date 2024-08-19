@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.2",
-    "@heroicons/react": "^2.1.5",
     "@material-tailwind/react": "^2.1.9",
     "@nivo/pie": "^0.87.0",
     "@redux-devtools/extension": "^3.3.0",
