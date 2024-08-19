@@ -13,6 +13,7 @@ import { userList } from "../redux/userSlice.js";
 import { BsFillTrashFill } from "react-icons/bs";
 import { DateTime } from "luxon";
 import { Textarea } from "@material-tailwind/react";
+import Modal from "./Modal";
 
 export default function BlogSolo() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -21,6 +22,8 @@ export default function BlogSolo() {
   const dispatch = useDispatch();
 
   const [text, setText] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
 
   const blog = useSelector((state) => state.blog);
   const { success_comment, loading, error, blogInfo } = blog;
@@ -45,15 +48,25 @@ export default function BlogSolo() {
   const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const deleteHandlerComment = (comment_id) => {
-    if (window.confirm("¿Seguro que deseas eliminar esta comentario?")) {
-      dispatch(deleteComment({ comment_id, token: userInfo.token }));
-    }
+    setShowModal(true);
+    setDeleteId(comment_id);
+  };
+
+  const confirmDelete = () => {
+    dispatch(deleteComment({ comment_id: deleteId, token: userInfo.token }));
+    setShowModal(false);
   };
 
   const maxTextLength = 500;
 
   return (
     <>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)} onConfirm={confirmDelete}>
+          <p>¿Estás seguro de que deseas borrar este comentario?</p>
+          <p>Esta acción no se puede deshacer.</p>
+        </Modal>
+      )}
       {loading ? (
         <Loader />
       ) : error ? (
