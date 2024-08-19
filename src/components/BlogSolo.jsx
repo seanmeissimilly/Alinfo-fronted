@@ -5,14 +5,16 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import {
   createComment,
+  updateComment,
   blogDetails,
   createCommentReset,
   deleteComment,
 } from "../redux/blogSlice.js";
 import { userList } from "../redux/userSlice.js";
 import { BsFillTrashFill } from "react-icons/bs";
+import { AiFillEdit } from "react-icons/ai";
 import { DateTime } from "luxon";
-import { Textarea } from "@material-tailwind/react";
+import { Textarea, Button } from "@material-tailwind/react";
 import Modal from "./Modal";
 
 export default function BlogSolo() {
@@ -24,6 +26,8 @@ export default function BlogSolo() {
   const [text, setText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState("");
+  const [editCommentId, setEditCommentId] = useState("");
+  const [editCommentText, setEditCommentText] = useState("");
 
   const blog = useSelector((state) => state.blog);
   const { success_comment, loading, error, blogInfo } = blog;
@@ -55,6 +59,24 @@ export default function BlogSolo() {
   const confirmDelete = () => {
     dispatch(deleteComment({ comment_id: deleteId, token: userInfo.token }));
     setShowModal(false);
+  };
+
+  const handleEditClick = (comment) => {
+    setEditCommentId(comment.id);
+    setEditCommentText(comment.text);
+  };
+
+  const handleUpdateClick = () => {
+    dispatch(
+      updateComment({
+        comment_id: editCommentId,
+        id,
+        text: editCommentText,
+        token: userInfo.token,
+      })
+    );
+    setEditCommentId(null);
+    setEditCommentText("");
   };
 
   const maxTextLength = 500;
@@ -175,59 +197,91 @@ export default function BlogSolo() {
                 </button>
               </div>
             </form>
-
             {blogInfo.comments &&
               [...blogInfo.comments]
                 .sort((a, b) => a.id - b.id)
                 .map((comment) => (
                   <div key={comment.id} className="flex justify-center">
-                    <>
-                      {users &&
-                        users.map((user) => (
-                          <div key={user.id} className="py-4">
-                            {user.user_name === comment.user && (
-                              <div className="py-4">
-                                <div className="border border-gray-300 p-4 rounded-lg max-w-lg w-full bg-white shadow-md">
-                                  <div className="flex items-center mb-4">
-                                    <img
-                                      className="object-cover w-12 h-12 rounded-full shadow"
-                                      src={`${URL}${user.image}`}
-                                      alt="Person"
-                                    />
-                                    <div className="ml-4">
-                                      <p className="text-lg font-bold">
-                                        {comment.user}
-                                      </p>
-                                      <p className="text-xs text-gray-600">
-                                        {formatDate(comment.date)}
-                                      </p>
-                                    </div>
+                    {users &&
+                      users.map((user) => (
+                        <div key={user.id} className="py-4">
+                          {user.user_name === comment.user && (
+                            <div className="py-4">
+                              <div className="border border-gray-300 p-4 rounded-lg max-w-lg w-full bg-white shadow-md">
+                                <div className="flex items-center mb-4">
+                                  <img
+                                    className="object-cover w-12 h-12 rounded-full shadow"
+                                    src={`${URL}${user.image}`}
+                                    alt=""
+                                  />
+                                  <div className="ml-4">
+                                    <p className="text-lg font-bold">
+                                      {comment.user}
+                                    </p>
+                                    <p className="text-xs text-gray-600">
+                                      {formatDate(comment.date)}
+                                    </p>
                                   </div>
+                                </div>
+                                {editCommentId === comment.id ? (
+                                  <div>
+                                    <Textarea
+                                      value={editCommentText}
+                                      onChange={(e) =>
+                                        setEditCommentText(e.target.value)
+                                      }
+                                      className="mb-4"
+                                    />
+                                    <Button
+                                      color="green"
+                                      onClick={handleUpdateClick}
+                                      className="mr-2"
+                                    >
+                                      Actualizar
+                                    </Button>
+                                    <Button
+                                      color="red"
+                                      onClick={() => setEditCommentId(null)}
+                                    >
+                                      Cancelar
+                                    </Button>
+                                  </div>
+                                ) : (
                                   <p className="text-sm tracking-wide text-gray-800 mb-4">
                                     {comment.text}
                                   </p>
-                                  {(userInfo.role === "admin" ||
-                                    userInfo.email === user.email) && (
-                                    <div className="flex justify-end">
-                                      <button
-                                        onClick={() =>
-                                          deleteHandlerComment(comment.id)
-                                        }
-                                        className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-1 px-2 text-xs font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                                      >
-                                        <BsFillTrashFill size={20} />
-                                        <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
-                                          Borrar
-                                        </span>
-                                      </button>
-                                    </div>
-                                  )}
-                                </div>
+                                )}
+                                {(userInfo.role === "admin" ||
+                                  userInfo.email === user.email) && (
+                                  <div className="flex justify-end p-4 items-center space-x-6">
+                                    <Button
+                                      color="indigo"
+                                      className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                      onClick={() => handleEditClick(comment)}
+                                    >
+                                      <AiFillEdit size={15} />
+                                      <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                                        Editar
+                                      </span>
+                                    </Button>
+                                    <Button
+                                      onClick={() =>
+                                        deleteHandlerComment(comment.id)
+                                      }
+                                      className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                    >
+                                      <BsFillTrashFill size={15} />
+                                      <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                                        Borrar
+                                      </span>
+                                    </Button>
+                                  </div>
+                                )}
                               </div>
-                            )}
-                          </div>
-                        ))}
-                    </>
+                            </div>
+                          )}
+                        </div>
+                      ))}
                   </div>
                 ))}
           </div>

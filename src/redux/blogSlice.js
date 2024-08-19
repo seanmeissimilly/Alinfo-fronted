@@ -146,6 +146,35 @@ export const createComment = createAsyncThunk(
   }
 );
 
+//todo: Lógica para editar un comentario.
+export const updateComment = createAsyncThunk(
+  "updateComment",
+  async ({ comment_id, id, text, token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await blogApi.put(
+        `/comment/${comment_id}/`,
+        { blog: id, text },
+        config
+      );
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
 //todo: Lógica para borrar un comentario.
 export const deleteComment = createAsyncThunk(
   "deleteComment",
@@ -320,6 +349,18 @@ export const blogSlice = createSlice({
       state.success_comment = true;
     });
     builder.addCase(deleteComment.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(updateComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateComment.fulfilled, (state) => {
+      state.loading = false;
+      state.success = true;
+      state.success_comment = true;
+    });
+    builder.addCase(updateComment.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
