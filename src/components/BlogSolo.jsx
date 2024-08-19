@@ -11,7 +11,11 @@ import {
   deleteComment,
 } from "../redux/blogSlice.js";
 import { userList } from "../redux/userSlice.js";
-import { BsFillTrashFill } from "react-icons/bs";
+import {
+  BsFillTrashFill,
+  BsFillCheckCircleFill,
+  BsXCircleFill,
+} from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
 import { DateTime } from "luxon";
 import { Textarea, Button } from "@material-tailwind/react";
@@ -212,7 +216,7 @@ export default function BlogSolo() {
                                   <img
                                     className="object-cover w-12 h-12 rounded-full shadow"
                                     src={`${URL}${user.image}`}
-                                    alt=""
+                                    alt="Person"
                                   />
                                   <div className="ml-4">
                                     <p className="text-lg font-bold">
@@ -226,25 +230,48 @@ export default function BlogSolo() {
                                 {editCommentId === comment.id ? (
                                   <div>
                                     <Textarea
+                                      label="Editar Comentario"
                                       value={editCommentText}
                                       onChange={(e) =>
                                         setEditCommentText(e.target.value)
                                       }
-                                      className="mb-4"
+                                      rows={6}
+                                      className="mb-4 h-40 w-full"
+                                      error={
+                                        editCommentText.length > maxTextLength
+                                      }
                                     />
-                                    <Button
-                                      color="green"
-                                      onClick={handleUpdateClick}
-                                      className="mr-2"
+                                    <p
+                                      className={`text-sm ${
+                                        editCommentText.length > maxTextLength
+                                          ? "text-red-500"
+                                          : "text-gray-500"
+                                      } mt-1`}
                                     >
-                                      Actualizar
-                                    </Button>
-                                    <Button
-                                      color="red"
-                                      onClick={() => setEditCommentId(null)}
-                                    >
-                                      Cancelar
-                                    </Button>
+                                      {editCommentText.length}/{maxTextLength}
+                                    </p>
+                                    <div className="flex justify-end space-x-2">
+                                      <Button
+                                        color="red"
+                                        onClick={() => setEditCommentId(null)}
+                                        className="group relative flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 normal-case"
+                                      >
+                                        <BsXCircleFill size={20} />
+                                        <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                                          Cancelar
+                                        </span>
+                                      </Button>
+                                      <Button
+                                        color="green"
+                                        onClick={handleUpdateClick}
+                                        className="group relative flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 normal-case"
+                                      >
+                                        <BsFillCheckCircleFill size={20} />
+                                        <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                                          Actualizar
+                                        </span>
+                                      </Button>
+                                    </div>
                                   </div>
                                 ) : (
                                   <p className="text-sm tracking-wide text-gray-800 mb-4">
@@ -253,28 +280,34 @@ export default function BlogSolo() {
                                 )}
                                 {(userInfo.role === "admin" ||
                                   userInfo.email === user.email) && (
-                                  <div className="flex justify-end p-4 items-center space-x-6">
-                                    <Button
-                                      color="indigo"
-                                      className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
-                                      onClick={() => handleEditClick(comment)}
-                                    >
-                                      <AiFillEdit size={15} />
-                                      <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
-                                        Editar
-                                      </span>
-                                    </Button>
-                                    <Button
-                                      onClick={() =>
-                                        deleteHandlerComment(comment.id)
-                                      }
-                                      className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
-                                    >
-                                      <BsFillTrashFill size={15} />
-                                      <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
-                                        Borrar
-                                      </span>
-                                    </Button>
+                                  <div className="flex justify-end space-x-2">
+                                    {editCommentId !== comment.id && (
+                                      <>
+                                        <Button
+                                          color="indigo"
+                                          className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                          onClick={() =>
+                                            handleEditClick(comment)
+                                          }
+                                        >
+                                          <AiFillEdit size={20} />
+                                          <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                                            Editar
+                                          </span>
+                                        </Button>
+                                        <Button
+                                          onClick={() =>
+                                            deleteHandlerComment(comment.id)
+                                          }
+                                          className="group relative flex justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 normal-case"
+                                        >
+                                          <BsFillTrashFill size={20} />
+                                          <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                                            Borrar
+                                          </span>
+                                        </Button>
+                                      </>
+                                    )}
                                   </div>
                                 )}
                               </div>
