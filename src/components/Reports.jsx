@@ -146,6 +146,7 @@ function Reports() {
           "Rol",
           "Fecha de Inicio",
           "Última Entrada",
+          "Super Usuario",
         ],
       ],
       data: filterData(
@@ -163,6 +164,7 @@ function Reports() {
           : "Administrador",
         formatDate(user.start_date),
         formatDate(user.last_login),
+        user.is_admin ? "Si" : "No",
       ]),
     },
     {

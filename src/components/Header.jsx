@@ -161,7 +161,7 @@ export default function Header() {
               </MenuItem>
             </>
           )}
-          {userInfo.role === "admin" && (
+          {userInfo.role === "admin" && userInfo.is_admin && (
             <MenuItem>
               {({ isActive }) => (
                 <Button
