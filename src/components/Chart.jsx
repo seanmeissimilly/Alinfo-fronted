@@ -101,29 +101,34 @@ function Chart() {
     {
       id: "Usuarios",
       label: "Usuarios",
-      value: showUsers ? filteredUsers?.length : 0,
+      value: filteredUsers?.length || 0,
+      show: showUsers,
     },
     {
       id: "Documentos",
       label: "Documentos",
-      value: showDocuments ? filteredDocuments?.length : 0,
+      value: filteredDocuments?.length || 0,
+      show: showDocuments,
     },
     {
       id: "Videos",
       label: "Videos",
-      value: showVideos ? filteredVideos?.length : 0,
+      value: filteredVideos?.length || 0,
+      show: showVideos,
     },
     {
       id: "Herramientas",
       label: "Herramientas",
-      value: showTools ? filteredTools?.length : 0,
+      value: filteredTools?.length || 0,
+      show: showTools,
     },
     {
       id: "Quejas y Sugerencias",
       label: "Quejas y Sugerencias",
-      value: showSuggestions ? filteredSuggestions?.length : 0,
+      value: filteredSuggestions?.length || 0,
+      show: showSuggestions,
     },
-  ];
+  ].filter((item) => item.show);
 
   const options = {
     innerRadius: 0.4,
