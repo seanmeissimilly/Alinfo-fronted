@@ -42,7 +42,7 @@ const Report = ({ name, columns, data, date }) => {
           <div className="mt-1">
             <button
               onClick={() => generateReport()}
-              className="text-indigo-600 hover:text-indigo-900 bg-indigo-100 hover:bg-indigo-200 px-2 py-1 rounded flex items-center"
+              className="text-green-cujae hover:text-teal-900 bg-indigo-100 hover:bg-indigo-200 px-2 py-1 rounded flex items-center"
             >
               <FaDownload className="mr-1" />
               <span className="hidden group-hover:inline">Descargar</span>

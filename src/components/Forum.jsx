@@ -95,7 +95,7 @@ export default function Forum() {
                 title="Añadir Publicación"
               >
                 <AiFillPlusSquare
-                  className="ml-6 text-green-900 hover:text-gray-900 "
+                  className="ml-6 text-green-cujae hover:text-gray-900 "
                   size={30}
                 />
               </a>
@@ -150,7 +150,7 @@ export default function Forum() {
                                   <div className="flex flex-row  space-x-6">
                                     <Button
                                       color="indigo"
-                                      className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                      className="group relative flex justify-center rounded-md border border-transparent bg-green-cujae py-2 px-4 text-sm font-medium text-white hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
                                       onClick={() =>
                                         (window.location.href = `/forum/soloBlog/${blog.id}`)
                                       }
@@ -167,7 +167,7 @@ export default function Forum() {
                                     <div className="p-4 flex justify-end items-center space-x-6">
                                       <Button
                                         color="indigo"
-                                        className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                        className="group relative flex justify-end rounded-md border border-transparent bg-green-cujae py-2 px-4 text-sm font-medium text-white hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
                                         onClick={() =>
                                           (window.location.href = `/forum/editBlog/${blog.id}`)
                                         }

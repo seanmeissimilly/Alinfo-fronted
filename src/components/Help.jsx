@@ -52,7 +52,7 @@ export default function Help() {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto mb-16 mt-2">
       <div className="flex items-center mb-4">
-        <FaQuestionCircle className="w-6 h-6 text-indigo-600 mr-2" />
+        <FaQuestionCircle className="w-6 h-6 text-green-cujae mr-2" />
         <h1 className="text-2xl font-bold">Ayuda</h1>
       </div>
       <p className="text-gray-700 mb-2">
@@ -90,7 +90,7 @@ export default function Help() {
       </p>
       <Button
         onClick={handleAboutClick}
-        className="mt-2 group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+        className="mt-2 group relative flex justify-end rounded-md border border-transparent bg-green-cujae py-2 px-4 text-sm font-medium text-white hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
       >
         Ir a Acerca de
       </Button>

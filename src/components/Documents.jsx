@@ -200,7 +200,7 @@ const Documents = () => {
                   title="Añadir Documento"
                 >
                   <AiFillPlusSquare
-                    className="text-green-900 hover:text-gray-900"
+                    className="text-green-cujae hover:text-gray-900"
                     size={30}
                   />
                 </a>

@@ -45,7 +45,7 @@ const Suggestion = ({
           <div className="mt-1">
             <Checkbox
               id="resolved"
-              color="green"
+              className="checked:bg-[#086e54]"
               label={resolved ? "Resuelto" : "No Resuelto"}
               ripple={true}
               readOnly

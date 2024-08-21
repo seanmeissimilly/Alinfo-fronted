@@ -50,9 +50,8 @@ export default function UserProfile() {
                 {userOnly.user_name}
                 {userInfo.role === "admin" && (
                   <Button
-                    color="indigo"
                     size="sm"
-                    className="ml-4"
+                    className="ml-4 bg-green-cujae hover:bg-teal-900 focus:ring-teal-800 normal-case"
                     onClick={() =>
                       (window.location.href = `/userProfile/editProfile/${id}`)
                     }
@@ -163,8 +162,7 @@ export default function UserProfile() {
                             <div className="flex flex-row items-center">
                               <Button
                                 variant="filled"
-                                color="indigo"
-                                className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white  focus:outline-none focus:ring-2  focus:ring-offset-2 normal-case bg-green-cujae hover:bg-teal-900 focus:ring-teal-800"
                                 onClick={() =>
                                   (window.location.href = `/forum/soloBlog/${blog.id}`)
                                 }

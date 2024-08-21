@@ -29,6 +29,11 @@ const Pagination = ({
             variant={currentPage === index + 1 ? "filled" : "text"}
             color="gray"
             onClick={() => setCurrentPage(index + 1)}
+            className={`${
+              currentPage === index + 1
+                ? "bg-green-cujae text-white"
+                : "bg-gray-200 text-black"
+            }`}
           >
             {index + 1}
           </IconButton>

@@ -178,7 +178,7 @@ export default function BlogSolo() {
                   type="text"
                   id="text"
                   rows={2}
-                  className="relative p-2 block w-full appearance-none rounded-md border border-gray-300 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="relative p-2 block w-full appearance-none rounded-md border border-gray-300 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-teal-800 sm:text-sm"
                   autoFocus
                   error={text.length > maxTextLength}
                 />
@@ -195,7 +195,7 @@ export default function BlogSolo() {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="inline-flex items-center justify-center rounded-md border border-transparent bg-green-cujae py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2"
                 >
                   Enviar
                 </button>
@@ -262,9 +262,8 @@ export default function BlogSolo() {
                                         </span>
                                       </Button>
                                       <Button
-                                        color="green"
                                         onClick={handleUpdateClick}
-                                        className="group relative flex justify-center rounded-md border border-transparent bg-green-600 py-2 px-4 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 normal-case"
+                                        className="group relative flex justify-center rounded-md border border-transparent bg-green-cujae py-2 px-4 text-sm font-medium text-white  focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 normal-case hover:bg-teal-900"
                                       >
                                         <BsFillCheckCircleFill size={20} />
                                         <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
@@ -285,7 +284,7 @@ export default function BlogSolo() {
                                       <>
                                         <Button
                                           color="indigo"
-                                          className="group relative flex justify-end rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                          className="group relative flex justify-end rounded-md border border-transparent bg-green-cujae py-2 px-4 text-sm font-medium text-white hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
                                           onClick={() =>
                                             handleEditClick(comment)
                                           }

@@ -24,7 +24,7 @@ export default function Messages({ children }) {
 
   return (
     <Collapse open={true} className="transition ease-out duration-300">
-      <div className="bg-indigo-600">
+      <div className="bg-green-cujae">
         <div className="container mx-auto py-3 px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">

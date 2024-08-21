@@ -74,7 +74,7 @@ export default function UserProfileOwn() {
                 <Button
                   color="indigo"
                   size="sm"
-                  className="ml-4"
+                  className="ml-4 bg-green-cujae hover:bg-teal-900 focus:ring-teal-800 normal-case"
                   onClick={() =>
                     (window.location.href = "/miPerfil/editProfile/")
                   }
@@ -183,8 +183,7 @@ export default function UserProfileOwn() {
                             <div className="flex flex-row items-center">
                               <Button
                                 variant="filled"
-                                color="indigo"
-                                className="group mx-4 relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                className="group bg-green-cujae hover:bg-teal-900 focus:ring-teal-800  mx-4 relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white  focus:outline-none focus:ring-2  focus:ring-offset-2"
                                 onClick={() =>
                                   (window.location.href = `/forum/editBlog/${blog_element.id}`)
                                 }
@@ -197,8 +196,7 @@ export default function UserProfileOwn() {
 
                               <Button
                                 variant="filled"
-                                color="indigo"
-                                className="group relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+                                className="group bg-green-cujae relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
                                 onClick={() => handleDelete(blog_element.id)}
                               >
                                 <BsFillTrashFill size={20} />

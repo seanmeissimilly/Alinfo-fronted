@@ -142,7 +142,7 @@ export default function SuggestionForm() {
                 checked={resolved}
                 onChange={handleSwitchChange}
                 ripple={true}
-                className="h-full w-full checked:bg-[#3ea54d]"
+                className="h-full w-full checked:bg-[#086e54]"
                 containerProps={{
                   className: "w-11 h-6",
                 }}
@@ -155,7 +155,7 @@ export default function SuggestionForm() {
           <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
             <Button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 normal-case"
+              className="inline-flex justify-center rounded-md border border-transparent bg-green-cujae py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
             >
               Enviar
             </Button>

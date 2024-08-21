@@ -64,9 +64,8 @@ const Tool = ({
       </div>
       <div className="flex items-center justify-between p-4">
         <Button
-          color="indigo"
           variant="text"
-          className="relative group"
+          className="relative group text-green-cujae hover:text-teal-900"
           onClick={() => window.open(data, "_blank")}
         >
           <FaDownload size={15} />

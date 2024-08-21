@@ -52,7 +52,7 @@ export default function Header() {
   const NavigationButton = ({ href, title, icon: Icon }) => (
     <Button
       onClick={() => (window.location.href = href)}
-      className="text-sm font-medium text-green-800 hover:text-gray-900"
+      className="text-sm font-medium text-green-cujae hover:text-gray-900"
       title={title}
       variant="text"
     >
@@ -220,7 +220,7 @@ export default function Header() {
             <Breadcrumb />
           </div>
           <div className="-my-2 -mr-2 md:hidden">
-            <PopoverButton className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <PopoverButton className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-teal-800">
               <span className="sr-only">Abrir Menú</span>
               <FaBars className="h-6 w-6 text-gray-500" aria-hidden="true" />
             </PopoverButton>
@@ -244,7 +244,7 @@ export default function Header() {
               <Button
                 variant="filled"
                 color="indigo"
-                className="w-32 ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 normal-case"
+                className="w-32 ml-4 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-green-cujae px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-teal-900 normal-case"
                 onClick={() => (window.location.href = "/register")}
               >
                 Registrarse
@@ -279,7 +279,7 @@ export default function Header() {
                   <Button
                     variant="filled"
                     color="indigo"
-                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-green-cujae px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-teal-900"
                     onClick={() => (window.location.href = "/register")}
                   >
                     Registrarse
