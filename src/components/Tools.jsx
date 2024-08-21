@@ -8,18 +8,15 @@ import {
 import { userList } from "../redux/userSlice.js";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import {
-  AiFillPlusSquare,
-  AiOutlineLeft,
-  AiOutlineRight,
-} from "react-icons/ai";
+import { AiFillPlusSquare } from "react-icons/ai";
 import Tool from "./Tool.jsx";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
 import { DateTime } from "luxon";
 import Modal from "./Modal";
-import { Button, IconButton } from "@material-tailwind/react";
+import Pagination from "./Pagination.jsx";
+import Filter from "./Filter.jsx";
 
 const Tools = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -46,21 +43,12 @@ const Tools = () => {
     }
   }, [dispatch, userInfo, appInfo, error]);
 
-  //metodo de filtrado
-  let results = [...apps];
-
-  if (classificationSelected.length !== 0) {
-    results = results.filter((app) => {
-      return classificationSelected.some(
-        (selected) => selected.value === app.applicationclassification
-      );
-    });
-  }
-  if (search !== "") {
-    results = results.filter((tool) =>
-      tool.title.toLowerCase().includes(search.toLocaleLowerCase())
-    );
-  }
+  const filteredApps = Filter({
+    items: apps,
+    classificationSelected,
+    search,
+    classificationKey: "applicationclassification",
+  });
 
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -90,7 +78,7 @@ const Tools = () => {
   });
 
   const renderApps = () => {
-    const sortedTools = results.sort((a, b) => a.id - b.id);
+    const sortedTools = filteredApps.sort((a, b) => a.id - b.id);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = sortedTools.slice(indexOfFirstItem, indexOfLastItem);
@@ -191,38 +179,14 @@ const Tools = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {renderApps()}
             </div>
-            <div className="flex justify-between mt-4">
-              <Button
-                variant="text"
-                className="flex items-center gap-2 normal-case"
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-              >
-                <AiOutlineLeft className="h-4 w-4" /> Anterior
-              </Button>
-              <div className="flex items-center gap-2">
-                {[
-                  ...Array(Math.ceil(results.length / itemsPerPage)).keys(),
-                ].map((index) => (
-                  <IconButton
-                    key={index + 1}
-                    variant={currentPage === index + 1 ? "filled" : "text"}
-                    color="gray"
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </IconButton>
-                ))}
-              </div>
-              <Button
-                variant="text"
-                className="flex items-center gap-2 normal-case"
-                onClick={handleNextPage}
-                disabled={currentPage * itemsPerPage >= results.length}
-              >
-                Siguiente <AiOutlineRight className="h-4 w-4" />
-              </Button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredApps.length}
+              handlePrevPage={handlePrevPage}
+              handleNextPage={handleNextPage}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </div>
       )}

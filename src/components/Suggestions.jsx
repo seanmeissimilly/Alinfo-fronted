@@ -5,15 +5,12 @@ import { suggestionList, suggestionDelete } from "../redux/suggestionSlice.js";
 import { userList } from "../redux/userSlice.js";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import {
-  AiFillPlusSquare,
-  AiOutlineLeft,
-  AiOutlineRight,
-} from "react-icons/ai";
+import { AiFillPlusSquare } from "react-icons/ai";
 import { useSpring, animated } from "react-spring";
 import { DateTime } from "luxon";
 import Modal from "./Modal";
-import { Button, IconButton } from "@material-tailwind/react";
+import Pagination from "./Pagination.jsx";
+import Filter from "./Filter.jsx";
 
 const Suggestions = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -37,13 +34,10 @@ const Suggestions = () => {
     }
   }, [dispatch, userInfo, suggestionInfo, error]);
 
-  //metodo de filtrado
-  const results =
-    search === ""
-      ? [...suggestions]
-      : [...suggestions].filter((suggestion) =>
-          suggestion.title.toLowerCase().includes(search.toLocaleLowerCase())
-        );
+  const filteredSuggestions = Filter({
+    items: suggestions,
+    search,
+  });
 
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -73,7 +67,7 @@ const Suggestions = () => {
   });
 
   const renderSuggestions = () => {
-    const sortedSuggestions = results.sort((a, b) => b.id - a.id);
+    const sortedSuggestions = filteredSuggestions.sort((a, b) => b.id - a.id);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = sortedSuggestions.slice(
@@ -154,38 +148,14 @@ const Suggestions = () => {
               {renderSuggestions()}
             </div>
 
-            <div className="flex justify-between mt-4">
-              <Button
-                variant="text"
-                className="flex items-center gap-2 normal-case"
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-              >
-                <AiOutlineLeft className="h-4 w-4" /> Anterior
-              </Button>
-              <div className="flex items-center gap-2">
-                {[
-                  ...Array(Math.ceil(results.length / itemsPerPage)).keys(),
-                ].map((index) => (
-                  <IconButton
-                    key={index + 1}
-                    variant={currentPage === index + 1 ? "filled" : "text"}
-                    color="gray"
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </IconButton>
-                ))}
-              </div>
-              <Button
-                variant="text"
-                className="flex items-center gap-2 normal-case"
-                onClick={handleNextPage}
-                disabled={currentPage * itemsPerPage >= results.length}
-              >
-                Siguiente <AiOutlineRight className="h-4 w-4" />
-              </Button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredSuggestions.length}
+              handlePrevPage={handlePrevPage}
+              handleNextPage={handleNextPage}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </div>
       )}

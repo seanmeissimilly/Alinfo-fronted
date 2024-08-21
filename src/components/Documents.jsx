@@ -10,17 +10,14 @@ import { userList } from "../redux/userSlice.js";
 import Document from "./Document";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import {
-  AiFillPlusSquare,
-  AiOutlineLeft,
-  AiOutlineRight,
-} from "react-icons/ai";
+import { AiFillPlusSquare } from "react-icons/ai";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
 import { DateTime } from "luxon";
 import Modal from "./Modal";
-import { Button, IconButton } from "@material-tailwind/react";
+import Pagination from "./Pagination.jsx";
+import Filter from "./Filter.jsx";
 
 const Documents = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -52,28 +49,14 @@ const Documents = () => {
     }
   }, [dispatch, userInfo, documentInfo, error]);
 
-  //metodo de filtrado
-  let results = [...documents];
-
-  if (typeSelected.length !== 0) {
-    results = results.filter((doc) => {
-      return typeSelected.some(
-        (selected) => selected.value === doc.documenttypes
-      );
-    });
-  }
-  if (classificationSelected.length !== 0) {
-    results = results.filter((doc) => {
-      return classificationSelected.some(
-        (selected) => selected.value === doc.documentclassification
-      );
-    });
-  }
-  if (search !== "") {
-    results = results.filter((doc) =>
-      doc.title.toLowerCase().includes(search.toLocaleLowerCase())
-    );
-  }
+  const filteredDocuments = Filter({
+    items: documents,
+    typeSelected,
+    classificationSelected,
+    search,
+    typeKey: "documenttypes",
+    classificationKey: "documentclassification",
+  });
 
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -103,7 +86,7 @@ const Documents = () => {
   });
 
   const renderDocuments = () => {
-    const sortedDocuments = results.sort((a, b) => a.id - b.id);
+    const sortedDocuments = filteredDocuments.sort((a, b) => a.id - b.id);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = sortedDocuments.slice(
@@ -226,38 +209,14 @@ const Documents = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {renderDocuments()}
             </div>
-            <div className="flex justify-between mt-4">
-              <Button
-                variant="text"
-                className="flex items-center gap-2 normal-case"
-                onClick={handlePrevPage}
-                disabled={currentPage === 1}
-              >
-                <AiOutlineLeft className="h-4 w-4" /> Anterior
-              </Button>
-              <div className="flex items-center gap-2">
-                {[
-                  ...Array(Math.ceil(results.length / itemsPerPage)).keys(),
-                ].map((index) => (
-                  <IconButton
-                    key={index + 1}
-                    variant={currentPage === index + 1 ? "filled" : "text"}
-                    color="gray"
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    {index + 1}
-                  </IconButton>
-                ))}
-              </div>
-              <Button
-                variant="text"
-                className="flex items-center gap-2 normal-case"
-                onClick={handleNextPage}
-                disabled={currentPage * itemsPerPage >= results.length}
-              >
-                Siguiente <AiOutlineRight className="h-4 w-4" />
-              </Button>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={filteredDocuments.length}
+              handlePrevPage={handlePrevPage}
+              handleNextPage={handleNextPage}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </div>
       )}
