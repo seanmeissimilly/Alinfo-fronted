@@ -10,18 +10,25 @@ import { userList } from "../redux/userSlice.js";
 import Document from "./Document";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { AiFillPlusSquare } from "react-icons/ai";
+import {
+  AiFillPlusSquare,
+  AiOutlineLeft,
+  AiOutlineRight,
+} from "react-icons/ai";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
 import { DateTime } from "luxon";
 import Modal from "./Modal";
+import { Button, IconButton } from "@material-tailwind/react";
 
 const Documents = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
 
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4); // Número de elementos por página
   const [typeSelected, setTypeSelected] = useState([]);
   const [classificationSelected, setClassificationSelected] = useState([]);
   const animatedComponets = makeAnaimated();
@@ -97,7 +104,13 @@ const Documents = () => {
 
   const renderDocuments = () => {
     const sortedDocuments = results.sort((a, b) => a.id - b.id);
-    return sortedDocuments.map((doc) => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = sortedDocuments.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
+    return currentItems.map((doc) => {
       const user = users.find((user) => user.user_name === doc.user);
       const type = documenttypes.find((type) => type.id === doc.documenttypes);
 
@@ -129,6 +142,14 @@ const Documents = () => {
         />
       );
     });
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   return (
@@ -204,6 +225,38 @@ const Documents = () => {
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {renderDocuments()}
+            </div>
+            <div className="flex justify-between mt-4">
+              <Button
+                variant="text"
+                className="flex items-center gap-2 normal-case"
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+              >
+                <AiOutlineLeft className="h-4 w-4" /> Anterior
+              </Button>
+              <div className="flex items-center gap-2">
+                {[
+                  ...Array(Math.ceil(results.length / itemsPerPage)).keys(),
+                ].map((index) => (
+                  <IconButton
+                    key={index + 1}
+                    variant={currentPage === index + 1 ? "filled" : "text"}
+                    color="gray"
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </IconButton>
+                ))}
+              </div>
+              <Button
+                variant="text"
+                className="flex items-center gap-2 normal-case"
+                onClick={handleNextPage}
+                disabled={currentPage * itemsPerPage >= results.length}
+              >
+                Siguiente <AiOutlineRight className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>

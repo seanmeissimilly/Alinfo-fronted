@@ -5,17 +5,23 @@ import { suggestionList, suggestionDelete } from "../redux/suggestionSlice.js";
 import { userList } from "../redux/userSlice.js";
 import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
-import { AiFillPlusSquare } from "react-icons/ai";
+import {
+  AiFillPlusSquare,
+  AiOutlineLeft,
+  AiOutlineRight,
+} from "react-icons/ai";
 import { useSpring, animated } from "react-spring";
 import { DateTime } from "luxon";
 import Modal from "./Modal";
+import { Button, IconButton } from "@material-tailwind/react";
 
 const Suggestions = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
 
   const dispatch = useDispatch();
-
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4); // Número de elementos por página
 
   const { suggestions, suggestionInfo, error, loading } = useSelector(
     (state) => state.suggestion
@@ -68,7 +74,14 @@ const Suggestions = () => {
 
   const renderSuggestions = () => {
     const sortedSuggestions = results.sort((a, b) => b.id - a.id);
-    return sortedSuggestions.map((suggestion) => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = sortedSuggestions.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
+
+    return currentItems.map((suggestion) => {
       const user = users.find((user) => user.user_name === suggestion.user);
 
       return (
@@ -88,6 +101,14 @@ const Suggestions = () => {
         />
       );
     });
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   return (
@@ -132,11 +153,43 @@ const Suggestions = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {renderSuggestions()}
             </div>
+
+            <div className="flex justify-between mt-4">
+              <Button
+                variant="text"
+                className="flex items-center gap-2 normal-case"
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+              >
+                <AiOutlineLeft className="h-4 w-4" /> Anterior
+              </Button>
+              <div className="flex items-center gap-2">
+                {[
+                  ...Array(Math.ceil(results.length / itemsPerPage)).keys(),
+                ].map((index) => (
+                  <IconButton
+                    key={index + 1}
+                    variant={currentPage === index + 1 ? "filled" : "text"}
+                    color="gray"
+                    onClick={() => setCurrentPage(index + 1)}
+                  >
+                    {index + 1}
+                  </IconButton>
+                ))}
+              </div>
+              <Button
+                variant="text"
+                className="flex items-center gap-2 normal-case"
+                onClick={handleNextPage}
+                disabled={currentPage * itemsPerPage >= results.length}
+              >
+                Siguiente <AiOutlineRight className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
         </div>
       )}
     </>
   );
 };
-
 export default Suggestions;
