@@ -13,7 +13,7 @@ const Modal = ({ onClose, onConfirm, children }) => {
       <DialogHeader>
         <p className="text-red-600">⚠️ Atención ⚠️</p>
       </DialogHeader>
-      <DialogBody>{children}</DialogBody>
+      <DialogBody className="text-black">{children}</DialogBody>
       <DialogFooter>
         <Button
           variant="gradient"

@@ -217,35 +217,35 @@ function Chart() {
                   label="Usuarios"
                   checked={showUsers}
                   onChange={() => setShowUsers(!showUsers)}
-                  className="mr-1"
+                  className="mr-1 checked:bg-green-cujae"
                 />
 
                 <Checkbox
                   label="Documentos"
                   checked={showDocuments}
                   onChange={() => setShowDocuments(!showDocuments)}
-                  className="mr-1"
+                  className="mr-1 checked:bg-green-cujae"
                 />
 
                 <Checkbox
                   label="Videos"
                   checked={showVideos}
                   onChange={() => setShowVideos(!showVideos)}
-                  className="mr-1"
+                  className="mr-1 checked:bg-green-cujae"
                 />
 
                 <Checkbox
                   label="Herramientas"
                   checked={showTools}
                   onChange={() => setShowTools(!showTools)}
-                  className="mr-1"
+                  className="mr-1 checked:bg-green-cujae"
                 />
 
                 <Checkbox
                   label="Quejas y Sugerencias"
                   checked={showSuggestions}
                   onChange={() => setShowSuggestions(!showSuggestions)}
-                  className="mr-1"
+                  className="mr-1 checked:bg-green-cujae"
                 />
               </div>
             </CardBody>
