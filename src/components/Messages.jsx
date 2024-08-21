@@ -28,7 +28,7 @@ export default function Messages({ children }) {
         <div className="container mx-auto py-3 px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <span className="flex rounded-lg bg-indigo-800 p-2">
+              <span className="flex rounded-lg bg-blue-gray-400 p-2">
                 <FaBullhorn className="h-6 w-6 text-white" aria-hidden="true" />
               </span>
               <Alert className="ml-3 truncate font-medium text-white">
