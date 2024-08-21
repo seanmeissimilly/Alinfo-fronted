@@ -99,7 +99,7 @@ export default function DocumentForm() {
       <div className="flex justify-center items-center">
         <form
           onSubmit={handleSubmit}
-          className="shadow sm:overflow-hidden sm:rounded-md mb-20 mt-6"
+          className="shadow sm:overflow-hidden sm:rounded-md mb-20 mt-20"
         >
           <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
             {id ? "Editar Documento" : "Crear Documento"}

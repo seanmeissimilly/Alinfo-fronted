@@ -1,23 +1,33 @@
 import PropTypes from "prop-types";
+import bookImage from "../media/bookImage.png";
 
 export default function Landing() {
   return (
-    <div className="relative bg-white">
+    <div className="relative bg-white mb-20">
       <div className="container mx-auto">
-        <main className="mt-10 px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+        <main className="mt-10 px-4">
           <div className="sm:text-center lg:text-left">
-            <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
               <span className="block xl:inline">AlInfo </span>
             </h2>
-            <StyledParagraph>
-              Repositorio Virtual de Ingeniería Alimentaria.
-            </StyledParagraph>
-            <StyledParagraph>
-              Facultad de Ingeniería Química, Cujae.
-            </StyledParagraph>
-            <StyledParagraph>
-              Universidad Tecnológica de la Habana.
-            </StyledParagraph>
+            <div className="flex items-center">
+              <div className="flex-1">
+                <StyledParagraph>
+                  Repositorio Virtual de Ingeniería Alimentaria.
+                </StyledParagraph>
+                <StyledParagraph>
+                  Facultad de Ingeniería Química, Cujae.
+                </StyledParagraph>
+                <StyledParagraph>
+                  Universidad Tecnológica de la Habana.
+                </StyledParagraph>
+              </div>
+              <img
+                src={bookImage}
+                alt="Book related to engineering and study"
+                className="h-96 w-96 rounded-lg object-cover object-center"
+              />
+            </div>
           </div>
         </main>
       </div>

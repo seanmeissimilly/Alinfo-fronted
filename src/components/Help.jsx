@@ -50,7 +50,7 @@ export default function Help() {
   ];
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto mb-16 mt-2">
+    <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto mb-16 mt-12">
       <div className="flex items-center mb-4">
         <FaQuestionCircle className="w-6 h-6 text-green-cujae mr-2" />
         <h1 className="text-2xl font-bold">Ayuda</h1>

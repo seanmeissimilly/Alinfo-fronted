@@ -275,7 +275,7 @@ function Reports() {
         <Messages>{errorUser}</Messages>
       ) : (
         <div>
-          <div className="flex justify-end mb-3 mt-3 mr-3">
+          <div className="flex justify-end mb-3 mt-12 mr-3">
             <div className="w-72">
               <Select
                 label="Filtro"

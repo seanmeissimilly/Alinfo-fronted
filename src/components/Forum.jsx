@@ -76,7 +76,7 @@ export default function Forum() {
         <Messages>{error}</Messages>
       ) : (
         <div>
-          <div className="mb-3 mt-3 mr-3 flex justify-end">
+          <div className="mb-3 mr-3 flex justify-end mt-12">
             <animated.input
               value={search}
               onChange={(e) => setSearch(e.target.value)}

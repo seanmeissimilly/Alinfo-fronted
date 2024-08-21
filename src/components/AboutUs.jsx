@@ -55,7 +55,7 @@ const AboutUs = () => {
         <Messages>{error}</Messages>
       ) : (
         <div>
-          <div className="container mx-auto p-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16">
+          <div className="container mx-auto p-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16 mt-12">
             {users
               ?.filter((user) => user.role === "admin")
               .map((user) => (
