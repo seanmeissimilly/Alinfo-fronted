@@ -171,6 +171,8 @@ export default function DocumentForm() {
                 name="file"
                 onChange={(e) => setData(e.target.files[0])}
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
+                //Para que sea requerido cuando se está creando un documento.
+                required={!id}
               />
             </div>
             <div>
