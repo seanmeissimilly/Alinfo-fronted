@@ -22,11 +22,11 @@ export default function Landing() {
                   Universidad Tecnológica de la Habana.
                 </StyledParagraph>
               </div>
-              <img
+              {/* <img
                 src={bookImage}
                 alt="Book related to engineering and study"
                 className="h-96 w-96 rounded-lg object-cover object-center"
-              />
+              /> */}
             </div>
           </div>
         </main>
