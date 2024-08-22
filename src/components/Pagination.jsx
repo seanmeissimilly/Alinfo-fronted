@@ -11,9 +11,29 @@ const Pagination = ({
   setCurrentPage,
 }) => {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const maxPageButtons = 16;
+
+  const getPageNumbers = () => {
+    const pages = [];
+    const half = Math.floor(maxPageButtons / 2);
+    let start = Math.max(1, currentPage - half);
+    let end = Math.min(totalPages, currentPage + half);
+
+    if (currentPage <= half) {
+      end = Math.min(totalPages, maxPageButtons);
+    } else if (currentPage + half >= totalPages) {
+      start = Math.max(1, totalPages - maxPageButtons + 1);
+    }
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    return pages;
+  };
 
   return (
-    <div className="flex justify-between mt-4">
+    <div className="flex justify-center mt-4 max-w-md mx-auto">
       <Button
         variant="text"
         className="flex items-center gap-2 normal-case"
@@ -22,20 +42,20 @@ const Pagination = ({
       >
         <AiOutlineLeft className="h-4 w-4" /> Anterior
       </Button>
-      <div className="flex items-center gap-2">
-        {[...Array(totalPages).keys()].map((index) => (
+      <div className="flex items-center gap-2 mx-4">
+        {getPageNumbers().map((page) => (
           <IconButton
-            key={index + 1}
-            variant={currentPage === index + 1 ? "filled" : "text"}
+            key={page}
+            variant={currentPage === page ? "filled" : "text"}
             color="gray"
-            onClick={() => setCurrentPage(index + 1)}
+            onClick={() => setCurrentPage(page)}
             className={`${
-              currentPage === index + 1
+              currentPage === page
                 ? "bg-green-cujae text-white"
                 : "bg-gray-200 text-black"
             }`}
           >
-            {index + 1}
+            {page}
           </IconButton>
         ))}
       </div>
