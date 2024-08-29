@@ -61,7 +61,7 @@ export default function UserProfileOwn() {
       ) : error ? (
         <Messages>{error}</Messages>
       ) : (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6 mb-16">
           <div className="bg-white shadow-md rounded-lg overflow-hidden">
             <div className="p-6 text-center">
               <img
