@@ -164,11 +164,11 @@ function Chart() {
       errorSuggestion ? (
         <Messages>{errorUser}</Messages>
       ) : (
-        <div className="flex flex-col lg:flex-row justify-center bg-gray-100 mt-20">
-          <div className="w-full lg:w-4/5 h-4/5 p-4 bg-white rounded-lg shadow-lg my-10 mx-2">
+        <div className="flex flex-col lg:flex-row justify-center bg-gray-100 mt-6">
+          <div className="w-full lg:w-4/5 h-4/5 p-4 bg-white rounded-lg shadow-lg mb-16 mt-4 mx-2">
             <PieChart data={data} options={options} />
           </div>
-          <Card className="w-full lg:w-1/4 h-4/5 p-4 m-2 bg-white rounded-lg shadow-lg flex items-center justify-center my-10">
+          <Card className="w-full lg:w-1/4 h-4/5 p-4 m-2 bg-white rounded-lg shadow-lg flex items-center justify-center mt-4 mb-16">
             <CardBody>
               <Select
                 label="Filtro"
