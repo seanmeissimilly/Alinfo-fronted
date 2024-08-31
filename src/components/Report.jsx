@@ -16,7 +16,7 @@ const Report = ({ name, columns, data, date }) => {
     report.text(`Fecha: ${date}`, 225, 30);
 
     //todo: Generar la tabla
-    report.autoTable({
+    autoTable(report, {
       startY: 60,
       head: columns,
       margin: { top: 10 },
