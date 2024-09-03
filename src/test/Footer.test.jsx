@@ -1,26 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test, beforeEach } from "vitest";
 import Footer from "../components/Footer";
-import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-tailwind/react";
-
-const customTheme = {
-  component: {
-    Typography: {
-      as: "a",
-      color: "blue-gray",
-    },
-  },
-};
 
 describe("Footer Component", () => {
   beforeEach(() => {
     render(
-      <BrowserRouter>
-        <ThemeProvider value={customTheme}>
-          <Footer />
-        </ThemeProvider>
-      </BrowserRouter>
+      <ThemeProvider>
+        <Footer />
+      </ThemeProvider>
     );
   });
 
