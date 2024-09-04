@@ -8,12 +8,16 @@ import { AiFillPlusSquare, AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { useSpring, animated } from "react-spring";
 import { DateTime } from "luxon";
-import { Button } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
+import Select from "react-select";
 import Modal from "./Modal";
 
 export default function Forum() {
   const URL = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [limit, setLimit] = useState(5);
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
@@ -55,12 +59,28 @@ export default function Forum() {
   });
 
   //metodo de filtrado
-  const results =
-    search === ""
-      ? [...blogs]
-      : [...blogs].filter((blog) =>
-          blog.title.toLowerCase().includes(search.toLocaleLowerCase())
-        );
+  const filteredBlogs = [...blogs]
+    .filter((blog) => blog.title.toLowerCase().includes(search.toLowerCase()))
+    .filter((blog) =>
+      startDate
+        ? DateTime.fromISO(blog.date) >=
+          DateTime.fromISO(startDate).startOf("day")
+        : true
+    )
+    .filter((blog) =>
+      endDate
+        ? DateTime.fromISO(blog.date) <= DateTime.fromISO(endDate).endOf("day")
+        : true
+    )
+    .slice(0, limit === "all" ? blogs.length : limit);
+
+  const options = [
+    { value: 1, label: "1" },
+    { value: 5, label: "5" },
+    { value: 10, label: "10" },
+    { value: 20, label: "20" },
+    { value: "all", label: "Todas" },
+  ];
 
   return (
     <>
@@ -76,7 +96,7 @@ export default function Forum() {
         <Messages>{error}</Messages>
       ) : (
         <div>
-          <div className="mb-3 mr-3 flex justify-end mt-12">
+          <div className="mb-3 mr-3 flex justify-end mt-2 space-x-4">
             <animated.input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -86,6 +106,43 @@ export default function Forum() {
               id="search"
               style={{ ...fadeIn, ...scale }}
             />
+            <div>
+              <Input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
+                id="startDate"
+                label="Fecha Inicial"
+              />
+            </div>
+            <div>
+              <Input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
+                id="endDate"
+                label="Fecha Final"
+              />
+            </div>
+            <div>
+              <Select
+                defaultValue={limit}
+                onChange={(selectedOption) => setLimit(selectedOption.value)}
+                isRtl={false}
+                options={options}
+                className="basic-single"
+                id="limit"
+                placeholder="Cantidad de Publicaciones"
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+                <option value={20}>20</option>
+                <option value="all">Todas</option>
+              </Select>
+            </div>
           </div>
           <div className="py-10 bg-gray-200">
             {["admin", "editor"].includes(userInfo.role) && (
@@ -93,17 +150,17 @@ export default function Forum() {
                 href="/forum/addBlog"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
                 title="Añadir Publicación"
+                style={{ display: "inline-flex", alignItems: "center" }}
               >
                 <AiFillPlusSquare
-                  className="ml-6 text-green-cujae hover:text-gray-900 "
+                  className="ml-6 text-green-cujae hover:text-gray-900"
                   size={30}
                 />
               </a>
             )}
-
-            {results?.map((blog) => (
+            {filteredBlogs?.map((blog) => (
               <div key={blog.id} className="py-8">
-                <div className="max-w-md mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-lg">
+                <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-md overflow-hidden md:max-w-2xl">
                   <div className="md:flex">
                     <div className="w-full">
                       <div className="flex justify-between items-center m-8">
