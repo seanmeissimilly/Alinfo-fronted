@@ -303,14 +303,10 @@ export const blogSlice = createSlice({
     builder.addCase(blogDelete.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(blogDelete.fulfilled, (state, action) => {
+    builder.addCase(blogDelete.fulfilled, (state) => {
       state.loading = false;
       state.success = true;
-      const { id } = action.payload;
-      //todo: Quito el blog que borré de la lista de blogs.
-      if (id) {
-        state.blogs = state.blogs.filter((blog) => blog.id !== id);
-      }
+      state.blogInfo = {};
     });
     builder.addCase(blogDelete.rejected, (state, action) => {
       state.loading = false;
