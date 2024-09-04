@@ -211,7 +211,7 @@ export const userRefresh = createAsyncThunk(
         },
       };
 
-      const { data } = await userApi.get(`userProfile`, config);
+      const { data } = await userApi.get(`/userProfile/`, config);
 
       return data;
     } catch (error) {

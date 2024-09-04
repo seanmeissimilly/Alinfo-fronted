@@ -104,7 +104,7 @@ export const blogDelete = createAsyncThunk(
         },
       };
 
-      const { data } = await blogApi.delete(`/delete/${id}`, config);
+      const { data } = await blogApi.delete(`/delete/${id}/`, config);
 
       return data;
     } catch (error) {
