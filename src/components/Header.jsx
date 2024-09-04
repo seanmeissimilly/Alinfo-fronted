@@ -17,6 +17,14 @@ import { useDispatch, useSelector } from "react-redux";
 import logo_cujae from "../media/logo_cujae.png";
 import { MdForum } from "react-icons/md";
 import { IoDocumentSharp } from "react-icons/io5";
+import {
+  FaChartBar,
+  FaFileAlt,
+  FaUserCircle,
+  FaCog,
+  FaPowerOff,
+} from "react-icons/fa";
+
 import { MdVideoLibrary } from "react-icons/md";
 import { RiMessage2Fill } from "react-icons/ri";
 import { userLogout } from "../redux/userSlice";
@@ -119,10 +127,11 @@ export default function Header() {
                 color="gray"
                 className={classNames(
                   isActive ? "bg-gray-100" : "",
-                  "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
+                  "w-full text-left px-4 py-2 text-sm text-gray-700 normal-case flex items-center"
                 )}
                 onClick={() => (window.location.href = "/miPerfil")}
               >
+                <FaUserCircle className="h-5 w-5 mr-2" />
                 Mi Perfil
               </Button>
             )}
@@ -136,10 +145,11 @@ export default function Header() {
                     color="gray"
                     className={classNames(
                       isActive ? "bg-gray-100" : "",
-                      "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
+                      "w-full text-left px-4 py-2 text-sm text-gray-700 normal-case flex items-center"
                     )}
                     onClick={() => (window.location.href = "/reports")}
                   >
+                    <FaFileAlt className="h-5 w-5 mr-2" />
                     Reportes
                   </Button>
                 )}
@@ -151,10 +161,11 @@ export default function Header() {
                     color="gray"
                     className={classNames(
                       isActive ? "bg-gray-100" : "",
-                      "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
+                      "w-full text-left px-4 py-2 text-sm text-gray-700 normal-case flex items-center"
                     )}
                     onClick={() => (window.location.href = "/chart")}
                   >
+                    <FaChartBar className="h-5 w-5 mr-2" />
                     Gráfico
                   </Button>
                 )}
@@ -169,10 +180,11 @@ export default function Header() {
                   color="gray"
                   className={classNames(
                     isActive ? "bg-gray-100" : "",
-                    "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
+                    "w-full text-left px-4 py-2 text-sm text-gray-700 normal-case flex items-center"
                   )}
                   onClick={() => window.open(`${URL}${/admin/}`, "_blank")}
                 >
+                  <FaCog className="h-5 w-5 mr-2" />
                   Administración
                 </Button>
               )}
@@ -185,10 +197,11 @@ export default function Header() {
                 color="gray"
                 className={classNames(
                   isActive ? "bg-gray-100" : "",
-                  "block w-full text-left px-4 py-2 text-sm text-gray-700 normal-case"
+                  "w-full text-left px-4 py-2 text-sm text-gray-700 normal-case flex items-center"
                 )}
                 onClick={logoutHandler}
               >
+                <FaPowerOff className="h-5 w-5 mr-2" />
                 Salir
               </Button>
             )}

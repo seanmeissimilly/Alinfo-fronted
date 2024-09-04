@@ -5,7 +5,7 @@ import { userList } from "../redux/userSlice";
 import Messages from "./Messages";
 import Loader from "./Loader";
 import { Avatar, Drawer, Button, Typography } from "@material-tailwind/react";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaLaptopCode, FaBook } from "react-icons/fa";
 
 const About = ({ username, email, userImage }) => (
   <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
@@ -80,8 +80,9 @@ const AboutUs = () => {
                   size="sm"
                   variant="outlined"
                   onClick={() => window.open(`${URL}${/docs/}`, "_blank")}
-                  className="text-black normal-case"
+                  className="text-black normal-case flex items-center"
                 >
+                  <FaBook className="h-5 w-5 mr-2" />
                   Documentación de la API
                 </Button>
               </div>
@@ -92,8 +93,9 @@ const AboutUs = () => {
               variant="outlined"
               size="sm"
               onClick={openDrawer}
-              className="bg-blue-gray-200 hover:bg-blue-700 text-black normal-case"
+              className="bg-blue-gray-200 hover:bg-blue-700 text-black normal-case flex items-center"
             >
+              <FaLaptopCode className="h-5 w-5 mr-2" />
               Desarrollador
             </Button>
           </div>

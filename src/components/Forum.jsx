@@ -134,7 +134,7 @@ export default function Forum() {
                 options={options}
                 className="basic-single"
                 id="limit"
-                placeholder="Cantidad de Publicaciones"
+                placeholder="Publicaciones"
               >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
