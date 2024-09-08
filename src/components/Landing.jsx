@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import bookImage from "../media/bookImage.png";
 
 export default function Landing() {
   return (

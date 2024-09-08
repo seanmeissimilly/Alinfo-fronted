@@ -12,6 +12,7 @@ import { Button, Input } from "@material-tailwind/react";
 import Select from "react-select";
 import Modal from "./Modal";
 import makeAnaimated from "react-select/animated";
+import { formatDate } from "../utils/dateUtils.js";
 
 export default function Forum() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -45,8 +46,6 @@ export default function Forum() {
     dispatch(blogDelete({ id: deleteId, token: userInfo.token }));
     setShowModal(false);
   };
-
-  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const fadeIn = useSpring({
     from: { opacity: 0 },

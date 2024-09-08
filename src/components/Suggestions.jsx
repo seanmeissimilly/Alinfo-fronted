@@ -7,7 +7,7 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { useSpring, animated } from "react-spring";
-import { DateTime } from "luxon";
+import { formatDate } from "../utils/dateUtils.js";
 import Modal from "./Modal";
 import Pagination from "./Pagination.jsx";
 import Filter from "./Filter.jsx";
@@ -51,8 +51,6 @@ const Suggestions = () => {
     dispatch(suggestionDelete({ id: deleteId, token: userInfo.token }));
     setShowModal(false);
   };
-
-  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const fadeIn = useSpring({
     from: { opacity: 0 },

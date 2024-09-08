@@ -5,7 +5,7 @@ import { userSolo } from "../redux/userSlice.js";
 import { blogList } from "../redux/blogSlice";
 import Messages from "./Messages";
 import Loader from "./Loader";
-import { DateTime } from "luxon";
+import { formatDate } from "../utils/dateUtils.js";
 import { Button } from "@material-tailwind/react";
 import { FaUser, FaEnvelope, FaUserTag, FaInfoCircle } from "react-icons/fa";
 import { getRole } from "../utils/roleUtils.js";
@@ -26,8 +26,6 @@ export default function UserProfile() {
     dispatch(userSolo({ id, token: userInfo.token }));
     dispatch(blogList({ token: userInfo.token }));
   }, [dispatch, id, userInfo]);
-
-  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   return (
     <>

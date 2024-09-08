@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { blogDelete, blogList } from "../redux/blogSlice";
-import { DateTime } from "luxon";
+import { formatDate } from "../utils/dateUtils.js";
 import { Button } from "@material-tailwind/react";
 import Messages from "./Messages";
 import Loader from "./Loader";
@@ -44,8 +44,6 @@ export default function UserProfileOwn() {
     dispatch(blogDelete({ id: deleteId, token: userInfo.token }));
     setShowModal(false);
   };
-
-  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   return (
     <>

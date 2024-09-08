@@ -16,6 +16,7 @@ import {
 } from "../redux/documentSlice";
 import { DateTime } from "luxon";
 import { Input, Option, Select } from "@material-tailwind/react";
+import { formatDate } from "../utils/dateUtils.js";
 
 function Reports() {
   const dispatch = useDispatch();
@@ -64,8 +65,6 @@ function Reports() {
       dispatch(appClassificationList({ token: userInfo.token }));
     }
   }, [dispatch, userInfo]);
-
-  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const filterData = (data, filter, dateField = "date") => {
     const now = DateTime.now();

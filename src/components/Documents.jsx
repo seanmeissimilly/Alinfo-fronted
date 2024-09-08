@@ -14,10 +14,10 @@ import { AiFillPlusSquare } from "react-icons/ai";
 import Select from "react-select";
 import makeAnaimated from "react-select/animated";
 import { useSpring, animated } from "react-spring";
-import { DateTime } from "luxon";
 import Modal from "./Modal";
 import Pagination from "./Pagination.jsx";
 import Filter from "./Filter.jsx";
+import { formatDate } from "../utils/dateUtils.js";
 
 const Documents = () => {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -70,8 +70,6 @@ const Documents = () => {
     dispatch(documentDelete({ id: deleteId, token: userInfo.token }));
     setShowModal(false);
   };
-
-  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const fadeIn = useSpring({
     from: { opacity: 0 },

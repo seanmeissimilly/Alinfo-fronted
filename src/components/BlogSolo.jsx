@@ -17,9 +17,9 @@ import {
   BsXCircleFill,
 } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
-import { DateTime } from "luxon";
 import { Textarea, Button } from "@material-tailwind/react";
 import Modal from "./Modal";
+import { formatDate } from "../utils/dateUtils.js";
 
 export default function BlogSolo() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -52,8 +52,6 @@ export default function BlogSolo() {
     e.preventDefault();
     dispatch(createComment({ id, text, token: userInfo.token }));
   };
-
-  const formatDate = (date) => DateTime.fromISO(date).toFormat("dd-MM-yyyy");
 
   const deleteHandlerComment = (comment_id) => {
     setShowModal(true);

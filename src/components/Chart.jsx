@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import PieChart from "./PieChart";
 import { useDispatch, useSelector } from "react-redux";
 import { userList } from "../redux/userSlice.js";
@@ -15,7 +15,12 @@ import {
   CardBody,
   Select,
   Option,
+  Button,
 } from "@material-tailwind/react";
+import html2canvas from "html2canvas-pro";
+import jsPDF from "jspdf";
+import { FaDownload } from "react-icons/fa";
+import { formatDate } from "../utils/dateUtils.js";
 
 function Chart() {
   const dispatch = useDispatch();
@@ -26,6 +31,7 @@ function Chart() {
   const [showVideos, setShowVideos] = useState(true);
   const [showTools, setShowTools] = useState(true);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const chartRef = useRef();
 
   const {
     users,
@@ -155,6 +161,22 @@ function Chart() {
     });
   };
 
+  const generatePDF = () => {
+    const input = chartRef.current;
+    const date = formatDate(DateTime.now());
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "px",
+        format: [canvas.width, canvas.height],
+      });
+      pdf.setLanguage("es-ES");
+      pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+      pdf.save(`Gráfico AliInfo ${date}.pdf`);
+    });
+  };
+
   return (
     <>
       {errorUser ||
@@ -165,8 +187,21 @@ function Chart() {
         <Messages>{errorUser}</Messages>
       ) : (
         <div className="flex flex-col lg:flex-row justify-center bg-gray-100 mt-6">
-          <div className="w-full lg:w-4/5 h-4/5 p-4 bg-white rounded-lg shadow-lg mb-16 mt-4 mx-2">
+          <div
+            className="w-full lg:w-4/5 h-4/5 p-4 bg-white rounded-lg shadow-lg mb-16 mt-4 mx-2"
+            ref={chartRef}
+          >
             <PieChart data={data} options={options} />
+            <Button
+              onClick={generatePDF}
+              variant="text"
+              className="relative group text-green-cujae hover:text-teal-900"
+            >
+              <FaDownload size={20} />
+              <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                Descargar
+              </span>
+            </Button>
           </div>
           <Card className="w-full lg:w-1/4 h-4/5 p-4 m-2 bg-white rounded-lg shadow-lg flex items-center justify-center mt-4 mb-16">
             <CardBody>
