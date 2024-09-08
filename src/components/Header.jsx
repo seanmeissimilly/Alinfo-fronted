@@ -100,7 +100,7 @@ export default function Header() {
 
   const UserMenu = ({ userInfo, logoutHandler }) => (
     <Menu as="div" className="relative ml-3">
-      <div>
+      <div className="flex items-center">
         <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
           <span className="sr-only">Abrir Menú de Usuario</span>
           <Avatar
@@ -109,6 +109,20 @@ export default function Header() {
             alt=""
           />
         </MenuButton>
+        <div className="mx-2 flex flex-col">
+          {/* Para mostrar los usuarios con el Rol de Admin de la Api */}
+          {userInfo.is_admin && userInfo.is_staff && (
+            <span className="text-black text-xs sm:text-sm">Admin API</span>
+          )}
+          {/** Para mostrar el Rol del usuario */}
+          <span className="text-black text-xs sm:text-sm">
+            {userInfo.role === "admin"
+              ? "Admin"
+              : userInfo.role === "editor"
+              ? "Editor"
+              : "Lector"}
+          </span>
+        </div>
       </div>
       <Transition
         as={Fragment}

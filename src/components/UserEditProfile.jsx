@@ -184,7 +184,7 @@ export default function UserEditProfile() {
                         label="Rol"
                         className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-teal-800 sm:text-sm"
                       >
-                        <Option value="admin">Administrador</Option>
+                        <Option value="admin">Admin</Option>
                         <Option value="editor">Editor</Option>
                         <Option value="reader">Lector</Option>
                       </Select>

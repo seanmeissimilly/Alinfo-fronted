@@ -6,17 +6,22 @@ import Messages from "./Messages";
 import Loader from "./Loader";
 import { Avatar, Drawer, Button, Typography } from "@material-tailwind/react";
 import { FaInfoCircle, FaLaptopCode, FaBook } from "react-icons/fa";
+import { getRole } from "../utils/roleUtils.js";
 
-const About = ({ username, email, userImage }) => (
+const About = ({ username, email, userImage, userRole }) => (
   <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105">
     <h2 className="text-lg font-semibold mb-2 text-gray-800 flex items-center">
       <FaInfoCircle className="mr-2 inline-block" />
-      <span className="inline-block">Contacto del Administrador:</span>
+      <span className="inline-block">Contacto</span>
     </h2>
     <div className="mt-3 flex items-center">
-      <span className="text-gray-600">Nombre de usuario: </span>
-      <Avatar src={userImage} className="rounded-full mx-2" alt="" />
+      <span className="text-gray-600">Usuario:</span>
+      <Avatar src={userImage} className="rounded-full mx-2" alt={username} />
       <span className="font-bold text-gray-800">{username}</span>
+    </div>
+    <div className="mt-3 flex items-center">
+      <span className="text-gray-600">Rol: </span>
+      <span className="text-black">{userRole}</span>
     </div>
     <div className="mt-3 flex items-center">
       <a href={`mailto:${email}`} className="text-blue-500 hover:underline">
@@ -31,6 +36,7 @@ About.propTypes = {
   username: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   userImage: PropTypes.string.isRequired,
+  userRole: PropTypes.string.isRequired,
 };
 
 const AboutUs = () => {
@@ -57,13 +63,18 @@ const AboutUs = () => {
         <div>
           <div className="container mx-auto p-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-16 mt-12">
             {users
-              ?.filter((user) => user.role === "admin")
+              ?.filter((user) => {
+                const isAdmin = user.role === "admin";
+                const isAdminAPI = user.is_admin && user.is_staff;
+                return isAdmin || isAdminAPI;
+              })
               .map((user) => (
                 <About
                   key={user.id}
                   username={user.user_name}
                   email={user.email}
                   userImage={user ? `${URL}${user.image}` : ""}
+                  userRole={getRole(user)}
                 />
               ))}
             <Drawer open={open} onClose={closeDrawer} className="p-4">
@@ -77,19 +88,17 @@ const AboutUs = () => {
               </Typography>
               <div className="flex gap-2">
                 {/*  Este botón solo sería visible para el Admin de la Api*/}
-                {userInfo.role === "admin" &&
-                  userInfo.is_admin &&
-                  userInfo.is_staff && (
-                    <Button
-                      size="sm"
-                      variant="outlined"
-                      onClick={() => window.open(`${URL}${/docs/}`, "_blank")}
-                      className="text-black normal-case flex items-center"
-                    >
-                      <FaBook className="h-5 w-5 mr-2" />
-                      Documentación de la API
-                    </Button>
-                  )}
+                {userInfo.is_admin && userInfo.is_staff && (
+                  <Button
+                    size="sm"
+                    variant="outlined"
+                    onClick={() => window.open(`${URL}${/docs/}`, "_blank")}
+                    className="text-black normal-case flex items-center"
+                  >
+                    <FaBook className="h-5 w-5 mr-2" />
+                    Documentación de la API
+                  </Button>
+                )}
               </div>
             </Drawer>
           </div>

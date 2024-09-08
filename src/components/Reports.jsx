@@ -162,7 +162,7 @@ function Reports() {
           ? "Lector"
           : user.role === "editor"
           ? "Editor"
-          : "Administrador",
+          : "Admin",
         formatDate(user.start_date),
         formatDate(user.last_login),
         user.last_login_ip,

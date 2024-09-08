@@ -8,6 +8,7 @@ import Loader from "./Loader";
 import { DateTime } from "luxon";
 import { Button } from "@material-tailwind/react";
 import { FaUser, FaEnvelope, FaUserTag, FaInfoCircle } from "react-icons/fa";
+import { getRole } from "../utils/roleUtils.js";
 
 export default function UserProfile() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -94,11 +95,7 @@ export default function UserProfile() {
                     <FaUserTag className="mr-2" /> Rol de Usuario
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    {userOnly.role === "reader"
-                      ? "Lector"
-                      : userOnly.role === "editor"
-                      ? "Editor"
-                      : "Administrador"}
+                    {getRole(userOnly)}
                   </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

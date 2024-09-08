@@ -9,6 +9,7 @@ import Messages from "./Messages";
 import Loader from "./Loader";
 import Modal from "./Modal";
 import { FaUser, FaEnvelope, FaUserTag, FaInfoCircle } from "react-icons/fa";
+import { getRole } from "../utils/roleUtils.js";
 
 export default function UserProfileOwn() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -115,11 +116,7 @@ export default function UserProfileOwn() {
                     <FaUserTag className="mr-2" /> Rol de Usuario
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    {userInfo.role === "reader"
-                      ? "Lector"
-                      : userInfo.role === "editor"
-                      ? "Editor"
-                      : "Administrador"}
+                    {getRole(userInfo)}
                   </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
