@@ -172,24 +172,26 @@ export default function Header() {
               </MenuItem>
             </>
           )}
-          {userInfo.role === "admin" && userInfo.is_admin && (
-            <MenuItem>
-              {({ isActive }) => (
-                <Button
-                  variant="text"
-                  color="gray"
-                  className={classNames(
-                    isActive ? "bg-gray-100" : "",
-                    "w-full text-left px-4 py-2 text-sm text-gray-700 normal-case flex items-center"
-                  )}
-                  onClick={() => window.open(`${URL}${/admin/}`, "_blank")}
-                >
-                  <FaCog className="h-5 w-5 mr-2" />
-                  Administración
-                </Button>
-              )}
-            </MenuItem>
-          )}
+          {userInfo.role === "admin" &&
+            userInfo.is_admin &&
+            userInfo.is_staff && (
+              <MenuItem>
+                {({ isActive }) => (
+                  <Button
+                    variant="text"
+                    color="gray"
+                    className={classNames(
+                      isActive ? "bg-gray-100" : "",
+                      "w-full text-left px-4 py-2 text-sm text-gray-700 normal-case flex items-center"
+                    )}
+                    onClick={() => window.open(`${URL}${/admin/}`, "_blank")}
+                  >
+                    <FaCog className="h-5 w-5 mr-2" />
+                    Administración
+                  </Button>
+                )}
+              </MenuItem>
+            )}
           <MenuItem>
             {({ isActive }) => (
               <Button

@@ -76,15 +76,20 @@ const AboutUs = () => {
                 David Sean Meissimilly Frometa.
               </Typography>
               <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outlined"
-                  onClick={() => window.open(`${URL}${/docs/}`, "_blank")}
-                  className="text-black normal-case flex items-center"
-                >
-                  <FaBook className="h-5 w-5 mr-2" />
-                  Documentación de la API
-                </Button>
+                {/*  Este botón solo sería visible para el Admin de la Api*/}
+                {userInfo.role === "admin" &&
+                  userInfo.is_admin &&
+                  userInfo.is_staff && (
+                    <Button
+                      size="sm"
+                      variant="outlined"
+                      onClick={() => window.open(`${URL}${/docs/}`, "_blank")}
+                      className="text-black normal-case flex items-center"
+                    >
+                      <FaBook className="h-5 w-5 mr-2" />
+                      Documentación de la API
+                    </Button>
+                  )}
               </div>
             </Drawer>
           </div>

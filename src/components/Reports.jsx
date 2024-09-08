@@ -141,12 +141,13 @@ function Reports() {
       columns: [
         [
           "ID",
-          "Nombre de Usuario",
+          "Usuario",
           "Correo",
           "Rol",
-          "Fecha de Inicio",
+          "Inicio",
           "Última Entrada",
-          "Super Usuario",
+          "Último IP",
+          "Admin API",
         ],
       ],
       data: filterData(
@@ -164,7 +165,8 @@ function Reports() {
           : "Administrador",
         formatDate(user.start_date),
         formatDate(user.last_login),
-        user.is_admin ? "Si" : "No",
+        user.last_login_ip,
+        user.is_admin && user.is_staff ? "Si" : "No",
       ]),
     },
     {

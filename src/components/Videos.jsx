@@ -77,6 +77,17 @@ const Videos = () => {
     delay: 500,
   });
 
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      minWidth: "200px",
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: "#e0e0e0",
+    }),
+  };
+
   const filteredMultimedias = Filter({
     items: multimedias,
     classificationSelected,
@@ -152,7 +163,7 @@ const Videos = () => {
               placeholder="Buscar"
               className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
               id="search"
-              style={{ ...fadeIn, ...scale }}
+              style={{ ...fadeIn, ...scale, color: "black" }}
             />
             <div className="ml-1">
               <Select
@@ -164,6 +175,7 @@ const Videos = () => {
                 }))}
                 onChange={(e) => setClassificationSelected(e)}
                 components={animatedComponents}
+                styles={customStyles}
                 className="w-full rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
               />
             </div>

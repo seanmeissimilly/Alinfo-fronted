@@ -11,6 +11,7 @@ import { DateTime } from "luxon";
 import { Button, Input } from "@material-tailwind/react";
 import Select from "react-select";
 import Modal from "./Modal";
+import makeAnaimated from "react-select/animated";
 
 export default function Forum() {
   const URL = import.meta.env.VITE_BACKEND_URL;
@@ -18,6 +19,7 @@ export default function Forum() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [limit, setLimit] = useState(5);
+  const animatedComponents = makeAnaimated();
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);
@@ -57,6 +59,17 @@ export default function Forum() {
     to: { transform: "scale(1)" },
     delay: 500,
   });
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      minWidth: "200px",
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: "#e0e0e0",
+    }),
+  };
 
   //metodo de filtrado
   const filteredBlogs = [...blogs]
@@ -104,7 +117,7 @@ export default function Forum() {
               placeholder="Buscar"
               className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
               id="search"
-              style={{ ...fadeIn, ...scale }}
+              style={{ ...fadeIn, ...scale, color: "black" }}
             />
             <div>
               <Input
@@ -135,6 +148,8 @@ export default function Forum() {
                 className="basic-single"
                 id="limit"
                 placeholder="Publicaciones"
+                components={animatedComponents}
+                styles={customStyles}
               >
                 <option value={5}>5</option>
                 <option value={10}>10</option>
