@@ -307,8 +307,8 @@ function Reports() {
                 <Option value="customRange">Rango personalizado</Option>
               </Select>
               {filter === "customRange" && (
-                <div className="flex flex-col space-y-2 ml-4">
-                  <div className="flex flex-col">
+                <div className="flex flex-col space-y-2 ml-4 mt-2">
+                  <div className="flex flex-col space-y-2">
                     <Input
                       type="date"
                       name="start"
@@ -317,8 +317,6 @@ function Reports() {
                       onChange={handleCustomRangeChange}
                       className="p-2 border rounded mb-2"
                     />
-                  </div>
-                  <div className="flex flex-col">
                     <Input
                       type="date"
                       name="end"
