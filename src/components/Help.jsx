@@ -17,14 +17,19 @@ export default function Help() {
 
   const questions = [
     {
-      question: "¿Qué es Alinfo?",
+      question: "¿Qué es AlInfo?",
       answer:
-        "Alinfo es un repositorio digital diseñado para la difusión de información científica y los aportes del grupo de Ingeniería Alimentaria de la Facultad de Ingeniería Química (Cujae).",
+        "AlInfo es un repositorio digital diseñado para la difusión de información científica y los aportes del grupo de Ingeniería Alimentaria de la Facultad de Ingeniería Química (Cujae).",
     },
     {
       question: "¿Cuáles son los roles de usuario en el sistema?",
-      answer:
-        "El sistema cuenta con tres roles de usuario:\n- Administrador: Tiene acceso a todas las funcionalidades.\n- Editor: Puede realizar todas las funcionalidades, pero solo puede editar y eliminar los elementos que él mismo haya subido.\n- Lector: Solo puede consultar y subir comentarios, quejas y sugerencias.\n",
+      answer: `
+        El sistema cuenta con cuatro roles de usuario:
+        - Admin Api: Tiene acceso al módulo de administración de la API, permitiéndole gestionar y controlar contenido.
+        - Administrador: Tiene acceso a todas las funcionalidades.
+        - Editor: Puede realizar todas las funcionalidades, pero solo puede editar y eliminar los elementos que él mismo haya subido.
+        - Lector: Solo puede consultar y subir comentarios, quejas y sugerencias.        
+      `,
     },
     {
       question: "¿Cuáles son las funcionalidades del sistema?",
@@ -32,7 +37,7 @@ export default function Help() {
         "- Autenticación de usuario\n- Cierre de sesión\n- Registro de usuarios\n- Actualización de perfil de usuario\n- Usuario personalizado con biografía, correo, nombre de usuario y foto de perfil\n- Permisos de usuario para evitar que otros usuarios borren o editen publicaciones ajenas\n- Crear, leer, actualizar y eliminar publicaciones\n- Ver perfil de otros usuarios\n- Leer todas las publicaciones de un usuario en su perfil\n- Crear y borrar comentarios (solo para administradores o el dueño del comentario)\n- Leer comentarios de otros usuarios\n- Buscador con filtros para videos, documentos y herramientas\n- Subir, consultar, borrar y editar documentos con clasificación y tipo\n- Subir, consultar, borrar y editar videos con clasificación\n- Subir, consultar, borrar y editar herramientas con clasificación\n- Generar reportes\n- Enviar quejas y sugerencias\n",
     },
     {
-      question: "¿Qué secciones tiene Alinfo",
+      question: "¿Qué secciones tiene AlInfo",
       answer:
         "- Página Inicial\n- Foro\n- Documentos\n- Videos\n- Herramientas\n- Quejas y Sugerencias\n- Reportes\n- Mi Perfil\n- Perfil de Usuario\n- Ayuda\n- Acerca de\n",
     },
@@ -43,9 +48,19 @@ export default function Help() {
         "- Listado de Usuarios\n- Listado de Documentos\n- Listado de Videos\n- Listado de Herramientas\n- Listado de Tipos de Documentos\n- Listado de Clasificaciones de Documentos\n- Listado de Clasificaciones de Videos\n- Listado de Clasificaciones de Herramientas\n",
     },
     {
-      question: "¿Qué tecnologías utiliza Alinfo?",
-      answer:
-        "# Frontend\n\n- React JS\n- Redux Toolkit\n- Tailwind CSS\n\n# Backend\n\n- PostgreSQL\n- Django Rest Framework\n",
+      question: "¿Qué tecnologías utiliza AlInfo?",
+      answer: `
+        AlInfo utiliza las siguientes tecnologías:
+    
+        # Frontend
+        - React.js
+        - Redux Toolkit
+        - Tailwind CSS
+    
+        # Backend
+        - Django Rest Framework (API REST)
+        - PostgreSQL (Base de datos)
+      `,
     },
   ];
 
