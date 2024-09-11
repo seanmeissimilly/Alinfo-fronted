@@ -14,7 +14,7 @@ import {
 } from "@headlessui/react";
 import { AiFillProduct } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import logo_cujae from "../media/logo_cujae.png";
+import logo_app from "../media/logo app.png";
 import { MdForum } from "react-icons/md";
 import { IoDocumentSharp } from "react-icons/io5";
 import {
@@ -45,7 +45,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    dispatch(userLogout());
+    dispatch(userLogout(userInfo));
     toast.error("Sección Cerrada", {
       position: "bottom-right",
       style: {
@@ -238,11 +238,7 @@ export default function Header() {
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <a href="/" title="Página Inicial">
-              <img
-                className="h-12 w-auto sm:h-12"
-                src={logo_cujae}
-                alt="Logo"
-              />
+              <img className="h-12 w-auto sm:h-12" src={logo_app} alt="Logo" />
             </a>
           </div>
           <div className="flex justify-start lg:w-0 lg:flex-1">

@@ -35,6 +35,34 @@ export const userLogin = createAsyncThunk(
   }
 );
 
+//Todo: Lógica hacer el logout de un usuario.
+export const userLogout = createAsyncThunk(
+  "userLogout",
+  async ({ refresh }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await userApi.post(
+        "/logout/",
+        { refresh: refresh },
+        config
+      );
+      localStorage.clear();
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
 //Todo: Lógica hacer el registro de un usuario.
 export const userRegister = createAsyncThunk(
   "userRegister",
@@ -277,17 +305,7 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    userLogout: (state) => {
-      state.userInfo = {};
-      state.userOnly = {};
-      state.loading = false;
-      state.users = [];
-      state.error = false;
-      state.success = false;
-      localStorage.clear();
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(userLogin.pending, (state) => {
       state.loading = true;
@@ -425,8 +443,22 @@ export const userSlice = createSlice({
       state.error = action.payload;
       state.success = false;
     });
+    builder.addCase(userLogout.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(userLogout.fulfilled, (state) => {
+      state.loading = false;
+      state.userInfo = {};
+      state.userOnly = {};
+      state.users = [];
+      state.success = true;
+    });
+    builder.addCase(userLogout.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+      state.success = false;
+    });
   },
 });
 
-export const { userLogout } = userSlice.actions;
 export default userSlice.reducer;

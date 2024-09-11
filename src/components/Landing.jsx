@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import logo_cujae from "../media/logo_cujae.png";
 
 export default function Landing() {
   return (
@@ -14,6 +15,10 @@ export default function Landing() {
                 <StyledParagraph>
                   Repositorio Virtual de Ingeniería Alimentaria.
                 </StyledParagraph>
+
+                <StyledParagraph>
+                  Grupo de Ingeniería Alimentaria, GIA.
+                </StyledParagraph>
                 <StyledParagraph>
                   Facultad de Ingeniería Química, Cujae.
                 </StyledParagraph>
@@ -21,11 +26,11 @@ export default function Landing() {
                   Universidad Tecnológica de la Habana.
                 </StyledParagraph>
               </div>
-              {/* <img
-                src={bookImage}
-                alt="Book related to engineering and study"
-                className="h-96 w-96 rounded-lg object-cover object-center"
-              /> */}
+              <img
+                src={logo_cujae}
+                alt="logo_app"
+                className="h-48 w-48 rounded-lg object-cover object-center"
+              />
             </div>
           </div>
         </main>

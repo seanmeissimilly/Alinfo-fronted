@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { FaDownload } from "react-icons/fa";
 import jsPDF from "jspdf";
-import logo_cujae from "../media/logo_cujae - reporte.png";
+import logo_app from "../media/logo app - reporte.png";
 import autoTable from "jspdf-autotable";
 
 const Report = ({ name, columns, data, date }) => {
@@ -11,7 +11,7 @@ const Report = ({ name, columns, data, date }) => {
     report.setFont("Calibri", "bold");
     report.text("Alinfo", 12, 40);
     report.setLanguage("es-ES");
-    report.addImage(logo_cujae, 5, 5);
+    report.addImage(logo_app, 5, 5);
     report.text(name, 120, 40);
     report.text(`Fecha: ${date}`, 225, 30);
 
