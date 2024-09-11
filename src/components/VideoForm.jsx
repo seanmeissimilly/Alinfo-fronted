@@ -11,6 +11,7 @@ import {
 } from "../redux/multimediaSlice";
 import { toast } from "react-hot-toast";
 import { Input, Textarea, Button } from "@material-tailwind/react";
+import { handleFileChange } from "../utils/fileUtils.js";
 
 export default function VideoForm() {
   const [title, setTitle] = useState("");
@@ -141,9 +142,22 @@ export default function VideoForm() {
                 label="Archivo"
                 type="file"
                 name="file"
-                onChange={(e) => setData(e.target.files[0])}
+                onChange={(e) =>
+                  handleFileChange(e, setData, [
+                    "video/mp4",
+                    "video/x-msvideo",
+                    "video/quicktime",
+                    "video/x-matroska",
+                    "video/x-ms-wmv",
+                    "video/x-flv",
+                    "video/mpeg",
+                    "video/webm",
+                    "video/3gpp",
+                  ])
+                }
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
                 required={!id}
+                accept=".mp4,.avi,.mov,.mkv,.wmv,.flv,.mpg,.mpeg,.webm,.3gp"
               />
             </div>
 

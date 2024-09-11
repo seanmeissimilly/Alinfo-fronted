@@ -1,21 +1,20 @@
 import PropTypes from "prop-types";
-import logo_cujae from "../media/logo_cujae.png";
+import logo_app from "../media/logo app.png";
 
 export default function Landing() {
   return (
     <div className="relative bg-white mb-20">
-      <div className="container mx-auto">
-        <main className="mt-10 px-4">
+      <div className="container mx-auto px-4 py-12">
+        <main className="mt-10">
           <div className="sm:text-center lg:text-left">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl">
-              <span className="block xl:inline">AlInfo </span>
+            <h2 className="text-3xl font-bold tracking-tight text-black sm:text-4xl md:text-5xl">
+              <span className="block xl:inline text-green-cujae">AlInfo </span>
             </h2>
-            <div className="flex items-center">
-              <div className="flex-1">
+            <div className="flex flex-col lg:flex-row items-center mt-8">
+              <div className="flex-1 mb-8 lg:mb-0">
                 <StyledParagraph>
                   Repositorio Virtual de Ingeniería Alimentaria.
                 </StyledParagraph>
-
                 <StyledParagraph>
                   Grupo de Ingeniería Alimentaria, GIA.
                 </StyledParagraph>
@@ -26,11 +25,13 @@ export default function Landing() {
                   Universidad Tecnológica de la Habana.
                 </StyledParagraph>
               </div>
-              <img
-                src={logo_cujae}
-                alt="logo_app"
-                className="h-48 w-48 rounded-lg object-cover object-center"
-              />
+              <div className="flex justify-center lg:justify-end">
+                <img
+                  src={logo_app}
+                  alt="logo_app"
+                  className="h-48 w-48 rounded-lg object-cover object-center shadow-lg border-4 border-green-cujae"
+                />
+              </div>
             </div>
           </div>
         </main>

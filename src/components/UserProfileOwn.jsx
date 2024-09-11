@@ -191,7 +191,7 @@ export default function UserProfileOwn() {
 
                               <Button
                                 variant="filled"
-                                className="group bg-green-cujae relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
+                                className="group bg-red-600 relative flex justify-center rounded-md py-2 px-4 text-sm font-medium text-white hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-800 focus:ring-offset-2 normal-case"
                                 onClick={() => handleDelete(blog_element.id)}
                               >
                                 <BsFillTrashFill size={20} />

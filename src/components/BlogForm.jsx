@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { blogUpdate, blogDetails } from "../redux/blogSlice";
 import { useParams } from "react-router-dom";
 import { Input, Textarea, Button } from "@material-tailwind/react";
+import { handleFileChange } from "../utils/fileUtils.js";
 
 export default function BlogForm() {
   const URL_API = import.meta.env.VITE_BACKEND_URL;
@@ -47,6 +48,20 @@ export default function BlogForm() {
   }, [dispatch, blogInfo, id, success, userInfo, URL_API, image]);
 
   const handleImageChange = (e) => {
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/bmp",
+      "image/tiff",
+      "image/webp",
+    ];
+
+    // Validar el tipo de archivo
+    if (!handleFileChange(e, setImage, allowedTypes)) {
+      return;
+    }
+
     const file = e.target.files[0];
     setImage(file);
     setImageUrl(URL.createObjectURL(file));
@@ -154,7 +169,7 @@ export default function BlogForm() {
                         name="image"
                         type="file"
                         id="image"
-                        accept="image/*"
+                        accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.webp"
                         className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-teal-800 sm:text-sm"
                       />
 

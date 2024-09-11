@@ -20,6 +20,7 @@ import {
   Textarea,
   Avatar,
 } from "@material-tailwind/react";
+import { handleFileChange } from "../utils/fileUtils.js";
 
 export default function UserEditProfile() {
   const URL_API = import.meta.env.VITE_BACKEND_URL;
@@ -101,8 +102,23 @@ export default function UserEditProfile() {
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
-    const formData = new FormData();
 
+    // Tipos de archivos permitidos
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/bmp",
+      "image/tiff",
+      "image/webp",
+    ];
+
+    // Validar el tipo de archivo
+    if (!handleFileChange(e, setImageUrl, allowedTypes)) {
+      return;
+    }
+
+    const formData = new FormData();
     formData.append("image", file);
     formData.append("user_id", id ? userOnly.id : userInfo.id);
 
@@ -295,7 +311,7 @@ export default function UserEditProfile() {
                         variant="static"
                         label="Escoger imagen de perfil"
                         type="file"
-                        accept="image/*"
+                        accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.webp"
                         onChange={uploadFileHandler}
                         className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-teal-800 sm:text-sm"
                       />
