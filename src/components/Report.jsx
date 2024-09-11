@@ -9,7 +9,7 @@ const Report = ({ name, columns, data, date }) => {
     const report = new jsPDF({ orientation: "landscape", format: "letter" });
     report.setFontSize(14);
     report.setFont("Calibri", "bold");
-    report.text("Alinfo", 12, 40);
+    report.text("AlInfo", 12, 40);
     report.setLanguage("es-ES");
     report.addImage(logo_app, 5, 5);
     report.text(name, 120, 40);
