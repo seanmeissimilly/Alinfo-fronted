@@ -11,7 +11,7 @@ export default function Landing() {
               <span className="block xl:inline text-green-cujae">AlInfo </span>
             </h2>
             <div className="flex flex-col lg:flex-row items-center mt-8">
-              <div className="flex-1 mb-8 lg:mb-0">
+              <div className="flex-1 mb-8 lg:mb-0 text-center lg:text-left">
                 <StyledParagraph>
                   Repositorio Virtual de Ingeniería Alimentaria.
                 </StyledParagraph>
@@ -29,7 +29,7 @@ export default function Landing() {
                 <img
                   src={logo_app}
                   alt="logo_app"
-                  className="h-48 w-48 rounded-lg object-cover object-center shadow-lg border-4 border-green-cujae"
+                  className="h-64 w-64 rounded-lg object-cover object-center shadow-lg border-4 border-green-cujae"
                 />
               </div>
             </div>

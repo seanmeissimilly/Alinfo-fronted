@@ -116,7 +116,13 @@ export default function Forum() {
               placeholder="Buscar"
               className="block min-w-0 rounded border border-solid bg-transparent px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none focus:z-[3] focus:border-primary dark:border-neutral-600 dark:text-neutral-800 dark:focus:border-primary"
               id="search"
-              style={{ ...fadeIn, ...scale, color: "black" }}
+              style={{
+                ...fadeIn,
+                ...scale,
+                color: "black",
+                backgroundColor: "white",
+                borderColor: "#444",
+              }}
             />
             <div>
               <Input
