@@ -4,6 +4,7 @@ import Messages from "./Messages.jsx";
 import Loader from "./Loader.jsx";
 import Report from "./Report.jsx";
 import { userList } from "../redux/userSlice.js";
+import makeAnaimated from "react-select/animated";
 import {
   multimediaList,
   multimediaclassificationList,
@@ -22,6 +23,7 @@ function Reports() {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("noFilter");
   const [customRange, setCustomRange] = useState({ start: "", end: "" });
+  const animatedComponents = makeAnaimated();
 
   const {
     users,
@@ -268,6 +270,17 @@ function Reports() {
     });
   };
 
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      minWidth: "200px",
+    }),
+    multiValue: (provided) => ({
+      ...provided,
+      backgroundColor: "#e0e0e0",
+    }),
+  };
+
   return (
     <>
       {loadingUser || loadingVideo || loadingTool || loadingDocument ? (
@@ -282,11 +295,9 @@ function Reports() {
                 label="Filtro"
                 value={filter}
                 onChange={(e) => handleFilterChange(e)}
-                className="p-2 border rounded mb-4"
-                animate={{
-                  mount: { y: 0 },
-                  unmount: { y: 25 },
-                }}
+                styles={customStyles}
+                className="w-full rounded border bg-transparent text-base font-normal text-neutral-700 dark:border-neutral-600 dark:text-neutral-800"
+                components={animatedComponents}
               >
                 <Option value="noFilter">Sin filtro</Option>
                 <Option value="lastYear">Último año</Option>

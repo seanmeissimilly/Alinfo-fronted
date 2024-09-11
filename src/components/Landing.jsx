@@ -21,9 +21,6 @@ export default function Landing() {
                 <StyledParagraph>
                   Facultad de Ingeniería Química, Cujae.
                 </StyledParagraph>
-                <StyledParagraph>
-                  Universidad Tecnológica de la Habana.
-                </StyledParagraph>
               </div>
               <div className="flex justify-center lg:justify-end">
                 <img
