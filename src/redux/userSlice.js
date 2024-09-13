@@ -51,7 +51,7 @@ export const userLogout = createAsyncThunk(
         { refresh: refresh },
         config
       );
-      localStorage.clear();
+
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -302,6 +302,14 @@ const initialState = {
   success: false,
 };
 
+//todo: Función para reiniciar el estado del usuario
+const resetUserState = (state) => {
+  state.userInfo = {};
+  state.userOnly = {};
+  state.users = [];
+  localStorage.clear();
+};
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -448,13 +456,12 @@ export const userSlice = createSlice({
     });
     builder.addCase(userLogout.fulfilled, (state) => {
       state.loading = false;
-      state.userInfo = {};
-      state.userOnly = {};
-      state.users = [];
+      resetUserState(state);
       state.success = true;
     });
     builder.addCase(userLogout.rejected, (state, action) => {
       state.loading = false;
+      resetUserState(state);
       state.error = action.payload;
       state.success = false;
     });
