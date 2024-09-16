@@ -22,7 +22,7 @@ import Modal from "./Modal";
 import { formatDate } from "../utils/dateUtils.js";
 
 export default function BlogSolo() {
-  const URL = import.meta.env.VITE_URL;
+  const URL = import.meta.env.VITE_BACKEND;
   const { id } = useParams();
 
   const dispatch = useDispatch();

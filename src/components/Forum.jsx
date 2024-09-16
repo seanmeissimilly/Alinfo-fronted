@@ -15,7 +15,7 @@ import makeAnaimated from "react-select/animated";
 import { formatDate } from "../utils/dateUtils.js";
 
 export default function Forum() {
-  const URL = import.meta.env.VITE_URL;
+  const URL = import.meta.env.VITE_BACKEND;
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");

@@ -11,7 +11,7 @@ import { Input, Textarea, Button } from "@material-tailwind/react";
 import { handleFileChange } from "../utils/fileUtils.js";
 
 export default function BlogForm() {
-  const URL_API = import.meta.env.VITE_URL;
+  const URL_API = import.meta.env.VITE_BACKEND;
   const { id } = useParams();
   const dispatch = useDispatch();
 

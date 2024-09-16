@@ -37,7 +37,7 @@ export default function Header() {
     return classes.filter(Boolean).join(" ");
   }
 
-  const URL = import.meta.env.VITE_URL;
+  const URL = import.meta.env.VITE_BACKEND;
   const user = useSelector((state) => state.user);
 
   const { userInfo } = user;

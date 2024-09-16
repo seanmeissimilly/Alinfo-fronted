@@ -12,7 +12,7 @@ import { FaUser, FaEnvelope, FaUserTag, FaInfoCircle } from "react-icons/fa";
 import { getRole } from "../utils/roleUtils.js";
 
 export default function UserProfileOwn() {
-  const URL = import.meta.env.VITE_URL;
+  const URL = import.meta.env.VITE_BACKEND;
   const dispatch = useDispatch();
 
   const blog = useSelector((state) => state.blog);

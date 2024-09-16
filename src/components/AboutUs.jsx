@@ -40,7 +40,7 @@ About.propTypes = {
 };
 
 const AboutUs = () => {
-  const URL = import.meta.env.VITE_URL;
+  const URL = import.meta.env.VITE_BACKEND;
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { error, loading, users, userInfo } = user;

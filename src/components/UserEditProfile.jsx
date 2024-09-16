@@ -23,7 +23,7 @@ import {
 import { handleFileChange } from "../utils/fileUtils.js";
 
 export default function UserEditProfile() {
-  const URL_API = import.meta.env.VITE_URL;
+  const URL_API = import.meta.env.VITE_BACKEND;
 
   const { id } = useParams();
 
