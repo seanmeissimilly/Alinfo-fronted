@@ -314,7 +314,7 @@ export default function UserEditProfile() {
                         variant="static"
                         label="Escoger imagen de perfil"
                         type="file"
-                        accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.webp"
+                        accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff,.webp,.avif,.svg"
                         onChange={uploadFileHandler}
                         className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-teal-800 sm:text-sm"
                       />
