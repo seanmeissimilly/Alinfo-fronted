@@ -13,7 +13,7 @@ import Pagination from "./Pagination.jsx";
 import Filter from "./Filter.jsx";
 
 const Suggestions = () => {
-  const URL = import.meta.env.VITE_BACKEND_URL;
+  const URL = import.meta.env.VITE_URL;
 
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");

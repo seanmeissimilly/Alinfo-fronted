@@ -11,7 +11,7 @@ import { FaUser, FaEnvelope, FaUserTag, FaInfoCircle } from "react-icons/fa";
 import { getRole } from "../utils/roleUtils.js";
 
 export default function UserProfile() {
-  const URL = import.meta.env.VITE_BACKEND_URL;
+  const URL = import.meta.env.VITE_URL;
   const { id } = useParams();
 
   const dispatch = useDispatch();

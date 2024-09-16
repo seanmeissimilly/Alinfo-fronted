@@ -37,7 +37,7 @@ export default function Header() {
     return classes.filter(Boolean).join(" ");
   }
 
-  const URL = import.meta.env.VITE_BACKEND_URL;
+  const URL = import.meta.env.VITE_URL;
   const user = useSelector((state) => state.user);
 
   const { userInfo } = user;
@@ -111,7 +111,7 @@ export default function Header() {
         </MenuButton>
         <div className="mx-2 flex flex-col">
           {/* Para mostrar los usuarios con el Rol de Admin de la Api */}
-          {userInfo.is_admin && userInfo.is_staff && (
+          {userInfo.is_superuser && userInfo.is_staff && (
             <span className="text-black text-xs sm:text-sm">Admin API</span>
           )}
           {/** Para mostrar el Rol del usuario */}
@@ -187,7 +187,7 @@ export default function Header() {
             </>
           )}
           {userInfo.role === "admin" &&
-            userInfo.is_admin &&
+            userInfo.is_superuser &&
             userInfo.is_staff && (
               <MenuItem>
                 {({ isActive }) => (

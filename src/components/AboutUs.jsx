@@ -40,7 +40,7 @@ About.propTypes = {
 };
 
 const AboutUs = () => {
-  const URL = import.meta.env.VITE_BACKEND_URL;
+  const URL = import.meta.env.VITE_URL;
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { error, loading, users, userInfo } = user;
@@ -65,7 +65,7 @@ const AboutUs = () => {
             {users
               ?.filter((user) => {
                 const isAdmin = user.role === "admin";
-                const isAdminAPI = user.is_admin && user.is_staff;
+                const isAdminAPI = user.is_superuser && user.is_staff;
                 return isAdmin || isAdminAPI;
               })
               .map((user) => (

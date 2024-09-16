@@ -2,7 +2,7 @@ export const getRole = (user) => {
   const roles = [];
 
   // Para los usuarios que tengan este Rol.
-  if (user.is_admin && user.is_staff) roles.push("Admin API");
+  if (user.is_superuser && user.is_staff) roles.push("Admin API");
 
   const roleMap = {
     admin: "Admin",

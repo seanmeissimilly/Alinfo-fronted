@@ -20,7 +20,7 @@ import Filter from "./Filter.jsx";
 import { formatDate } from "../utils/dateUtils.js";
 
 const Documents = () => {
-  const URL = import.meta.env.VITE_BACKEND_URL;
+  const URL = import.meta.env.VITE_URL;
 
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
