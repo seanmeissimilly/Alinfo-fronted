@@ -182,12 +182,22 @@ export default function DocumentForm() {
                     "application/vnd.oasis.opendocument.text",
                     "application/vnd.oasis.opendocument.spreadsheet",
                     "application/vnd.oasis.opendocument.presentation",
+                    "application/x-ms",
+                    "application/vnd.ms-",
+                    "application/vnd.openxmlformats-officedocument",
+                    "application/vnd.wordperfect",
+                    "application/onenote",
+                    "application/msexcel",
+                    "application/mspowerpoint",
+                    "application/msaccess",
+                    "application/wordperfect",
+                    "application/epub+zip",
                   ])
                 }
                 className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
                 //Para que sea requerido cuando se está creando un documento.
                 required={!id}
-                accept=".pdf,.xls,.xlsx,.doc,.docx,.txt,.tex,.odt,.ods,.odp"
+                accept=".pdf,.xls,.xlsx,.doc,.docx,.txt,.tex,.odt,.ods,.odp,.ms,.wpd,.one,.ppt,.accdb,.epub,"
               />
             </div>
             <div>

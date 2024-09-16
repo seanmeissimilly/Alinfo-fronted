@@ -111,6 +111,9 @@ export default function UserEditProfile() {
       "image/bmp",
       "image/tiff",
       "image/webp",
+      "image/bmp",
+      "image/avif",
+      "image/svg+xml",
     ];
 
     // Validar el tipo de archivo

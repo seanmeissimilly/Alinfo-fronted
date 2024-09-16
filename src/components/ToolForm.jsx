@@ -145,17 +145,37 @@ export default function AppForm() {
               name="file"
               onChange={(e) =>
                 handleFileChange(e, setData, [
+                  "application/x-compressed",
+                  "application/x-zip-compressed",
+                  "application/x-gzip",
                   "application/zip",
                   "application/x-rar-compressed",
                   "application/x-7z-compressed",
                   "application/gzip",
                   "application/x-bzip2",
                   "application/x-tar",
+                  "application/binhex",
+                  "application/binhex4",
+                  "application/epub+zip",
+                  "application/java-archive",
+                  "application/mac-binhex",
+                  "application/mac-binhex4",
+                  "application/vnd.ms-cab-compressed",
+                  "application/vnd.rar",
+                  "application/x-ace-compressed",
+                  "application/x-binhex40",
+                  "application/x-bzip",
+                  "application/x-freearc",
+                  "application/x-lzh",
+                  "application/x-mac-binhex40",
+                  "application/x-sea",
+                  "application/x-stuffit",
+                  "application/x-stuffitx",
                 ])
               }
               className="w-full p-2 rounded-md border border-gray-300 mb-2 focus:outline-none focus:border-indigo-500"
               required={!id}
-              accept=".zip,.rar,.7z,.gz,.bz2,.tar"
+              accept=".zip,.rar,.7z,.gz,.bz2,.tar,.epub,.jar,.sea,.sit,.sitx,.bin,.hqx,.cab,.ace,.lzh,.arc"
             />
 
             <div>
