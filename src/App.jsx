@@ -30,10 +30,6 @@ import Error404 from "./components/Error404";
 import Chart from "./components/Chart";
 
 function App() {
-  const URL = import.meta.env.VITE_URL;
-  console.log(URL);
-  console.log(import.meta.env);
-
   return (
     <BrowserRouter>
       <Header />

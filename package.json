@@ -20,7 +20,7 @@
     "@tailwindcss/forms": "^0.5.9",
     "axios": "^1.7.7",
     "html2canvas-pro": "^1.5.8",
-    "jspdf": "^2.5.1",
+    "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.3",
     "luxon": "^3.5.0",
     "prop-types": "^15.8.1",
@@ -53,7 +53,7 @@
     "jsdom": "^25.0.0",
     "postcss": "^8.4.47",
     "redux-mock-store": "^1.5.4",
-    "tailwindcss": "^3.4.11",
+    "tailwindcss": "^3.4.12",
     "vite": "^5.4.6",
     "vitest": "^2.1.1"
   }
