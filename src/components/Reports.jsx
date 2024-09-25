@@ -15,6 +15,7 @@ import {
   documentclassificationList,
   documenttypesList,
 } from "../redux/documentSlice";
+import { suggestionList } from "../redux/suggestionSlice.js";
 import { DateTime } from "luxon";
 import { Input, Option, Select } from "@material-tailwind/react";
 import { formatDate } from "../utils/dateUtils.js";
@@ -49,6 +50,12 @@ function Reports() {
   } = useSelector((state) => state.multimedia);
 
   const {
+    suggestions,
+    error: errorSuggestion,
+    loading: loadingSuggestion,
+  } = useSelector((state) => state.suggestion);
+
+  const {
     apps: tools,
     appclassification,
     error: errorTool,
@@ -65,6 +72,7 @@ function Reports() {
       dispatch(documentclassificationList({ token: userInfo.token }));
       dispatch(appList({ token: userInfo.token }));
       dispatch(appClassificationList({ token: userInfo.token }));
+      dispatch(suggestionList({ token: userInfo.token }));
     }
   }, [dispatch, userInfo]);
 
@@ -134,6 +142,8 @@ function Reports() {
     })),
     filter
   );
+
+  const suggestionWithAll = filterData([...suggestions], filter);
 
   const reports = [
     {
@@ -215,6 +225,20 @@ function Reports() {
     },
     {
       id: 5,
+      name: "Listado de Quejas y Sugerencias",
+      columns: [["ID", "Título", "Fecha", "Resuelto", "Usuario"]],
+      data: suggestionWithAll
+        .sort((a, b) => a.id - b.id)
+        .map((suggestion) => [
+          suggestion.id,
+          suggestion.title,
+          formatDate(suggestion.date),
+          suggestion.resolved ? "Si" : "No",
+          suggestion.user,
+        ]),
+    },
+    {
+      id: 6,
       name: "Listado de Tipos de Documentos",
       columns: [["ID", "Description"]],
       data: [...documenttypes]
@@ -222,7 +246,7 @@ function Reports() {
         .map((document) => [document.id, document.description]),
     },
     {
-      id: 6,
+      id: 7,
       name: "Listado de Clasificaciones de Documentos",
       columns: [["ID", "Description"]],
       data: [...documentclassification]
@@ -230,7 +254,7 @@ function Reports() {
         .map((document) => [document.id, document.description]),
     },
     {
-      id: 7,
+      id: 8,
       name: "Listado de Clasificaciones de Videos",
       columns: [["ID", "Description"]],
       data: [...multimediaclassification]
@@ -238,7 +262,7 @@ function Reports() {
         .map((video) => [video.id, video.description]),
     },
     {
-      id: 8,
+      id: 9,
       name: "Listado de Clasificaciones de Herramientas",
       columns: [["ID", "Description"]],
       data: [...appclassification]
@@ -283,9 +307,17 @@ function Reports() {
 
   return (
     <>
-      {loadingUser || loadingVideo || loadingTool || loadingDocument ? (
+      {loadingUser ||
+      loadingVideo ||
+      loadingTool ||
+      loadingDocument ||
+      loadingSuggestion ? (
         <Loader />
-      ) : errorUser || errorVideo || errorTool || errorDocument ? (
+      ) : errorUser ||
+        errorVideo ||
+        errorTool ||
+        errorDocument ||
+        errorSuggestion ? (
         <Messages>{errorUser}</Messages>
       ) : (
         <div>

@@ -5,7 +5,14 @@ import { userList } from "../redux/userSlice";
 import Messages from "./Messages";
 import Loader from "./Loader";
 import { Avatar, Drawer, Button, Typography } from "@material-tailwind/react";
-import { FaInfoCircle, FaLaptopCode, FaBook } from "react-icons/fa";
+import {
+  FaInfoCircle,
+  FaLaptopCode,
+  FaBook,
+  FaEnvelope,
+  FaUserTag,
+  FaUser,
+} from "react-icons/fa";
 import { getRole } from "../utils/roleUtils.js";
 
 const About = ({ username, email, userImage, userRole }) => (
@@ -15,17 +22,33 @@ const About = ({ username, email, userImage, userRole }) => (
       <span className="inline-block">Contacto</span>
     </h2>
     <div className="mt-3 flex items-center">
-      <span className="text-gray-600">Usuario:</span>
+      <span className="text-gray-600 flex items-center relative group">
+        <FaUser className="mr-2" />
+        <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-3 px-2 normal-case">
+          Usuario
+        </span>
+      </span>
       <Avatar src={userImage} className="rounded-full mx-2" alt={username} />
       <span className="font-bold text-gray-800">{username}</span>
     </div>
     <div className="mt-3 flex items-center">
-      <span className="text-gray-600">Rol: </span>
+      <span className="text-gray-600 flex items-center relative group">
+        <FaUserTag className="mr-2" />
+        <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+          Rol
+        </span>
+      </span>
       <span className="text-black">{userRole}</span>
     </div>
-    <div className="mt-3 flex items-center">
-      <a href={`mailto:${email}`} className="text-blue-500 hover:underline">
-        <span className="text-gray-600">Correo: </span>
+    <div className="mt-3 flex items-center flex-wrap">
+      <a
+        href={`mailto:${email}`}
+        className="text-blue-500 hover:underline flex items-center break-words relative group"
+      >
+        <FaEnvelope className="mr-2 text-gray-600" />
+        <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+          Correo
+        </span>
         {email}
       </a>
     </div>
@@ -83,9 +106,18 @@ const AboutUs = () => {
                   Desarrollado por:
                 </Typography>
               </div>
-              <Typography color="gray" className="mb-8 pr-4 font-normal">
+              <Typography color="gray" className="mb-2 pr-4 font-normal">
                 David Sean Meissimilly Frometa.
               </Typography>
+              <div className="flex items-center mb-8 pr-4">
+                <FaEnvelope className="h-5 w-5 mr-2 text-gray-600" />
+                <a
+                  href="mailto:seanmeissimilly@gmail.com"
+                  className="text-gray-600"
+                >
+                  seanmeissimilly@gmail.com
+                </a>
+              </div>
               <div className="flex gap-2">
                 {/*  Este botón solo sería visible para el Admin de la Api*/}
                 {userInfo.is_admin && userInfo.is_staff && (

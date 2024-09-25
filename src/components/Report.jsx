@@ -3,6 +3,7 @@ import { FaDownload } from "react-icons/fa";
 import jsPDF from "jspdf";
 import logo_app from "../media/logo app - reporte.png";
 import autoTable from "jspdf-autotable";
+import { Button } from "@material-tailwind/react";
 
 const Report = ({ name, columns, data, date }) => {
   const generateReport = () => {
@@ -38,15 +39,18 @@ const Report = ({ name, columns, data, date }) => {
       <div className="p-4 flex-grow">
         <h2 className="mt-1 text-md font-semibold text-gray-900">{name}</h2>
 
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-start p-4">
           <div className="mt-1">
-            <button
+            <Button
+              variant="text"
+              className="relative group text-green-cujae hover:text-teal-900"
               onClick={() => generateReport()}
-              className="text-green-cujae hover:text-teal-900 bg-indigo-100 hover:bg-indigo-200 px-2 py-1 rounded flex items-center"
             >
-              <FaDownload className="mr-1" />
-              <span className="hidden group-hover:inline">Descargar</span>
-            </button>
+              <FaDownload size={15} />
+              <span className="absolute bottom-full mb-1 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 normal-case">
+                Descargar
+              </span>
+            </Button>
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@ export default function Help() {
     {
       question: "¿Qué es AlInfo?",
       answer:
-        "AlInfo es un repositorio digital diseñado para la difusión de información científica y los aportes del grupo de Ingeniería Alimentaria de la Facultad de Ingeniería Química (Cujae).",
+        "AlInfo es un repositorio digital diseñado para la difusión de información científica y los aportes del Grupo de Ingeniería Alimentaria (GIA) de la Facultad de Ingeniería Química de la CUJAE.",
     },
     {
       question: "¿Cuáles son los roles de usuario en el sistema?",
@@ -34,12 +34,12 @@ export default function Help() {
     {
       question: "¿Cuáles son las funcionalidades del sistema?",
       answer:
-        "- Autenticación de usuario\n- Cierre de sesión\n- Registro de usuarios\n- Actualización de perfil de usuario\n- Usuario personalizado con biografía, correo, nombre de usuario y foto de perfil\n- Permisos de usuario para evitar que otros usuarios borren o editen publicaciones ajenas\n- Crear, leer, actualizar y eliminar publicaciones\n- Ver perfil de otros usuarios\n- Leer todas las publicaciones de un usuario en su perfil\n- Crear y borrar comentarios (solo para administradores o el dueño del comentario)\n- Leer comentarios de otros usuarios\n- Buscador con filtros para videos, documentos y herramientas\n- Subir, consultar, borrar y editar documentos con clasificación y tipo\n- Subir, consultar, borrar y editar videos con clasificación\n- Subir, consultar, borrar y editar herramientas con clasificación\n- Generar reportes\n- Enviar quejas y sugerencias\n",
+        "- Autenticación de usuario\n- Cierre de sesión\n- Registro de usuarios\n- Actualización de perfil de usuario\n- Usuario personalizado con biografía, correo, nombre de usuario y foto de perfil\n- Permisos de usuario para evitar que otros usuarios borren o editen publicaciones ajenas\n- Crear, leer, actualizar y eliminar publicaciones\n- Ver perfil de otros usuarios\n- Leer todas las publicaciones de un usuario en su perfil\n- Crear y borrar comentarios (solo para administradores o el dueño del comentario)\n- Leer comentarios de otros usuarios\n- Buscador con filtros para videos, documentos y herramientas\n- Subir, consultar, borrar y editar documentos con clasificación y tipo\n- Subir, consultar, borrar y editar videos con clasificación\n- Subir, consultar, borrar y editar herramientas con clasificación\n- Generar reportes\n- Enviar quejas y sugerencias\n- Visualizar Gráfico\n",
     },
     {
-      question: "¿Qué secciones tiene AlInfo",
+      question: "¿Qué secciones tiene AlInfo?",
       answer:
-        "- Página Inicial\n- Foro\n- Documentos\n- Videos\n- Herramientas\n- Quejas y Sugerencias\n- Reportes\n- Mi Perfil\n- Perfil de Usuario\n- Ayuda\n- Acerca de\n",
+        "- Página Inicial\n- Foro\n- Documentos\n- Videos\n- Herramientas\n- Quejas y Sugerencias\n- Reportes\n- Gráfico\n- Mi Perfil\n- Perfil de Usuario\n- Ayuda\n- Acerca de\n",
     },
 
     {
@@ -86,7 +86,7 @@ export default function Help() {
                   {item.question}
                 </span>
                 <FaChevronDown
-                  className={`w-5 h-5 ml-2 transform transition-transform ${
+                  className={`w-5 h-5 ml-2 text-green-cujae transform transition-transform ${
                     activeIndex === index ? "rotate-180" : ""
                   }`}
                 />
