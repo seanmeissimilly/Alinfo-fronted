@@ -1,4 +1,4 @@
-# Alinfo - Repositorio Virtual de Ingeniería Alimentaria
+# AlInfo - Repositorio Virtual de Ingeniería Alimentaria
 
 ## Este proyecto se creo con las siguientes tecnologías
 
@@ -44,11 +44,13 @@
 - Borrar herramientas
 - Editar herramientas
 - Generar reportes
+- Ver Gráfico
 - Enviar quejas y sugerencias
 
 ## Roles de Usuario
 
-- Rol de Administrador (admin) - (Puede hacer todas las funcionalidades.)
+- Rol de Administrador de la API (admin API) - (Puede acceder al panel de administración de la API.)
+- Rol de Administrador (admin) - (Puede hacer todas las funcionalidades del fronted.)
 - Rol de Editor (editor)- (Puede hacer todas las funcionalidades, solo puede editar y borrar los elementos que el mismo haya subido)
 - Rol de Lector (reader) - (solo puede consultar y subir comentarios o quejas y sugerencias)
 
@@ -58,3 +60,8 @@
 - Listado de documentos
 - Listado de videos
 - Listado de herramientas
+- Listado de quejas y sugerencias
+- Listado de tipos de documentos
+- Listado de clasificación de documentos
+- Listado de clasificación de videos
+- Listado de clasificación de herramientas
