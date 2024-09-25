@@ -45,7 +45,7 @@ export default function Help() {
     {
       question: "¿Qué reportes genera el sistema?",
       answer:
-        "- Listado de Usuarios\n- Listado de Documentos\n- Listado de Videos\n- Listado de Herramientas\n- Listado de Tipos de Documentos\n- Listado de Clasificaciones de Documentos\n- Listado de Clasificaciones de Videos\n- Listado de Clasificaciones de Herramientas\n",
+        "- Listado de Usuarios\n- Listado de Documentos\n- Listado de Videos\n- Listado de Herramientas\n- Listado de Quejas y Sugerencias\n- Listado de Tipos de Documentos\n- Listado de Clasificaciones de Documentos\n- Listado de Clasificaciones de Videos\n- Listado de Clasificaciones de Herramientas\n",
     },
     {
       question: "¿Qué tecnologías utiliza AlInfo?",
