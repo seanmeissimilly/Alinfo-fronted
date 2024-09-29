@@ -173,7 +173,7 @@ function Chart() {
       });
       pdf.setLanguage("es-ES");
       pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
-      pdf.save(`Gráfico AliInfo ${date}.pdf`);
+      pdf.save(`Gráfico AlIInfo ${date}.pdf`);
     });
   };
 
