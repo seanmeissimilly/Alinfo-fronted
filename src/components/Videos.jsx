@@ -126,6 +126,8 @@ const Videos = () => {
           data={video.data}
           date={formatDate(video.date)}
           onDelete={() => handleDelete(video.id)}
+          is_local={video.is_local}
+          external_url={video.external_url}
         />
       );
     });

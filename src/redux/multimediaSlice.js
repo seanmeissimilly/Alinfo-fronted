@@ -82,7 +82,15 @@ export const multimediaDetails = createAsyncThunk(
 export const multimediaUpdate = createAsyncThunk(
   "multimediaUpdate",
   async (
-    { id, title, data, description, multimediaclassification, token },
+    {
+      id,
+      title,
+      data,
+      description,
+      multimediaclassification,
+      external_url,
+      token,
+    },
     { rejectWithValue }
   ) => {
     try {
@@ -97,6 +105,8 @@ export const multimediaUpdate = createAsyncThunk(
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
+        formData.append("external_url", "");
+        formData.append("is_local", true);
         formData.append("multimediaclassification", multimediaclassification);
         formData.append("data", data);
         config.headers["Content-Type"] = "multipart/form-data";
@@ -106,7 +116,14 @@ export const multimediaUpdate = createAsyncThunk(
 
         request = await multimediaApi.put(
           `/mmt/${id}/`,
-          { title, description, multimediaclassification },
+          {
+            title,
+            description,
+            multimediaclassification,
+            is_local: false,
+            external_url,
+            data: null,
+          },
           config
         );
       }
@@ -149,7 +166,7 @@ export const multimediaDelete = createAsyncThunk(
 export const multimediaCreate = createAsyncThunk(
   "multimediaCreate",
   async (
-    { title, data, description, multimediaclassification, token },
+    { title, data, description, multimediaclassification, external_url, token },
     { rejectWithValue }
   ) => {
     try {
@@ -173,7 +190,13 @@ export const multimediaCreate = createAsyncThunk(
 
         request = await multimediaApi.post(
           `/mmt/`,
-          { title, description, multimediaclassification },
+          {
+            title,
+            description,
+            multimediaclassification,
+            is_local: false,
+            external_url,
+          },
           config
         );
       }

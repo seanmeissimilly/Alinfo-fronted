@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { FaEdit, FaTrash, FaDownload } from "react-icons/fa";
 import { Button } from "@material-tailwind/react";
+import YouTube from "react-youtube";
 
 const Video = ({
   id,
@@ -16,6 +17,8 @@ const Video = ({
   onDelete,
   date,
   email,
+  is_local,
+  external_url,
 }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
@@ -33,6 +36,21 @@ const Video = ({
     }
 
     onDelete();
+  };
+
+  const getYouTubeVideoId = (url) => {
+    const urlParams = new URLSearchParams(new URL(url).search);
+    return urlParams.get("v");
+  };
+
+  const videoId = is_local ? null : getYouTubeVideoId(external_url);
+
+  const opts = {
+    height: "100%",
+    width: "100%",
+    playerVars: {
+      autoplay: 0,
+    },
   };
 
   return (
@@ -56,15 +74,23 @@ const Video = ({
         )}
         <div className="mt-3">
           <div className="mt-1">
-            <video
-              ref={videoRef}
-              className="h-full w-full rounded-lg"
-              controls
-              src={data}
-              preload="none"
-            >
-              Tu navegador no soporta la etiqueta de video.
-            </video>
+            {is_local ? (
+              <video
+                ref={videoRef}
+                className="h-full w-full rounded-lg"
+                controls
+                src={data}
+                preload="none"
+              >
+                Tu navegador no soporta la etiqueta de video.
+              </video>
+            ) : (
+              <YouTube
+                videoId={videoId}
+                opts={opts}
+                className="h-full w-full rounded-lg"
+              />
+            )}
           </div>
           <div className="mt-1">
             <span className="text-gray-700">Clasificación: </span>
@@ -143,6 +169,8 @@ Video.propTypes = {
   date: PropTypes.string.isRequired,
   userInfo: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
+  external_url: PropTypes.string.isRequired,
+  is_local: PropTypes.bool.isRequired,
 };
 
 export default Video;
