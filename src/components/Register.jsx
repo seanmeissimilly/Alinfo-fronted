@@ -74,7 +74,14 @@ export default function Register() {
     e.preventDefault();
     //todo: Reviso que se cumplan las condiciones para la contraseña
     if (isValid) {
-      dispatch(userRegister({ user_name, email, password }));
+      dispatch(
+        userRegister({
+          user_name,
+          email,
+          password,
+          captcha_value: captchaValue,
+        })
+      );
     }
   };
 
