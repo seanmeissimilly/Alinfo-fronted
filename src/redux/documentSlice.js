@@ -31,6 +31,30 @@ export const documentList = createAsyncThunk(
   }
 );
 
+//todo:  Lógica para buscar en los documents existentes.
+export const documentSearch = createAsyncThunk(
+  "documentSearch",
+  async ({ q, token }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await documentApi.get(`/search/q?=${q}`, config);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message
+      );
+    }
+  }
+);
+
 //todo:  Lógica para listar los documents existentes.
 export const documenttypesList = createAsyncThunk(
   "documenttypesList",
@@ -338,6 +362,19 @@ export const documentSlice = createSlice({
       state.success = true;
     });
     builder.addCase(documentclassificationList.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+    builder.addCase(documentSearch.pending, (state) => {
+      state.loading = true;
+      state.documents = [];
+    });
+    builder.addCase(documentSearch.fulfilled, (state, action) => {
+      state.loading = false;
+      state.documents = action.payload;
+      state.success = true;
+    });
+    builder.addCase(documentSearch.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });

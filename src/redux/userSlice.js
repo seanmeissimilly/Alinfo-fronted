@@ -10,7 +10,7 @@ const userApi = axios.create({
 //Todo: Lógica hacer el login de un usuario.
 export const userLogin = createAsyncThunk(
   "userLogin",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password, captcha_value }, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -20,7 +20,7 @@ export const userLogin = createAsyncThunk(
 
       const { data } = await userApi.post(
         "/login/",
-        { email, password },
+        { email, password, captcha_value },
         config
       );
       localStorage.setItem("userInfo", JSON.stringify(data));
@@ -66,7 +66,10 @@ export const userLogout = createAsyncThunk(
 //Todo: Lógica hacer el registro de un usuario.
 export const userRegister = createAsyncThunk(
   "userRegister",
-  async ({ user_name, email, password }, { rejectWithValue }) => {
+  async (
+    { user_name, email, password, captcha_value },
+    { rejectWithValue }
+  ) => {
     try {
       const config = {
         headers: {
@@ -76,7 +79,7 @@ export const userRegister = createAsyncThunk(
 
       const { data } = await userApi.post(
         "/register/",
-        { user_name, email, password },
+        { user_name, email, password, captcha_value },
         config
       );
       localStorage.setItem("userInfo", JSON.stringify(data));
@@ -203,6 +206,7 @@ export const userList = createAsyncThunk(
     }
   }
 );
+
 // Todo:Lógica listar un usuario.
 export const userSolo = createAsyncThunk(
   "userSolo",

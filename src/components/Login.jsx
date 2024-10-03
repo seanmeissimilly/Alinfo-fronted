@@ -7,6 +7,7 @@ import { FaLock, FaUnlock } from "react-icons/fa";
 import user_icon from "../media/user.png";
 import { toast } from "react-hot-toast";
 import { userLogin } from "../redux/userSlice.js";
+import { getCaptcha } from "../redux/captchaSlice.js";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import {
   Input,
@@ -19,18 +20,27 @@ import {
 } from "@material-tailwind/react";
 
 export default function Login() {
+  const URL = import.meta.env.VITE_BACKEND;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [openpassword, setOpenPassword] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState("");
 
   const handleshowpassword = () => {
     setOpenPassword(!openpassword);
   };
 
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
   const { userInfo, loading, error } = user;
+
+  const captcha = useSelector((state) => state.captcha);
+  const {
+    captcha_url,
+    loading: loading_captcha,
+    error: error_captcha,
+  } = captcha;
 
   const navigate = useNavigate();
   const path = "/forum";
@@ -49,11 +59,12 @@ export default function Login() {
           },
         });
     }
-  }, [navigate, userInfo]);
+    dispatch(getCaptcha());
+  }, [navigate, userInfo, dispatch]);
 
   function submitHandler(e) {
     e.preventDefault();
-    disptach(userLogin({ email, password }));
+    dispatch(userLogin({ email, password, captcha_value: captchaValue }));
   }
 
   //validar el correo electrónico
@@ -64,8 +75,9 @@ export default function Login() {
 
   return (
     <>
-      {error && <Messages>{error}</Messages>}
-      {loading ? (
+      {(error && <Messages>{error}</Messages>) ||
+        (error_captcha && <Messages>{error_captcha}</Messages>)}
+      {loading || loading_captcha ? (
         <Loader />
       ) : (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-10">
@@ -115,6 +127,7 @@ export default function Login() {
                     placeholder="Contraseña"
                     size="lg"
                   />
+
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center text-2xl">
                     {!openpassword ? (
                       <AiFillEye onClick={handleshowpassword} />
@@ -122,6 +135,24 @@ export default function Login() {
                       <AiFillEyeInvisible onClick={handleshowpassword} />
                     )}
                   </div>
+                </div>
+                <div className="">
+                  {captcha_url && (
+                    <div>
+                      <img
+                        src={`${URL}${captcha_url}`}
+                        alt="CAPTCHA"
+                        className="block mx-auto mb-3"
+                      />
+                      <Input
+                        type="text"
+                        label="Ingrese el CAPTCHA"
+                        value={captchaValue}
+                        onChange={(e) => setCaptchaValue(e.target.value)}
+                        required
+                      />
+                    </div>
+                  )}
                 </div>
               </CardBody>
               <CardFooter className="pt-0">
