@@ -65,3 +65,7 @@
 - Listado de clasificación de documentos
 - Listado de clasificación de videos
 - Listado de clasificación de herramientas
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para obtener más información.
