@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: "https://seanmeissimilly.github.io/Alinfo-fronted",
   server: {
     host: "0.0.0.0", // Permite el acceso desde cualquier IP
     port: 5173,
