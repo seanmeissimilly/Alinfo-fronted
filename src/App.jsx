@@ -31,7 +31,7 @@ import Chart from "./components/Chart";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Alinfo-fronted">
       <Header />
       <Routes>
         <Route element={<PrivateRoute />}>
